@@ -47,3 +47,4 @@ def compute_paients_numbers(cohort_name, client_name, patient_id ,query_diag, qu
 
     metadata_pd = pd.DataFrame(metadata_list, columns=metadata_columns)
     metadata_pd.to_csv('intermediate_files/'+cohort_name+'_metadata.csv', index=False)
+    
