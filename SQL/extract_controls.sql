@@ -83,7 +83,30 @@ ON N.jc_uid = DG.jc_uid
 
 
 -- Demographic
+-- saved in non_mci_pc_referral_demographic
 SELECT *
 FROM `mining-clinical-decisions.proj_sage_sf.non_mci_pc_referral_cohort` N
 INNER JOIN `mining-clinical-decisions.starr_datalake2018.demographic` DM
 ON N.jc_uid = DM.rit_uid
+
+-- lab_result
+-- saved in non_mci_pc_referral_lab_result
+SELECT *
+FROM `mining-clinical-decisions.proj_sage_sf.non_mci_pc_referral_cohort` N
+INNER JOIN `mining-clinical-decisions.starr_datalake2018.lab_result` DM
+ON N.jc_uid = DM.rit_uid
+
+-- order_med
+-- saved in non_mci_pc_referral_order_med
+SELECT *
+FROM `mining-clinical-decisions.proj_sage_sf.non_mci_pc_referral_cohort` N
+INNER JOIN `mining-clinical-decisions.starr_datalake2018.order_med` M
+ON N.jc_uid = M.jc_uid
+
+-- order_proc
+-- saved in non_mci_pc_referral_order_proc
+SELECT *
+FROM `mining-clinical-decisions.proj_sage_sf.non_mci_pc_referral_cohort` N
+INNER JOIN `mining-clinical-decisions.starr_datalake2018.order_proc` P
+ON N.jc_uid = P.jc_uid
+
