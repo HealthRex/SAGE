@@ -4,7 +4,7 @@ import pandas as pd
 import pdb
 
 
-def compute_paients_numbers(cohort_name, client_name, patient_id ,query_diag, query_demog):
+def compute_paients_numbers(cohort_name, client_name, patient_id , time_field_name, query_diag, query_demog):
     # pdb.set_trace()
     client = bigquery.Client(client_name); 
     conn = dbapi.connect(client);
@@ -26,19 +26,19 @@ def compute_paients_numbers(cohort_name, client_name, patient_id ,query_diag, qu
     print('Extracting demographics and labeling the cohort ...')
     for id,group in diagnosis_data_grouped:
         current_demog = demographic_data[demographic_data[patient_id]==id]
-        group = group.sort_values(by='timestamp_utc',ascending=True)    
+        group = group.sort_values(by=time_field_name,ascending=True)    
         num_records = len(group)
-        first_record_date = group['timestamp_utc'].iloc[0]
-        last_record_date = group['timestamp_utc'].iloc[-1]
+        first_record_date = group[time_field_name].iloc[0]
+        last_record_date = group[time_field_name].iloc[-1]
         diag_date = last_record_date
-        sex = current_demog['gender'].iloc[0]
-        bdate = current_demog['birth_date_jittered'].iloc[0]
-        canonical_race = current_demog['canonical_race'].iloc[0]
+        sex = current_demog['GENDER'].iloc[0]
+        bdate = current_demog['BIRTH_DATE_JITTERED'].iloc[0]
+        canonical_race = current_demog['CANONICAL_RACE'].iloc[0]
         mci_records = group[(group['icd10'] == 'G31.84') | (group['icd10'] == 'F09') | (group['icd9'] == '331.83') | (group['icd9'] == '294.9')]
         MCI_label = 0
         if len(mci_records) > 0:
             # The patient has at least one MCI diagnoses
-            current_patient_diag_date = mci_records['timestamp_utc'].iloc[0]
+            current_patient_diag_date = mci_records[time_field_name].iloc[0]
             # pdb.set_trace()
             diag_date = current_patient_diag_date
             MCI_label = 1

@@ -1,10 +1,11 @@
--- Extracting everyone who has been visited in the Neurology department as a new patients: 6219 patients
+-- Extracting everyone who has been visited in the Neurology department as a new patients: 8496 patients
+-- Saved under all_visited_neurology_cohort
 WITH
     SP AS
         (
-            select enc.jc_uid, enc.pat_enc_csn_id_coded as SP_enc, enc.appt_when_jittered as SP_app_datetime --, DX.icd10
-            from `starr_datalake2018.encounter` as enc 
-        join `starr_datalake2018.dep_map` as dep on enc.department_id = dep.department_id    
+            select enc.anon_id, enc.pat_enc_csn_id_coded as SP_enc, enc.appt_when_jittered as SP_app_datetime --, DX.icd10
+            from `mining-clinical-decisions.shc_core.encounter` as enc 
+        join `mining-clinical-decisions.shc_core.dep_map` as dep on enc.department_id = dep.department_id    
         --join `starr_datalake2018.diagnosis_code` as DX on (enc.pat_enc_csn_id_coded = DX.pat_enc_csn_id_coded)
             where 
         dep.specialty_dep_c = '19' -- dep.specialty like '%NEUROLOGY%'
@@ -25,10 +26,66 @@ WITH
   FROM SP 
 )
 
-SELECT count(DISTINCT COHORT.jc_uid)
+SELECT DISTINCT COHORT.anon_id
 FROM COHORT 
 
 
+-- From the above cohort (8496 patients), extracting anyone who never had any MCI diagnosis code: 7248 patients
+-- saved in non_mci_all_visited_neurology_cohort
+(SELECT DISTINCT D.anon_id
+FROM `mining-clinical-decisions.shc_core.diagnosis_code` D
+INNER JOIN `mining-clinical-decisions.proj_sage_sf.all_visited_neurology_cohort` R
+ON D.anon_id = R.anon_id)
+EXCEPT DISTINCT 
+(
+SELECT DiagT.anon_id
+FROM `mining-clinical-decisions.shc_core.diagnosis_code` DiagT
+WHERE (DiagT.icd10 = 'G31.84'
+   OR DiagT.icd10 = 'F09'
+   OR DiagT.icd9 = '331.83'
+   OR DiagT.icd9 = '294.9')
+GROUP BY DiagT.anon_id )
+
+
+
+-- Diagnosis for controls
+-- saved in non_mci_all_visited_neurology_diagnosis
+SELECT DG.*
+FROM `mining-clinical-decisions.proj_sage_sf.non_mci_all_visited_neurology_cohort` N
+INNER JOIN `mining-clinical-decisions.shc_core.diagnosis_code` DG
+ON N.anon_id = DG.anon_id
+
+
+-- Demographic
+-- saved in non_mci_all_visited_neurology_demographic
+SELECT *
+FROM `mining-clinical-decisions.proj_sage_sf.non_mci_all_visited_neurology_cohort` N
+INNER JOIN `mining-clinical-decisions.shc_core.demographic` DM
+ON N.anon_id = DM.anon_id
+
+-- lab_result
+-- saved in non_mci_all_visited_neurology_lab_result
+SELECT *
+FROM `mining-clinical-decisions.proj_sage_sf.non_mci_all_visited_neurology_cohort` N
+INNER JOIN `mining-clinical-decisions.shc_core.lab_result` DM
+ON N.anon_id = DM.anon_id
+
+-- order_med
+-- saved in non_mci_all_visited_neurology_order_med
+SELECT *
+FROM `mining-clinical-decisions.proj_sage_sf.non_mci_all_visited_neurology_cohort` N
+INNER JOIN `mining-clinical-decisions.shc_core.order_med` M
+ON N.anon_id = M.anon_id
+
+-- order_proc
+-- saved in on_mci_all_visited_neurology_order_proc
+SELECT *
+FROM `mining-clinical-decisions.proj_sage_sf.non_mci_all_visited_neurology_cohort` N
+INNER JOIN `mining-clinical-decisions.shc_core.order_proc` P
+ON N.anon_id = P.anon_id
+
+
+--==================
 -- Extracting everyone who has been referred to NEUROLOGY: 47164 patients
 -- saved into all_referral_cohort
 WITH
@@ -54,59 +111,3 @@ WITH
 
 SELECT DISTINCT COHORT.rit_uid
 FROM COHORT 
-
-
--- From the above cohort (47164 patients), extracting anyone who never had any MCI diagnosis code: 47133 patients
--- saved in non_mci_pc_referral_cohort
-(SELECT DISTINCT D.jc_uid
-FROM `mining-clinical-decisions.starr_datalake2018.diagnosis_code` D
-INNER JOIN `mining-clinical-decisions.proj_sage_sf.all_referral_cohort` R
-ON D.jc_uid = R.rit_uid)
-EXCEPT DISTINCT 
-(
-SELECT DiagT.jc_uid
-FROM `mining-clinical-decisions.starr_datalake2018.diagnosis_code` DiagT
-WHERE (DiagT.icd10 = 'G31.84'
-   OR DiagT.icd10 = 'F09'
-   OR DiagT.icd9 = '331.83'
-   OR DiagT.icd9 = '294.9')
-GROUP BY DiagT.jc_uid )
-
-
-
--- Diagnosis for controls
--- saved in non_mci_pc_referral_diagnosis
-SELECT DG.*
-FROM `mining-clinical-decisions.proj_sage_sf.non_mci_pc_referral_cohort` N
-INNER JOIN `mining-clinical-decisions.starr_datalake2018.diagnosis_code` DG
-ON N.jc_uid = DG.jc_uid
-
-
--- Demographic
--- saved in non_mci_pc_referral_demographic
-SELECT *
-FROM `mining-clinical-decisions.proj_sage_sf.non_mci_pc_referral_cohort` N
-INNER JOIN `mining-clinical-decisions.starr_datalake2018.demographic` DM
-ON N.jc_uid = DM.rit_uid
-
--- lab_result
--- saved in non_mci_pc_referral_lab_result
-SELECT *
-FROM `mining-clinical-decisions.proj_sage_sf.non_mci_pc_referral_cohort` N
-INNER JOIN `mining-clinical-decisions.starr_datalake2018.lab_result` DM
-ON N.jc_uid = DM.rit_uid
-
--- order_med
--- saved in non_mci_pc_referral_order_med
-SELECT *
-FROM `mining-clinical-decisions.proj_sage_sf.non_mci_pc_referral_cohort` N
-INNER JOIN `mining-clinical-decisions.starr_datalake2018.order_med` M
-ON N.jc_uid = M.jc_uid
-
--- order_proc
--- saved in non_mci_pc_referral_order_proc
-SELECT *
-FROM `mining-clinical-decisions.proj_sage_sf.non_mci_pc_referral_cohort` N
-INNER JOIN `mining-clinical-decisions.starr_datalake2018.order_proc` P
-ON N.jc_uid = P.jc_uid
-
