@@ -65,6 +65,12 @@ FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology_nonmc
 INNER JOIN `mining-clinical-decisions.shc_core.order_med` M
 ON N.anon_id = M.anon_id
 
+-- Saved under all_new_patients_in_neurology_nonmci_order_proc
+SELECT *
+FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology_nonmci` N
+INNER JOIN `mining-clinical-decisions.shc_core.order_proc` P
+ON N.anon_id = P.anon_id
+
 -- Demographics saved under all_new_patients_in_neurology_nonmci_demographic
 SELECT *
 FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology_nonmci` N
