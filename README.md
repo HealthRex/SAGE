@@ -122,6 +122,24 @@ FROM `mining-clinical-decisions.shc_core.order_med` A
 SELECT DISTINCT A.proc_id
 FROM `mining-clinical-decisions.shc_core.order_proc` A
 ```
+
+Finally, use the following scripts to find unique ICD10s, ICD9s, medication IDs and procedure IDs and save them under 
+```
+SELECT DISTINCT A.icd10
+FROM `mining-clinical-decisions.shc_core.diagnosis_code` A
+
+
+SELECT DISTINCT A.icd9
+FROM `mining-clinical-decisions.shc_core.diagnosis_code` A
+
+
+SELECT DISTINCT A.medication_id
+FROM `mining-clinical-decisions.shc_core.order_med` A
+
+
+SELECT DISTINCT A.proc_id
+FROM `mining-clinical-decisions.shc_core.order_proc` A
+```
 <h1 style="font-size:60px;">2. Pre-processing</h1>
 
 Run the following python scripts to extract some metadata on both mci and non-mci cohorts. This scripts read from ```all_new_patients_in_neurology_mci_diagnosis```, ```all_new_patients_in_neurology_mci_demographic```,```all_new_patients_in_neurology_nonmci_diagnosis``` and  ```all_new_patients_in_neurology_nonmci_demographic``` tables and create metadata files for both cases and controls under ```intermediate_files``` directory: ```mci_metadata.csv``` and ```nonmci_metadata.csv```.
