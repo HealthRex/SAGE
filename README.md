@@ -77,3 +77,31 @@ FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology_nonmc
 LEFT JOIN `mining-clinical-decisions.shc_core.demographic` DM
 ON N.anon_id = DM.anon_id
 ```
+And similarly for the mci cohort:
+```
+-- Diagnosis saved under all_new_patients_in_neurology_mci_diagnosis
+SELECT DG.*
+FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology_mci` N
+INNER JOIN `mining-clinical-decisions.shc_core.diagnosis_code` DG
+ON N.anon_id = DG.anon_id
+
+-- Saved under all_new_patients_in_neurology_mci_order_med
+SELECT *
+FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology_mci` N
+INNER JOIN `mining-clinical-decisions.shc_core.order_med` M
+ON N.anon_id = M.anon_id
+
+
+-- Saved under all_new_patients_in_neurology_mci_order_proc
+SELECT *
+FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology_mci` N
+INNER JOIN `mining-clinical-decisions.shc_core.order_proc` P
+ON N.anon_id = P.anon_id
+
+
+-- Demographics saved under all_new_patients_in_neurology_mci_demographic
+SELECT *
+FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology_mci` N
+LEFT JOIN `mining-clinical-decisions.shc_core.demographic` DM
+ON N.anon_id = DM.anon_id
+```
