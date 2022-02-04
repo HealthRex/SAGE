@@ -130,3 +130,23 @@ Run the following python scripts to extract some metadata on both mci and non-mc
 python3 main_create_metadata.py --cohort mci
 python3 main_create_metadata.py --cohort nonmci
 ```
+Use the following script to extract diagnosis, medication and procedure codes for mci and non-mci cohorts:
+```
+python3 main_extract_codes.py --table_type diagnosis --cohort mci
+```
+In this command:
+```
+table_type: It defines what type of features to extract and it can be diagnosis, medication or procedure. 
+cohort: Can be either mci or nonmci and it defines the cohort to extract table_type features for.
+```
+Note, change ```table_type``` and ```cohort``` values accordingly to extract all features:
+```
+python3 main_extract_codes.py --table_type diagnosis --cohort mci
+python3 main_extract_codes.py --table_type medication --cohort mci
+python3 main_extract_codes.py --table_type procedure --cohort mci
+
+python3 main_extract_codes.py --table_type diagnosis --cohort nonmci
+python3 main_extract_codes.py --table_type medication --cohort nonmci
+python3 main_extract_codes.py --table_type procedure --cohort nonmci
+
+```
