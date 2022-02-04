@@ -25,18 +25,28 @@ FROM COHORT
 ```
 From the cohort generated using the above script, you can select patients who have never had any MCI diagnosis code using:
 ```
-(SELECT DISTINCT D.anon_id
-    FROM `mining-clinical-decisions.shc_core.diagnosis_code` D
-    INNER JOIN `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology` R
-    ON D.anon_id = R.anon_id)
+(SELECT DISTINCT A.anon_id
+    FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology` A
+    )
 EXCEPT DISTINCT 
 (
-SELECT DiagT.anon_id
-    FROM `mining-clinical-decisions.shc_core.diagnosis_code` DiagT
-    WHERE (DiagT.icd10 = 'G31.84'
-        OR DiagT.icd10 = 'F09'
-        OR DiagT.icd9 = '331.83'
-        OR DiagT.icd9 = '294.9')
-GROUP BY DiagT.anon_id )
+SELECT DISTINCT B.anon_id
+    FROM `mining-clinical-decisions.shc_core.diagnosis_code` B
+    WHERE (B.icd10 = 'G31.84'
+        OR B.icd10 = 'F09'
+        OR B.icd9 = '331.83'
+        OR B.icd9 = '294.9')
+GROUP BY B.anon_id )
 ```
-This (at the moment) resulted in 7,248 patients and we saved them under ```all_new_patients_in_neurology_nonmci``` table. 
+This (at the moment) resulted in 7,875 patients and we saved them under ```all_new_patients_in_neurology_nonmci``` table. Then, use the following scripts to extract mci patients within the cohort of new patients in neurology:
+```
+(SELECT DISTINCT A.anon_id
+    FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology` A
+    )
+EXCEPT DISTINCT 
+(
+SELECT DISTINCT B.anon_id
+    FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology_nonmci` B
+)
+```
+This resulted in 621 patients. The results were saved under ```all_new_patients_in_neurology_mci```. 
