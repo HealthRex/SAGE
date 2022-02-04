@@ -106,6 +106,7 @@ LEFT JOIN `mining-clinical-decisions.shc_core.demographic` DM
 ON N.anon_id = DM.anon_id
 ```
 <h1 style="font-size:60px;">2. Pre-processing</h1>
+
 Run the following python scripts to extract some metadata on both mci and non-mci cohorts. This scripts read from ```all_new_patients_in_neurology_mci_diagnosis```, ```all_new_patients_in_neurology_mci_demographic```,```all_new_patients_in_neurology_nonmci_diagnosis``` and  ```all_new_patients_in_neurology_nonmci_demographic``` tables and create metadata files for both cases and controls under ```intermediate_files``` directory: ```mci_metadata.csv``` and ```nonmci_metadata.csv```.
 
 ```
