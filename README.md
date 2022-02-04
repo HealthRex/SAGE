@@ -105,6 +105,23 @@ FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology_mci` 
 LEFT JOIN `mining-clinical-decisions.shc_core.demographic` DM
 ON N.anon_id = DM.anon_id
 ```
+Finally, use the following scripts to find unique ICD10s, ICD9s, medication IDs and procedure IDs and saved them into ```unique_icd10s, unique_icd9s, unique_medication_ids, unique_proc_ids```. These tables will be used later in the feature extraction steps.
+```
+SELECT DISTINCT A.icd10
+FROM `mining-clinical-decisions.shc_core.diagnosis_code` A
+
+
+SELECT DISTINCT A.icd9
+FROM `mining-clinical-decisions.shc_core.diagnosis_code` A
+
+
+SELECT DISTINCT A.medication_id
+FROM `mining-clinical-decisions.shc_core.order_med` A
+
+
+SELECT DISTINCT A.proc_id
+FROM `mining-clinical-decisions.shc_core.order_proc` A
+```
 <h1 style="font-size:60px;">2. Pre-processing</h1>
 
 Run the following python scripts to extract some metadata on both mci and non-mci cohorts. This scripts read from ```all_new_patients_in_neurology_mci_diagnosis```, ```all_new_patients_in_neurology_mci_demographic```,```all_new_patients_in_neurology_nonmci_diagnosis``` and  ```all_new_patients_in_neurology_nonmci_demographic``` tables and create metadata files for both cases and controls under ```intermediate_files``` directory: ```mci_metadata.csv``` and ```nonmci_metadata.csv```.
