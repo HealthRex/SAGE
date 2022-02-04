@@ -50,3 +50,24 @@ SELECT DISTINCT B.anon_id
 )
 ```
 This resulted in 621 patients. The results were saved under ```all_new_patients_in_neurology_mci```. 
+
+Extract diagnosis, medication, procedure and demographic records for non-mci patients in ```all_new_patients_in_neurology_nonmci```:
+```
+-- Diagnosis saved under all_new_patients_in_neurology_nonmci_diagnosis
+SELECT DG.*
+FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology_nonmci` N
+INNER JOIN `mining-clinical-decisions.shc_core.diagnosis_code` DG
+ON N.anon_id = DG.anon_id
+
+-- Saved under all_new_patients_in_neurology_nonmci_order_med
+SELECT *
+FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology_nonmci` N
+INNER JOIN `mining-clinical-decisions.shc_core.order_med` M
+ON N.anon_id = M.anon_id
+
+-- Demographics saved under all_new_patients_in_neurology_nonmci_demographic
+SELECT *
+FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology_nonmci` N
+LEFT JOIN `mining-clinical-decisions.shc_core.demographic` DM
+ON N.anon_id = DM.anon_id
+```
