@@ -31,9 +31,9 @@ def performance_evaluation(rf_predictions
                         , test_data_for_eval
                         , best_model):
 
-    pdb.set_trace()
+    # pdb.set_trace()
     labels = test_data_for_eval['Label'].values
-    rf_test_auc=roc_auc_score(test_data_for_eval['Label'], best_model.predict_proba(test_data_for_eval.iloc[:,1:-1])[:,1])
+    rf_test_auc=roc_auc_score(test_data_for_eval['Label'], best_model.predict_proba(test_data_for_eval.drop(['Patient_ID', 'Label'], axis=1, inplace=False))[:,1])
     tp=0
     tn=0
     fn=0
@@ -183,7 +183,7 @@ def random_forest_model(train_data_path
     # pdb.set_trace()
     
 
-    randomCV = RandomizedSearchCV(estimator=RandomForestClassifier(n_jobs=-1, warm_start=True, verbose=1), param_distributions=hyperparameters, n_iter=2, cv=3,scoring="roc_auc")
+    randomCV = RandomizedSearchCV(estimator=RandomForestClassifier(n_jobs=-1, warm_start=True, verbose=1), param_distributions=hyperparameters, n_iter=20, cv=3,scoring="roc_auc")
     randomCV.fit(train_data.drop(['Patient_ID', 'Label'], axis=1, inplace=False), train_data['Label'])
     # pdb.set_trace()
     # === Save models

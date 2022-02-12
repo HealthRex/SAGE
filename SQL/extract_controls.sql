@@ -30,28 +30,27 @@ SELECT DISTINCT COHORT.anon_id
 FROM COHORT 
 
 
--- From the above cohort (8496 patients), extracting anyone who never had any MCI diagnosis code: 7248 patients
+-- From the above cohort (8496 patients), extracting anyone who never had any MCI diagnosis code: 7875 patients
 -- saved in non_mci_all_visited_neurology_cohort
-(SELECT DISTINCT D.anon_id
-FROM `mining-clinical-decisions.shc_core.diagnosis_code` D
-INNER JOIN `mining-clinical-decisions.proj_sage_sf.all_visited_neurology_cohort` R
-ON D.anon_id = R.anon_id)
+(SELECT DISTINCT A.anon_id
+    FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology` A
+    )
 EXCEPT DISTINCT 
 (
-SELECT DiagT.anon_id
-FROM `mining-clinical-decisions.shc_core.diagnosis_code` DiagT
-WHERE (DiagT.icd10 = 'G31.84'
-   OR DiagT.icd10 = 'F09'
-   OR DiagT.icd9 = '331.83'
-   OR DiagT.icd9 = '294.9')
-GROUP BY DiagT.anon_id )
+SELECT DISTINCT B.anon_id
+    FROM `mining-clinical-decisions.shc_core.diagnosis_code` B
+    WHERE (B.icd10 = 'G31.84'
+        OR B.icd10 = 'F09'
+        OR B.icd9 = '331.83'
+        OR B.icd9 = '294.9')
+GROUP BY B.anon_id )
 
 
 
 -- Diagnosis for controls
 -- saved in non_mci_all_visited_neurology_diagnosis
 SELECT DG.*
-FROM `mining-clinical-decisions.proj_sage_sf.non_mci_all_visited_neurology_cohort` N
+FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology_nonmci` N
 INNER JOIN `mining-clinical-decisions.shc_core.diagnosis_code` DG
 ON N.anon_id = DG.anon_id
 
@@ -59,28 +58,28 @@ ON N.anon_id = DG.anon_id
 -- Demographic
 -- saved in non_mci_all_visited_neurology_demographic
 SELECT *
-FROM `mining-clinical-decisions.proj_sage_sf.non_mci_all_visited_neurology_cohort` N
+FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology_nonmci` N
 INNER JOIN `mining-clinical-decisions.shc_core.demographic` DM
 ON N.anon_id = DM.anon_id
 
 -- lab_result
 -- saved in non_mci_all_visited_neurology_lab_result
 SELECT *
-FROM `mining-clinical-decisions.proj_sage_sf.non_mci_all_visited_neurology_cohort` N
+FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology_nonmci` N
 INNER JOIN `mining-clinical-decisions.shc_core.lab_result` DM
 ON N.anon_id = DM.anon_id
 
 -- order_med
 -- saved in non_mci_all_visited_neurology_order_med
 SELECT *
-FROM `mining-clinical-decisions.proj_sage_sf.non_mci_all_visited_neurology_cohort` N
+FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology_nonmci` N
 INNER JOIN `mining-clinical-decisions.shc_core.order_med` M
 ON N.anon_id = M.anon_id
 
 -- order_proc
 -- saved in on_mci_all_visited_neurology_order_proc
 SELECT *
-FROM `mining-clinical-decisions.proj_sage_sf.non_mci_all_visited_neurology_cohort` N
+FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology_nonmci` N
 INNER JOIN `mining-clinical-decisions.shc_core.order_proc` P
 ON N.anon_id = P.anon_id
 
@@ -111,3 +110,13 @@ WITH
 
 SELECT DISTINCT COHORT.rit_uid
 FROM COHORT 
+
+
+(SELECT DISTINCT A.anon_id
+    FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology` A
+    )
+EXCEPT DISTINCT 
+(
+SELECT DISTINCT B.anon_id
+    FROM `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology_nonmci` B
+)

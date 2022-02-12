@@ -10,7 +10,8 @@ def matching(mci_stationary_data_path
 			,matching
 			):
 	# pdb.set_trace()
-
+	print('Matching cases and controls. Imbalance ratio is {}'.format(case_control_ratio))
+	
 	mci_data = pd.read_csv(mci_stationary_data_path)
 	non_mci_data = pd.read_csv(non_mci_stationary_data_path)
 
@@ -23,16 +24,26 @@ def matching(mci_stationary_data_path
 	case_metadata['byear'] = case_metadata['bdate'].str[:4]
 
 	for idx, row in case_metadata.iterrows():
-		matched_controls = control_metadata.loc[(control_metadata['sex'] == row['sex']) & (control_metadata['byear'] == row['byear']) & (control_metadata['matched'] ==0)]
+		
+		if row['sex'] != 'Unknown':
+			matched_controls = control_metadata.loc[(control_metadata['sex'] == row['sex']) & (control_metadata['byear'] == row['byear']) & (control_metadata['matched'] ==0)]
+		else:			
+			matched_controls = control_metadata.loc[(control_metadata['byear'] == row['byear']) & (control_metadata['matched'] ==0)]
+
 		if matched_controls.shape[0] >= case_control_ratio:
 			control_metadata.loc[matched_controls.index[:case_control_ratio], 'matched'] = 1
 		else:
-			pdb.set_trace()
-			print('Couldnt find any match!')	
+			sex_matched_controls = control_metadata.loc[(control_metadata['sex'] == row['sex']) & (control_metadata['matched'] ==0)]
+			matched_controls = sex_matched_controls.iloc[(sex_matched_controls['byear'].astype(int) -int(row['byear'])).abs().argsort()[:1]]	
+			if matched_controls.shape[0] >= case_control_ratio:
+				control_metadata.loc[matched_controls.index[:case_control_ratio], 'matched'] = 1
+			else:
+				pdb.set_trace()
+				print('Couldnt find any match!')	
 		# print('Test')
 	control_metadata_matched = control_metadata[control_metadata['matched']==1]
 	control_metadata_matched.to_csv(non_mci_metadata_path[:-4]+'_matched.csv', index=False)
-	pdb.set_trace()
+	# pdb.set_trace()
 	non_mci_data_matched = non_mci_data[non_mci_data['Patient_ID'].isin(control_metadata_matched['anon_id'].values.tolist())]
 
 	all_data = mci_data.append(non_mci_data_matched, ignore_index=True).sample(frac=1).reset_index(drop=True)
@@ -44,7 +55,7 @@ def matching(mci_stationary_data_path
 def normalization(data_path
 				,test_ratio
 				):
-	pdb.set_trace()
+	# pdb.set_trace()
 	epsil = 2.220446049250313e-16
 	round_precision = 5
 	data = pd.read_csv(data_path)

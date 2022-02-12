@@ -14,6 +14,7 @@ def extract_diagnosis(client_name
                     , query_diag
                     , unique_icd10_query
                     , unique_icd9_query
+                    , icd_to_ccs_table_query
                     , cohort
                     , icd10_field_name
                     , icd9_field_name   
@@ -31,6 +32,9 @@ def extract_diagnosis(client_name
     results = cursor.fetchall();
     num_fields = len(cursor.description)
     field_names = [i[0] for i in cursor.description]
+
+    # # ==== Read icd to ccs map
+    # icd_to_ccs_table = pd.read_sql_query(icd_to_ccs_table_query, conn); 
 
     # ==== Reading unique ICD 10 and 9 codes
     cursor.execute(unique_icd10_query);    
@@ -95,7 +99,7 @@ def extract_diagnosis(client_name
             diag_file.write(current_id_diag)
             
             # if current_id_diag == 'JCcb67b1':
-            #     pdb.set_trace()
+            # pdb.set_trace()
             current_patient_all_icd_10s = []
             current_patient_all_icd_9s = []
             for timestamp, group in diagnosis_data_grouped:

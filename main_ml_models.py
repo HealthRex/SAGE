@@ -10,10 +10,10 @@ parser = argparse.ArgumentParser()
 
 
 # === train, validation and test stationary data
-parser.add_argument("--train_data_path", type=str, default='stationary_data/stationary_data_imbratio1_normalized.csv')    
-parser.add_argument("--test_data_path", type=str, default='stationary_data/stationary_data_imbratio1_normalized.csv')    
+parser.add_argument("--train_data_path", type=str, default='stationary_data/stationary_data_imbratio1_normalized_train.csv')    
+parser.add_argument("--test_data_path", type=str, default='stationary_data/stationary_data_imbratio1_normalized_test.csv')    
 
-parser.add_argument("--ml_model", type=str, default='none') 
+parser.add_argument("--ml_model", type=str, default='rf') 
 
 
 args = parser.parse_args()

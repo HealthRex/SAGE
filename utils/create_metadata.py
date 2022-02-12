@@ -2,35 +2,39 @@ from google.cloud import bigquery;
 from google.cloud.bigquery import dbapi;
 import pandas as pd
 import pdb
+from dateutil.relativedelta import relativedelta
 
-
-def compute_paients_numbers(cohort_name, client_name, patient_id , time_field_name, query_diag, query_demog):
+def compute_paients_numbers(cohort_name, client_name, patient_id , time_field_name, query_diag, query_demog, followup_window_size):
     # pdb.set_trace()
     client = bigquery.Client(client_name); 
     conn = dbapi.connect(client);
     cursor = conn.cursor();
 
     print('Executing SQL query to extract diagnosis_data records ...')
-    cursor.execute(query_diag);
+    # cursor.execute(query_diag);
     diagnosis_data = pd.read_sql_query(query_diag, conn);
     diagnosis_data_grouped = diagnosis_data.groupby(by=patient_id)
 
     print('Executing SQL query to extract demographic records ...')
-    cursor.execute(query_demog);
+    # cursor.execute(quenry_demog);
     demographic_data = pd.read_sql_query(query_demog, conn);
 
     # pdb.set_trace()
 
-    metadata_columns=[patient_id, 'num_records', 'first_record_date', 'diag_date', 'last_record_date', 'sex', 'bdate', 'canonical_race', 'MCI_label']
+    metadata_columns=[patient_id, 'num_records', 'first_record_date', 'index_date_OR_diag_date', 'last_record_date', 'sex', 'bdate', 'canonical_race', 'MCI_label']
     metadata_list = []
     print('Extracting demographics and labeling the cohort ...')
     for id,group in diagnosis_data_grouped:
+        # if id=='JC2a00006':
+        #     pdb.set_trace()
         current_demog = demographic_data[demographic_data[patient_id]==id]
         group = group.sort_values(by=time_field_name,ascending=True)    
         num_records = len(group)
         first_record_date = group[time_field_name].iloc[0]
         last_record_date = group[time_field_name].iloc[-1]
-        diag_date = last_record_date
+        
+        diag_date = last_record_date + relativedelta(months= -followup_window_size)
+
         sex = current_demog['GENDER'].iloc[0]
         bdate = current_demog['BIRTH_DATE_JITTERED'].iloc[0]
         canonical_race = current_demog['CANONICAL_RACE'].iloc[0]
