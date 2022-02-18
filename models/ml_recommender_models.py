@@ -131,9 +131,12 @@ def random_forest_model(train_data_path
                         ,test_data_path
                         ,path_to_features
                         ,top_n_features
-                        ,num_target):
+                        ,num_target
+                        ,dropped_targets):
 
-    pdb.set_trace()
+    # pdb.set_trace()
+   
+    num_target = num_target - len(dropped_targets)
     # with open('results/classical_ml_models/rf_model.pkl', 'rb') as f:
     #     clf2 = pickle.load(f)
     print('Reading the data:')
@@ -141,7 +144,9 @@ def random_forest_model(train_data_path
     print(test_data_path)
     train_data = pd.read_csv(train_data_path)
     test_data = pd.read_csv(test_data_path)
-    
+    train_data = train_data.drop(columns=dropped_targets)
+    test_data = test_data.drop(columns=dropped_targets) 
+
     feature_ranking = pd.read_csv(path_to_features, names=['Feature', 'Score']).sort_values(by='Score', ascending=False)
     selected_features = feature_ranking.iloc[:top_n_features, 0].values.tolist()
     selected_features = ['Patient_ID'] + selected_features + train_data.columns.tolist()[-num_target:]
@@ -187,7 +192,7 @@ def random_forest_model(train_data_path
         writer = csv.writer(csv_file)
         for key, value in hyperparameters.items():
            writer.writerow([key, value])
-    pdb.set_trace()  
+    # pdb.set_trace()  
     train_data_shuffled = train_data.sample(frac=1).reset_index(drop=True)  
     test_data_shuffled = test_data.sample(frac=1).reset_index(drop=True)  
     # training_all_shuffled = training_all.sample(frac=1)
@@ -199,7 +204,7 @@ def random_forest_model(train_data_path
     # pdb.set_trace()
     
 
-    randomCV = RandomizedSearchCV(estimator=RandomForestClassifier(n_jobs=-1, warm_start=True, verbose=1), param_distributions=hyperparameters, n_iter=2, cv=5,scoring="roc_auc")
+    randomCV = RandomizedSearchCV(estimator=RandomForestClassifier(n_jobs=-1, warm_start=True, verbose=1), param_distributions=hyperparameters, n_iter=50, cv=5,scoring="roc_auc")
     randomCV.fit(train_data.iloc[:,1:-num_target], train_data.iloc[:,-num_target:])
     # pdb.set_trace()
     # === Save models
@@ -218,54 +223,41 @@ def random_forest_model(train_data_path
     rf_predictions = best_rf_model.predict(test_data.iloc[:,1:-num_target])    
     np.savetxt('saved_classical_ml_models/predictions_rf_recommender.csv', rf_predictions, delimiter=',')
 
+    # precision = metrics.precision_score(y_true=test_data.iloc[:,-num_target:], y_pred=np.array(rf_predictions), average='micro')
+
     results_report = metrics.classification_report(y_true=test_data.iloc[:,-num_target:], y_pred=np.array(rf_predictions), output_dict=True)
+   
+    # results_report_df.index[:num_target] = test_data.iloc[:,-num_target:].columns   
 
-    test_roc_auc=roc_auc_score(test_data.iloc[:,-num_target:], best_rf_model.predict_proba(test_data.iloc[:,1:-num_target]), average='micro', multi_class='ovr')
+    results_report_df = pd.DataFrame(results_report).transpose()
+    results_report_df.to_csv('results/classical_ml_models/results_rf_recommender.csv')
 
 
-
-    tn, tp, fn, fp, accuracy, precision, recall, specificity, F1, rf_test_auc = performance_evaluation(rf_predictions
-                                                                            , test_data
-                                                                            , best_rf_model
-                                                                            )   
-    write_results(tn, tp, fn, fp, 
-                accuracy, precision, recall, specificity
-                , F1, rf_test_auc
-                , 'rf_recommender')
-    # pdb.set_trace()
-    metrics.plot_roc_curve(best_rf_model, test_data.drop(['Patient_ID', 'Label'], axis=1, inplace=False), test_data['Label'], name='Random Forest') 
-    plt.savefig('results/classical_ml_models/roc_curve_rf_recommender.png', dpi=300)
-    plt.close()
-    # print('Computing shap values....')
-    # explainer = shap.Explainer(best_rf_model)
-    # shap_values = explainer(training_all_shuffled.iloc[:,1:-1])
-    # print('Finished computing shap values....')
-    # pdb.set_trace()
-    # print('Plotting waterfall')
-    # shap.plots.waterfall(shap_values[0])
-    # plt.savefig('results/classical_ml_models/waterfall_rf.png', dpi=600)
-    # plt.close()    
-
-    # print('Plotting beeswarm')
-    # shap.plots.beeswarm(shap_values)
-    # plt.savefig('results/classical_ml_models/beeswarm_rf.png', dpi=600)
-    # plt.close()
-
-    # print('Saving shap values in a pickle')
-    # with open('results/classical_ml_models/shap_values_rf.pkl','wb') as f:
-    #     pickle.dump(shap_values,f)    
-
-    # print('Plotting abs of shap values in a bar diagram')
-    # shap.plots.bar(shap_values)
-    
-    # pdb.set_trace()
-    # print('End')
 
 def rf_feature_selection(train_data_path
+                        , test_data_path
                         , num_target):
     # pdb.set_trace()
     train_data = pd.read_csv(train_data_path)
+    test_data = pd.read_csv(test_data_path)
     
+    train_all_zero_features = []
+    for i in range(1, num_target+1):
+        if train_data[train_data.columns[-i]].sum()==0:
+            train_all_zero_features.append(train_data.columns[-i])
+
+    test_all_zero_features = []
+    for i in range(1, num_target+1):
+        if test_data[test_data.columns[-i]].sum()==0:
+            test_all_zero_features.append(test_data.columns[-i])
+    
+    dropped_targets = train_all_zero_features + test_all_zero_features
+    num_target = num_target - len(dropped_targets)
+
+    train_data = train_data.drop(columns=dropped_targets)
+    test_data = test_data.drop(columns=dropped_targets)
+
+    # pdb.set_trace()
     # Number of trees in random forest
     n_estimators = [int(x) for x in np.linspace(start = 200, stop = 2000, num = 10)]
 
@@ -302,7 +294,7 @@ def rf_feature_selection(train_data_path
     # pdb.set_trace()  
     train_data_shuffled = train_data.sample(frac=1).reset_index(drop=True)      
 
-    randomCV = RandomizedSearchCV(estimator=RandomForestClassifier(n_jobs=-1, warm_start=True, verbose=1), param_distributions=hyperparameters, n_iter=2, cv=5,scoring="roc_auc")
+    randomCV = RandomizedSearchCV(estimator=RandomForestClassifier(n_jobs=-1, warm_start=True, verbose=1), param_distributions=hyperparameters, n_iter=50, cv=5,scoring="roc_auc")
     
     randomCV.fit(train_data.iloc[:,1:-num_target], train_data.iloc[:,-num_target:])
     # pdb.set_trace()
@@ -316,7 +308,7 @@ def rf_feature_selection(train_data_path
     feat_importances = pd.Series(randomCV.best_estimator_.feature_importances_, index=train_data.iloc[:,1:-num_target].columns)
     feat_importances.to_csv('saved_classical_ml_models/feature_impoerance_rf_recommender.csv')
     
-    return 'saved_classical_ml_models/feature_impoerance_rf_recommender.csv'
+    return 'saved_classical_ml_models/feature_impoerance_rf_recommender.csv', dropped_targets
 
 
 

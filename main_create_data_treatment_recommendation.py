@@ -9,7 +9,7 @@ import logging
 sys.path.append(os.getcwd())
 parser = argparse.ArgumentParser()
 
-parser.add_argument("--treatment_window", type=int, default=15)    
+parser.add_argument("--treatment_window", type=int, default=30)    
 parser.add_argument("--mci_metadata_path", type=str, default='intermediate_files/mci_metadata.csv')    
 parser.add_argument("--train_data_path", type=str, default='stationary_data/stationary_data_imbratio1_normalized_train.csv')    
 parser.add_argument("--test_data_path", type=str, default='stationary_data/stationary_data_imbratio1_normalized_test.csv')    

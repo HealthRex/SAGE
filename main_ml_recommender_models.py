@@ -25,12 +25,14 @@ parser.add_argument("--num_target", type=int, default=10)
 args = parser.parse_args()
 if  args.ml_model == 'rf' and args.fs_flag==1:
     print('Performing feature selection first')
-    pdb.set_trace()
-    path_to_features = cl_ml.rf_feature_selection(args.train_data_path
+    # pdb.set_trace()
+    path_to_features, dropped_targets = cl_ml.rf_feature_selection(args.train_data_path
+                                                , args.test_data_path
                                                 , args.num_target)
     print('Starting to train a random forest model using:\n')
     cl_ml.random_forest_model(args.train_data_path
                             ,args.test_data_path
                             ,path_to_features
                             ,args.top_n_features
-                            , args.num_target)
+                            , args.num_target
+                            , dropped_targets)

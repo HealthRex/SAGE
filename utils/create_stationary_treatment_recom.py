@@ -35,15 +35,15 @@ def create_stationary_for_treatment_recom(mci_metadata_path
 
 	mci_data = pd.concat([train_pos, test_pos])
 
-	frequent_procs = pd.read_csv(procedure_id_frequencies_mci_path, dtype=str)
+	frequent_procs = pd.read_csv(procedure_id_frequencies_mci_path)
 	frequent_procs.columns = frequent_procs.columns.str.strip()
-	frequent_procs = frequent_procs.sort_values('num patient', ascending=False)	
+	frequent_procs = frequent_procs.sort_values(by='num patient', ascending=False)	
 	frequent_procs_top_n = frequent_procs['Code'].values[:top_n_proc].tolist()
 	frequent_procs_dict = {}
 	for i in range(len(frequent_procs_top_n)):
-		frequent_procs_dict[frequent_procs_top_n[i]] = 0 
+		frequent_procs_dict[str(frequent_procs_top_n[i])] = 0 
 	frequent_procs_dict = dict(collections.OrderedDict(sorted(frequent_procs_dict.items())))   
-
+	# pdb.set_trace()
 	with open(mci_procedure_codes_path) as proc_file, open('recommender_data/recomender_data_train.csv','w') as recom_train_file, open('recommender_data/recomender_data_test.csv','w') as recom_test_file:
 		proc_file_header = next(proc_file)
 		recom_train_file.write('Patient_ID')
@@ -75,7 +75,7 @@ def create_stationary_for_treatment_recom(mci_metadata_path
 			if current_patient_stat_data.shape[0] < 1:
 				continue
 				print('Stationary vector was not found for the current patient')
-
+			# pdb.set_trace()
 			current_diag_datetime = current_patient_metadata['index_date_OR_diag_date'].values[0]
 			current_diag_date = datetime.strptime(current_diag_datetime[:10], '%Y-%m-%d')
 			
@@ -92,7 +92,7 @@ def create_stationary_for_treatment_recom(mci_metadata_path
 			for j in range(len(current_patient_procs_flatten)): 
 				if (current_patient_procs_flatten[j] in frequent_procs_dict):           
 					frequent_procs_dict[current_patient_procs_flatten[j]] = 1
-			
+			# pdb.set_trace()
 			frequent_procs_dict_sorted = dict(collections.OrderedDict(sorted(frequent_procs_dict.items())))    
 			
 			# pdb.set_trace()		

@@ -229,31 +229,36 @@ def create_stationary(diagnosis_file_path
 
 	
 	# Rread frequent ICD codes
+	# pdb.set_trace()
+	print('Check out dtype=str')
 	print('Reading frequent codes and selecting top features')
-	frequent_icd10s = pd.read_csv(icd10_frequencies_mci_path, dtype=str)
-	frequent_icd10s = frequent_icd10s[~frequent_icd10s['Code'].str.contains(',')]
-	frequent_icd10s = frequent_icd10s[~frequent_icd10s.Code.isin(['G31.84', 'F09'])]
+	frequent_icd10s = pd.read_csv(icd10_frequencies_mci_path)
 	frequent_icd10s.columns=frequent_icd10s.columns.str.strip()
 	frequent_icd10s = frequent_icd10s.sort_values('num patient', ascending=False)
+	# frequent_icd10s = frequent_icd10s[~frequent_icd10s['Code'].str.contains(',')]
+	frequent_icd10s['Code'] = frequent_icd10s['Code'].str.replace(',','_')
+	frequent_icd10s = frequent_icd10s[~frequent_icd10s.Code.isin(['G31.84', 'F09'])]
 	frequent_icd10s_top_n = frequent_icd10s['Code'].values[:top_n_icd10].tolist()
 
-	frequent_icd9s = pd.read_csv(icd9_frequencies_mci_path, dtype=str)
-	frequent_icd9s = frequent_icd9s[~frequent_icd9s['Code'].str.contains(',')]	
-	frequent_icd9s = frequent_icd9s[~frequent_icd9s.Code.isin(['331.83', '294.9'])]
+	frequent_icd9s = pd.read_csv(icd9_frequencies_mci_path)
 	frequent_icd9s.columns=frequent_icd9s.columns.str.strip()
 	frequent_icd9s = frequent_icd9s.sort_values('num patient', ascending=False)
+	# frequent_icd9s = frequent_icd9s[~frequent_icd9s['Code'].str.contains(',')]	
+	frequent_icd9s['Code'] = frequent_icd9s['Code'].str.replace(',','_')
+	frequent_icd9s = frequent_icd9s[~frequent_icd9s.Code.isin(['331.83', '294.9'])]
 	frequent_icd9s_top_n = frequent_icd9s['Code'].values[:top_n_icd9].tolist()
 
-	frequent_meds = pd.read_csv(medication_id_frequencies_mci_path, dtype=str)
+	frequent_meds = pd.read_csv(medication_id_frequencies_mci_path)
 	frequent_meds.columns=frequent_meds.columns.str.strip()
 	frequent_meds = frequent_meds.sort_values('num patient', ascending=False)
 	frequent_meds_top_n = frequent_meds['Code'].values[:top_n_med].tolist()
 
-	frequent_procs = pd.read_csv(procedure_id_frequencies_mci_path, dtype=str)
+	frequent_procs = pd.read_csv(procedure_id_frequencies_mci_path)
 	frequent_procs.columns = frequent_procs.columns.str.strip()
 	frequent_procs = frequent_procs.sort_values('num patient', ascending=False)	
 	frequent_procs_top_n = frequent_procs['Code'].values[:top_n_proc].tolist()
 
+	# pdb.set_trace()
 	frequent_icd10s_dict = {}
 	for i in range(len(frequent_icd10s_top_n)):
 		frequent_icd10s_dict[frequent_icd10s_top_n[i]] = 0 
@@ -266,14 +271,15 @@ def create_stationary(diagnosis_file_path
 
 	frequent_meds_dict = {}
 	for i in range(len(frequent_meds_top_n)):
-		frequent_meds_dict[frequent_meds_top_n[i]] = 0 
+		frequent_meds_dict[str(frequent_meds_top_n[i])] = 0 
 	frequent_meds_dict = dict(collections.OrderedDict(sorted(frequent_meds_dict.items())))    
 
 	frequent_procs_dict = {}
 	for i in range(len(frequent_procs_top_n)):
-		frequent_procs_dict[frequent_procs_top_n[i]] = 0 
+		frequent_procs_dict[str(frequent_procs_top_n[i])] = 0 
 	frequent_procs_dict = dict(collections.OrderedDict(sorted(frequent_procs_dict.items())))    
 
+	# pdb.set_trace()
 	# meds_data = pd.read_csv(medication_file_path, header=None, sep='\n', skiprows=1)
 	# meds_data = meds_data[0].str.split(',', expand=True)
 

@@ -32,7 +32,7 @@ def matching(mci_stationary_data_path
 
 		if matched_controls.shape[0] >= case_control_ratio:
 			control_metadata.loc[matched_controls.index[:case_control_ratio], 'matched'] = 1
-		else:
+		else:			
 			sex_matched_controls = control_metadata.loc[(control_metadata['sex'] == row['sex']) & (control_metadata['matched'] ==0)]
 			matched_controls = sex_matched_controls.iloc[(sex_matched_controls['byear'].astype(int) -int(row['byear'])).abs().argsort()[:1]]	
 			if matched_controls.shape[0] >= case_control_ratio:
@@ -50,11 +50,16 @@ def matching(mci_stationary_data_path
 	for i in range(non_mci_data_matched.shape[1]):
 		if non_mci_data_matched.columns[i] != mci_data.columns[i]:
 			pdb.set_trace()
+	# pdb.set_trace()	
 	# non_mci_data_matched = non_mci_data_matched.reindex(columns=mci_data.columns)
 	if non_mci_data_matched.shape[1] != mci_data.shape[1]:
 		pdb.set_trace()
 		print('Case and control dimensions do not match')
-	
+	if non_mci_data_matched.shape[0] > mci_data.shape[0]:
+		non_mci_data_matched = non_mci_data_matched.sample(n=mci_data.shape[0])
+	else:
+		pdb.set_trace()
+		print('Warning: matched control population size is smaller than control population size.')	
 	all_data = mci_data.append(non_mci_data_matched, ignore_index=True).sample(frac=1).reset_index(drop=True)
 
 	all_data.to_csv('stationary_data/stationary_data_imbratio'+str(case_control_ratio)+'.csv', index=False)
