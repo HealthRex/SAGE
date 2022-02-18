@@ -130,9 +130,10 @@ def write_results(tn
 def random_forest_model(train_data_path
                         ,test_data_path
                         ,path_to_features
-                        ,top_n_features):
+                        ,top_n_features
+                        ,num_target):
 
-    # pdb.set_trace()
+    pdb.set_trace()
     # with open('results/classical_ml_models/rf_model.pkl', 'rb') as f:
     #     clf2 = pickle.load(f)
     print('Reading the data:')
@@ -143,14 +144,14 @@ def random_forest_model(train_data_path
     
     feature_ranking = pd.read_csv(path_to_features, names=['Feature', 'Score']).sort_values(by='Score', ascending=False)
     selected_features = feature_ranking.iloc[:top_n_features, 0].values.tolist()
-    selected_features = selected_features + ['Label', 'Patient_ID']
+    selected_features = ['Patient_ID'] + selected_features + train_data.columns.tolist()[-num_target:]
     train_data = train_data[selected_features]
     test_data = test_data[selected_features]
 
     fig = feature_ranking.nlargest(top_n_features, columns='Score').plot(kind='barh', grid=True,figsize=(12,10))
     fig.set_xlabel("Importance Score")
     fig.set_ylabel("Features")
-    fig.get_figure().savefig("results/visualization_results/feature_importance_rf.png", dpi=300)
+    fig.get_figure().savefig("results/visualization_results/feature_importance_rf_recommender.png", dpi=300)
     # fig.close()
     print('Finished reading data...')
     # Number of trees in random forest
@@ -182,11 +183,11 @@ def random_forest_model(train_data_path
                    }#,'ccp_alpha': ccp_alpha}
     print('Hyperparameters:')
     print(hyperparameters)
-    with open('saved_classical_ml_models/rf_hyperparameters.csv', 'w') as csv_file:  
+    with open('saved_classical_ml_models/rf_hyperparameters_recommender.csv', 'w') as csv_file:  
         writer = csv.writer(csv_file)
         for key, value in hyperparameters.items():
            writer.writerow([key, value])
-    # pdb.set_trace()  
+    pdb.set_trace()  
     train_data_shuffled = train_data.sample(frac=1).reset_index(drop=True)  
     test_data_shuffled = test_data.sample(frac=1).reset_index(drop=True)  
     # training_all_shuffled = training_all.sample(frac=1)
@@ -198,14 +199,14 @@ def random_forest_model(train_data_path
     # pdb.set_trace()
     
 
-    randomCV = RandomizedSearchCV(estimator=RandomForestClassifier(n_jobs=-1, warm_start=True, verbose=1), param_distributions=hyperparameters, n_iter=50, cv=5,scoring="roc_auc")
-    randomCV.fit(train_data.drop(['Patient_ID', 'Label'], axis=1, inplace=False), train_data['Label'])
+    randomCV = RandomizedSearchCV(estimator=RandomForestClassifier(n_jobs=-1, warm_start=True, verbose=1), param_distributions=hyperparameters, n_iter=2, cv=5,scoring="roc_auc")
+    randomCV.fit(train_data.iloc[:,1:-num_target], train_data.iloc[:,-num_target:])
     # pdb.set_trace()
     # === Save models
-    with open('saved_classical_ml_models/rf_model.pkl','wb') as f:
+    with open('saved_classical_ml_models/rf_model_recommender.pkl','wb') as f:
         pickle.dump(randomCV,f)
     
-    (pd.DataFrame.from_dict(data=randomCV.best_params_, orient='index').to_csv('saved_classical_ml_models/best_params_rf.csv', header=False))
+    (pd.DataFrame.from_dict(data=randomCV.best_params_, orient='index').to_csv('saved_classical_ml_models/best_params_rf_recommender.csv', header=False))
     best_rf_model= randomCV.best_estimator_
     # feat_importances = pd.Series(randomCV.best_estimator_.feature_importances_, index=training_all.iloc[:,1:-1].columns)
     # pdb.set_trace() 
@@ -214,8 +215,14 @@ def random_forest_model(train_data_path
     # fig.set_ylabel("Features")
     # fig.get_figure().savefig("results/classical_ml_models/feature_importance.png", dpi=300)
 
-    rf_predictions = best_rf_model.predict(test_data.drop(['Patient_ID', 'Label'], axis=1, inplace=False))    
-    np.savetxt('saved_classical_ml_models/predictions_rf.csv', rf_predictions, delimiter=',')
+    rf_predictions = best_rf_model.predict(test_data.iloc[:,1:-num_target])    
+    np.savetxt('saved_classical_ml_models/predictions_rf_recommender.csv', rf_predictions, delimiter=',')
+
+    results_report = metrics.classification_report(y_true=test_data.iloc[:,-num_target:], y_pred=np.array(rf_predictions), output_dict=True)
+
+    test_roc_auc=roc_auc_score(test_data.iloc[:,-num_target:], best_rf_model.predict_proba(test_data.iloc[:,1:-num_target]), average='micro', multi_class='ovr')
+
+
 
     tn, tp, fn, fp, accuracy, precision, recall, specificity, F1, rf_test_auc = performance_evaluation(rf_predictions
                                                                             , test_data
@@ -224,10 +231,10 @@ def random_forest_model(train_data_path
     write_results(tn, tp, fn, fp, 
                 accuracy, precision, recall, specificity
                 , F1, rf_test_auc
-                , 'rf')
+                , 'rf_recommender')
     # pdb.set_trace()
     metrics.plot_roc_curve(best_rf_model, test_data.drop(['Patient_ID', 'Label'], axis=1, inplace=False), test_data['Label'], name='Random Forest') 
-    plt.savefig('results/classical_ml_models/roc_curve_rf.png', dpi=300)
+    plt.savefig('results/classical_ml_models/roc_curve_rf_recommender.png', dpi=300)
     plt.close()
     # print('Computing shap values....')
     # explainer = shap.Explainer(best_rf_model)
@@ -254,7 +261,8 @@ def random_forest_model(train_data_path
     # pdb.set_trace()
     # print('End')
 
-def rf_feature_selection(train_data_path):
+def rf_feature_selection(train_data_path
+                        , num_target):
     # pdb.set_trace()
     train_data = pd.read_csv(train_data_path)
     
@@ -287,27 +295,28 @@ def rf_feature_selection(train_data_path):
                    }#,'ccp_alpha': ccp_alpha}
     print('Hyperparameters:')
     print(hyperparameters)
-    with open('saved_classical_ml_models/rf_hyperparameters_forFS.csv', 'w') as csv_file:  
+    with open('saved_classical_ml_models/rf_hyperparameters_recommender_forFS.csv', 'w') as csv_file:  
         writer = csv.writer(csv_file)
         for key, value in hyperparameters.items():
            writer.writerow([key, value])
     # pdb.set_trace()  
     train_data_shuffled = train_data.sample(frac=1).reset_index(drop=True)      
 
-    randomCV = RandomizedSearchCV(estimator=RandomForestClassifier(n_jobs=-1, warm_start=True, verbose=1), param_distributions=hyperparameters, n_iter=50, cv=5,scoring="roc_auc")
-    randomCV.fit(train_data.drop(['Patient_ID', 'Label'], axis=1, inplace=False), train_data['Label'])
+    randomCV = RandomizedSearchCV(estimator=RandomForestClassifier(n_jobs=-1, warm_start=True, verbose=1), param_distributions=hyperparameters, n_iter=2, cv=5,scoring="roc_auc")
+    
+    randomCV.fit(train_data.iloc[:,1:-num_target], train_data.iloc[:,-num_target:])
     # pdb.set_trace()
     # === Save models
-    with open('saved_classical_ml_models/rf_model_forFS.pkl','wb') as f:
+    with open('saved_classical_ml_models/rf_model_recommender_forFS.pkl','wb') as f:
         pickle.dump(randomCV,f)
     
-    (pd.DataFrame.from_dict(data=randomCV.best_params_, orient='index').to_csv('saved_classical_ml_models/best_params_rf_forFS.csv', header=False))
+    (pd.DataFrame.from_dict(data=randomCV.best_params_, orient='index').to_csv('saved_classical_ml_models/best_params_rf_recommender_forFS.csv', header=False))
     best_rf_model= randomCV.best_estimator_
     
-    feat_importances = pd.Series(randomCV.best_estimator_.feature_importances_, index=train_data.drop(['Patient_ID', 'Label'], axis=1, inplace=False).columns)
-    feat_importances.to_csv('saved_classical_ml_models/feature_impoerance_rf.csv')
+    feat_importances = pd.Series(randomCV.best_estimator_.feature_importances_, index=train_data.iloc[:,1:-num_target].columns)
+    feat_importances.to_csv('saved_classical_ml_models/feature_impoerance_rf_recommender.csv')
     
-    return 'saved_classical_ml_models/feature_impoerance_rf.csv'
+    return 'saved_classical_ml_models/feature_impoerance_rf_recommender.csv'
 
 
 

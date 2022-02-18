@@ -1,0 +1,384 @@
+Average age in cases:
+69.36361776140782
+std age in cases:
+16.192285343126628
+25Perc age in cases:
+62.0
+50Perc age in cases:
+74.0
+75Perc age in cases:
+81.0
+Average age in controls:
+62.76411393484564
+std age in controls:
+13.61059034331978
+25Perc age in controls:
+53.0
+50Perc age in controls:
+62.0
+75Perc age in controls:
+73.0
+number of females in cases:
+2649
+percentage of females in casess:
+0.5420503376304481
+number of females in controls:
+3240
+percentage of females in controls:
+0.5526181135937234
+number of white in cases:
+3286
+percentage of white in cases:
+0.6723961530591365
+number of Other race in cases:
+578
+percentage of Other race in cases:
+0.11827296910169838
+number of Asian in cases:
+563
+percentage of Asian in cases:
+0.1152036013914467
+number of Black in cases:
+269
+percentage of Black in cases:
+0.05504399427051361
+number of Unknown in cases:
+143
+percentage of Unknown in cases:
+0.029261305504399426
+number of Pacific Islander in cases:
+35
+percentage of Pacific Islander in cases:
+0.007161857990587273
+number of Native American in cases:
+13
+percentage of Native American in cases:
+0.0026601186822181296
+number of white in controls:
+3417
+percentage of white in controls:
+0.5828074364659731
+number of Other race in controls:
+700
+percentage of Other race in controls:
+0.11939280231963159
+number of Asian in controls:
+823
+percentage of Asian in controls:
+0.14037182329865255
+number of Black in controls:
+266
+percentage of Black in controls:
+0.04536926488146
+number of Unknown in controls:
+605
+percentage of Unknown in controls:
+0.10318949343339587
+number of Pacific Islander in controls:
+38
+percentage of Pacific Islander in controls:
+0.006481323554494286
+number of Native American in controls:
+14
+percentage of Native American in controls:
+0.0023878560463926318
+Feature number 0:
+Z96.1
+Number of patients in cases:
+314
+Percentage of patients in cases:
+0.06425209740126867
+Number of patients in controls:
+106
+Percentage of patients in controls:
+0.018079481494115642
+Feature number 1:
+419276
+Number of patients in cases:
+84
+Percentage of patients in cases:
+0.017188459177409455
+Number of patients in controls:
+242
+Percentage of patients in controls:
+0.04127579737335835
+Feature number 2:
+M47.812
+Number of patients in cases:
+299
+Percentage of patients in cases:
+0.061182729691016985
+Number of patients in controls:
+119
+Percentage of patients in controls:
+0.02029677639433737
+Feature number 3:
+J98.4
+Number of patients in cases:
+316
+Percentage of patients in cases:
+0.06466134642930223
+Number of patients in controls:
+150
+Percentage of patients in controls:
+0.025584171925635342
+Feature number 4:
+250490
+Number of patients in cases:
+125
+Percentage of patients in cases:
+0.0255780642520974
+Number of patients in controls:
+242
+Percentage of patients in controls:
+0.04127579737335835
+Feature number 5:
+176663
+Number of patients in cases:
+300
+Percentage of patients in cases:
+0.061387354205033766
+Number of patients in controls:
+205
+Percentage of patients in controls:
+0.03496503496503497
+Feature number 6:
+3843
+Number of patients in cases:
+216
+Percentage of patients in cases:
+0.04419889502762431
+Number of patients in controls:
+121
+Percentage of patients in controls:
+0.020637898686679174
+Feature number 7:
+T14.8XXA
+Number of patients in cases:
+283
+Percentage of patients in cases:
+0.05790873746674852
+Number of patients in controls:
+145
+Percentage of patients in controls:
+0.024731366194780828
+Feature number 8:
+J44.9
+Number of patients in cases:
+251
+Percentage of patients in cases:
+0.05136075301821158
+Number of patients in controls:
+148
+Percentage of patients in controls:
+0.025243049633293536
+Feature number 9:
+5172
+Number of patients in cases:
+291
+Percentage of patients in cases:
+0.05954573357888275
+Number of patients in controls:
+163
+Percentage of patients in controls:
+0.02780146682585707
+Feature number 10:
+3233
+Number of patients in cases:
+188
+Percentage of patients in cases:
+0.03846940863515449
+Number of patients in controls:
+130
+Percentage of patients in controls:
+0.022172949002217297
+Feature number 11:
+R26.81
+Number of patients in cases:
+122
+Percentage of patients in cases:
+0.024964190710047063
+Number of patients in controls:
+23
+Percentage of patients in controls:
+0.003922906361930752
+Feature number 12:
+I73.9
+Number of patients in cases:
+229
+Percentage of patients in cases:
+0.04685901370984244
+Number of patients in controls:
+145
+Percentage of patients in controls:
+0.024731366194780828
+Feature number 13:
+R93.89
+Number of patients in cases:
+256
+Percentage of patients in cases:
+0.05238387558829548
+Number of patients in controls:
+128
+Percentage of patients in controls:
+0.02183182670987549
+Feature number 14:
+3844
+Number of patients in cases:
+231
+Percentage of patients in cases:
+0.047268262737875995
+Number of patients in controls:
+226
+Percentage of patients in controls:
+0.03854681903462391
+Feature number 15:
+R29.6
+Number of patients in cases:
+124
+Percentage of patients in cases:
+0.025373439738080622
+Number of patients in controls:
+24
+Percentage of patients in controls:
+0.0040934675081016544
+Feature number 16:
+R10.84
+Number of patients in cases:
+236
+Percentage of patients in cases:
+0.04829138530795989
+Number of patients in controls:
+136
+Percentage of patients in controls:
+0.02319631587924271
+Feature number 17:
+4526
+Number of patients in cases:
+261
+Percentage of patients in cases:
+0.053406998158379376
+Number of patients in controls:
+208
+Percentage of patients in controls:
+0.03547671840354767
+Feature number 18:
+R10.13
+Number of patients in cases:
+266
+Percentage of patients in cases:
+0.05443012072846327
+Number of patients in controls:
+167
+Percentage of patients in controls:
+0.02848371141054068
+Feature number 19:
+I49.9
+Number of patients in cases:
+260
+Percentage of patients in cases:
+0.053202373644362595
+Number of patients in controls:
+129
+Percentage of patients in controls:
+0.022002387856046392
+Feature number 20:
+6494
+Number of patients in cases:
+244
+Percentage of patients in cases:
+0.04992838142009413
+Number of patients in controls:
+192
+Percentage of patients in controls:
+0.032747740064813236
+Feature number 21:
+93137
+Number of patients in cases:
+240
+Percentage of patients in cases:
+0.04910988336402701
+Number of patients in controls:
+135
+Percentage of patients in controls:
+0.023025754733071807
+Feature number 22:
+D48.5
+Number of patients in cases:
+240
+Percentage of patients in cases:
+0.04910988336402701
+Number of patients in controls:
+175
+Percentage of patients in controls:
+0.029848200579907898
+Feature number 23:
+2527
+Number of patients in cases:
+141
+Percentage of patients in cases:
+0.028852056476365868
+Number of patients in controls:
+151
+Percentage of patients in controls:
+0.025754733071806243
+Feature number 24:
+1009
+Number of patients in cases:
+174
+Percentage of patients in cases:
+0.03560466543891958
+Number of patients in controls:
+241
+Percentage of patients in controls:
+0.041105236227187446
+Feature number 25:
+1593
+Number of patients in cases:
+100
+Percentage of patients in cases:
+0.02046245140167792
+Number of patients in controls:
+129
+Percentage of patients in controls:
+0.022002387856046392
+Feature number 26:
+152946
+Number of patients in cases:
+96
+Percentage of patients in cases:
+0.019643953345610803
+Number of patients in controls:
+180
+Percentage of patients in controls:
+0.03070100631076241
+Feature number 27:
+17466
+Number of patients in cases:
+93
+Percentage of patients in cases:
+0.019030079803560467
+Number of patients in controls:
+38
+Percentage of patients in controls:
+0.006481323554494286
+Feature number 28:
+80840
+Number of patients in cases:
+191
+Percentage of patients in cases:
+0.03908328217720483
+Number of patients in controls:
+151
+Percentage of patients in controls:
+0.025754733071806243
+Feature number 29:
+15861
+Number of patients in cases:
+184
+Percentage of patients in cases:
+0.03765091057908738
+Number of patients in controls:
+99
+Percentage of patients in controls:
+0.016885553470919325

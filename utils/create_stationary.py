@@ -38,7 +38,7 @@ def blind_data(patient_id
 		pdb.set_trace()
 
 	if current_patient_demog['MCI_label'].values[0] == 1:
-		idx_date = datetime.strptime(current_patient_demog['diag_date'].values[0][:10],'%Y-%m-%d')
+		idx_date = datetime.strptime(current_patient_demog['index_date_OR_diag_date'].values[0][:10],'%Y-%m-%d')
 	else:
 		idx_date = last_record_date + relativedelta(months= -prediction_window_size)
 		
@@ -96,7 +96,7 @@ def check_data_availibility(line_med_splited
 		pdb.set_trace()
 
 	if current_patient_demog['MCI_label'].values[0] == 1:		
-		diag_date = datetime.strptime(current_patient_demog['diag_date'].values[0][:10],'%Y-%m-%d')
+		diag_date = datetime.strptime(current_patient_demog['index_date_OR_diag_date'].values[0][:10],'%Y-%m-%d')
 		first_to_idx_date =  (diag_date.year - first_record_date.year) * 12 + diag_date.month - first_record_date.month 
 		idx_date_to_last = (last_record_date.year - diag_date.year ) * 12 + last_record_date.month - diag_date.month 
 	else:
@@ -128,7 +128,7 @@ def create_stationary_icd10(patient_id, line_diag_splited, frequent_icd10s_dict)
 				continue  
 				print('test') 
 	# pdb.set_trace()
-	# if patient_id == 'JCe45608':# and line_diag_splited[i][j][6:]=='R13.10':
+	# if patient_id == 'JC29fcdc5':# and line_diag_splited[i][j][6:]=='R13.10':
 	# 	pdb.set_trace()	
 	frequent_icd10s_dict_sorted = dict(collections.OrderedDict(sorted(frequent_icd10s_dict.items())))    
 	num_records = len(line_diag_splited)
@@ -479,7 +479,7 @@ def create_stationary(diagnosis_file_path
 			stationary_file.write(',')
 			stationary_file.write(str(current_patient_demog['canonical_race'].values[0]))
 			stationary_file.write(',')
-			stationary_file.write(str(2022-int(current_patient_demog['bdate'].values[0].split('-')[0])))
+			stationary_file.write(str(int(current_patient_demog['index_date_OR_diag_date'].values[0].split('-')[0])-int(current_patient_demog['bdate'].values[0].split('-')[0])))
 			stationary_file.write(',')
 
 

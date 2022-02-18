@@ -41,11 +41,20 @@ def matching(mci_stationary_data_path
 				pdb.set_trace()
 				print('Couldnt find any match!')	
 		# print('Test')
+	# pdb.set_trace()	
+
 	control_metadata_matched = control_metadata[control_metadata['matched']==1]
 	control_metadata_matched.to_csv(non_mci_metadata_path[:-4]+'_matched.csv', index=False)
 	# pdb.set_trace()
 	non_mci_data_matched = non_mci_data[non_mci_data['Patient_ID'].isin(control_metadata_matched['anon_id'].values.tolist())]
-
+	for i in range(non_mci_data_matched.shape[1]):
+		if non_mci_data_matched.columns[i] != mci_data.columns[i]:
+			pdb.set_trace()
+	# non_mci_data_matched = non_mci_data_matched.reindex(columns=mci_data.columns)
+	if non_mci_data_matched.shape[1] != mci_data.shape[1]:
+		pdb.set_trace()
+		print('Case and control dimensions do not match')
+	
 	all_data = mci_data.append(non_mci_data_matched, ignore_index=True).sample(frac=1).reset_index(drop=True)
 
 	all_data.to_csv('stationary_data/stationary_data_imbratio'+str(case_control_ratio)+'.csv', index=False)

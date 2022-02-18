@@ -214,11 +214,12 @@ def plot_shaps_from_saved_model (test_stationary_filename
     print('Test')
 
 
-def plot_prevalance(train_stationary_filename 
+def compute_table_stats(train_stationary_filename 
                                 , test_stationary_filename     
                                 , features_to_show
                                 , mci_metadata_path
                                 , nonmci_metadata_path
+                                , feature_ranking_path
                                 ):
     pdb.set_trace()
 
@@ -229,11 +230,237 @@ def plot_prevalance(train_stationary_filename
     data_all_pos = data_all[data_all['Label']==1]
     data_all_neg = data_all[data_all['Label']==0]
 
-    train_data[train_data['Patient_ID'] == 'JC2a00006']
-    test_data[test_data['Patient_ID'] == 'JC2a00006']
-
     mci_metadata = pd.read_csv(mci_metadata_path)
     nonmci_metadata = pd.read_csv(nonmci_metadata_path)
 
     mci_metadata_cohort = mci_metadata[mci_metadata['anon_id'].isin(data_all_pos['Patient_ID'].values.tolist())]
     nonmci_metadata_cohort = nonmci_metadata[nonmci_metadata['anon_id'].isin(data_all_neg['Patient_ID'].values.tolist())]
+
+    with open('results/visualization_results/stats.csv','w') as stat_file:
+        avg_age_pos = (mci_metadata_cohort['index_date_OR_diag_date'].str[:4].astype(int) - mci_metadata_cohort['bdate'].str[:4].astype(int)).mean()
+        std_age_pos = (mci_metadata_cohort['index_date_OR_diag_date'].str[:4].astype(int) - mci_metadata_cohort['bdate'].str[:4].astype(int)).std()
+        q25_age_pos = (mci_metadata_cohort['index_date_OR_diag_date'].str[:4].astype(int) - mci_metadata_cohort['bdate'].str[:4].astype(int)).quantile(q=0.25)
+        q50_age_pos = (mci_metadata_cohort['index_date_OR_diag_date'].str[:4].astype(int) - mci_metadata_cohort['bdate'].str[:4].astype(int)).quantile(q=0.50)
+        q75_age_pos = (mci_metadata_cohort['index_date_OR_diag_date'].str[:4].astype(int) - mci_metadata_cohort['bdate'].str[:4].astype(int)).quantile(q=0.75)
+        stat_file.write('Average age in cases:\n')
+        stat_file.write(str(avg_age_pos))
+        stat_file.write('\n')
+        stat_file.write('std age in cases:\n')
+        stat_file.write(str(std_age_pos))
+        stat_file.write('\n')
+        stat_file.write('25Perc age in cases:\n')
+        stat_file.write(str(q25_age_pos))
+        stat_file.write('\n')
+        stat_file.write('50Perc age in cases:\n')
+        stat_file.write(str(q50_age_pos))
+        stat_file.write('\n')
+        stat_file.write('75Perc age in cases:\n')
+        stat_file.write(str(q75_age_pos))
+        stat_file.write('\n')
+                                        
+        avg_age_neg = (nonmci_metadata_cohort['index_date_OR_diag_date'].str[:4].astype(int) - nonmci_metadata_cohort['bdate'].str[:4].astype(int)).mean()
+        std_age_neg = (nonmci_metadata_cohort['index_date_OR_diag_date'].str[:4].astype(int) - nonmci_metadata_cohort['bdate'].str[:4].astype(int)).std()
+        q25_age_neg = (nonmci_metadata_cohort['index_date_OR_diag_date'].str[:4].astype(int) - nonmci_metadata_cohort['bdate'].str[:4].astype(int)).quantile(q=0.25)
+        q50_age_neg = (nonmci_metadata_cohort['index_date_OR_diag_date'].str[:4].astype(int) - nonmci_metadata_cohort['bdate'].str[:4].astype(int)).quantile(q=0.50)
+        q75_age_neg = (nonmci_metadata_cohort['index_date_OR_diag_date'].str[:4].astype(int) - nonmci_metadata_cohort['bdate'].str[:4].astype(int)).quantile(q=0.75)
+        stat_file.write('Average age in controls:\n')
+        stat_file.write(str(avg_age_neg))
+        stat_file.write('\n')
+        stat_file.write('std age in controls:\n')
+        stat_file.write(str(std_age_neg))
+        stat_file.write('\n')
+        stat_file.write('25Perc age in controls:\n')
+        stat_file.write(str(q25_age_neg))
+        stat_file.write('\n')
+        stat_file.write('50Perc age in controls:\n')
+        stat_file.write(str(q50_age_neg))
+        stat_file.write('\n')
+        stat_file.write('75Perc age in controls:\n')
+        stat_file.write(str(q75_age_neg))
+        stat_file.write('\n')
+
+
+        # sex
+        mci_metadata_cohort['sex'] = mci_metadata_cohort['sex'].str.strip()
+        num_female_mci = mci_metadata_cohort[mci_metadata_cohort['sex'] == 'Female'].shape[0]
+        perc_female_mci =  num_female_mci/mci_metadata_cohort.shape[0]   
+        stat_file.write('number of females in cases:\n')
+        stat_file.write(str(num_female_mci))
+        stat_file.write('\n')
+        stat_file.write('percentage of females in casess:\n')
+        stat_file.write(str(perc_female_mci))
+        stat_file.write('\n')
+
+        nonmci_metadata_cohort['sex'] = nonmci_metadata_cohort['sex'].str.strip()
+        num_female_nonmci = nonmci_metadata_cohort[nonmci_metadata_cohort['sex'] == 'Female'].shape[0]
+        perc_female_nonmci =  num_female_nonmci/nonmci_metadata_cohort.shape[0]   
+        stat_file.write('number of females in controls:\n')
+        stat_file.write(str(num_female_nonmci))
+        stat_file.write('\n')
+        stat_file.write('percentage of females in controls:\n')
+        stat_file.write(str(perc_female_nonmci))
+        stat_file.write('\n')
+
+        # Race ["White", "Other", "Asian", "Black", "Unknown", "Pacific Islander", "Native American"]
+        mci_metadata_cohort['canonical_race'] = mci_metadata_cohort['canonical_race'].str.strip()
+        
+
+        num_white_mci = mci_metadata_cohort[mci_metadata_cohort['canonical_race'] == 'White'].shape[0]
+        perc_white_mci =  num_white_mci/mci_metadata_cohort.shape[0]   
+        stat_file.write('number of white in cases:\n')
+        stat_file.write(str(num_white_mci))
+        stat_file.write('\n')
+        stat_file.write('percentage of white in cases:\n')
+        stat_file.write(str(perc_white_mci))
+        stat_file.write('\n')
+
+        num_Other_mci = mci_metadata_cohort[mci_metadata_cohort['canonical_race'] == 'Other'].shape[0]
+        perc_Other_mci =  num_Other_mci/mci_metadata_cohort.shape[0]   
+        stat_file.write('number of Other race in cases:\n')
+        stat_file.write(str(num_Other_mci))
+        stat_file.write('\n')
+        stat_file.write('percentage of Other race in cases:\n')
+        stat_file.write(str(perc_Other_mci))
+        stat_file.write('\n')
+
+        num_Asian_mci = mci_metadata_cohort[mci_metadata_cohort['canonical_race'] == 'Asian'].shape[0]
+        perc_Asian_mci =  num_Asian_mci/mci_metadata_cohort.shape[0]   
+        stat_file.write('number of Asian in cases:\n')
+        stat_file.write(str(num_Asian_mci))
+        stat_file.write('\n')
+        stat_file.write('percentage of Asian in cases:\n')
+        stat_file.write(str(perc_Asian_mci))
+        stat_file.write('\n')
+
+        num_Black_mci = mci_metadata_cohort[mci_metadata_cohort['canonical_race'] == 'Black'].shape[0]
+        perc_Black_mci =  num_Black_mci/mci_metadata_cohort.shape[0]   
+        stat_file.write('number of Black in cases:\n')
+        stat_file.write(str(num_Black_mci))
+        stat_file.write('\n')
+        stat_file.write('percentage of Black in cases:\n')
+        stat_file.write(str(perc_Black_mci))
+        stat_file.write('\n')
+
+        num_Unknown_mci = mci_metadata_cohort[mci_metadata_cohort['canonical_race'] == 'Unknown'].shape[0]
+        perc_Unknown_mci =  num_Unknown_mci/mci_metadata_cohort.shape[0]   
+        stat_file.write('number of Unknown in cases:\n')
+        stat_file.write(str(num_Unknown_mci))
+        stat_file.write('\n')
+        stat_file.write('percentage of Unknown in cases:\n')
+        stat_file.write(str(perc_Unknown_mci))
+        stat_file.write('\n')
+
+        num_Pacific_Islander_mci = mci_metadata_cohort[mci_metadata_cohort['canonical_race'] == 'Pacific Islander'].shape[0]
+        perc_Pacific_Islander_mci =  num_Pacific_Islander_mci/mci_metadata_cohort.shape[0]   
+        stat_file.write('number of Pacific Islander in cases:\n')
+        stat_file.write(str(num_Pacific_Islander_mci))
+        stat_file.write('\n')
+        stat_file.write('percentage of Pacific Islander in cases:\n')
+        stat_file.write(str(perc_Pacific_Islander_mci))
+        stat_file.write('\n')
+
+        num_Native_American_mci = mci_metadata_cohort[mci_metadata_cohort['canonical_race'] == 'Native American'].shape[0]
+        perc_Native_American_mci =  num_Native_American_mci/mci_metadata_cohort.shape[0]   
+        stat_file.write('number of Native American in cases:\n')
+        stat_file.write(str(num_Native_American_mci))
+        stat_file.write('\n')
+        stat_file.write('percentage of Native American in cases:\n')
+        stat_file.write(str(perc_Native_American_mci))
+        stat_file.write('\n')
+
+        num_white_nonmci = nonmci_metadata_cohort[nonmci_metadata_cohort['canonical_race'] == 'White'].shape[0]
+        perc_white_nonmci =  num_white_nonmci/nonmci_metadata_cohort.shape[0]   
+        stat_file.write('number of white in controls:\n')
+        stat_file.write(str(num_white_nonmci))
+        stat_file.write('\n')
+        stat_file.write('percentage of white in controls:\n')
+        stat_file.write(str(perc_white_nonmci))
+        stat_file.write('\n')
+
+
+        num_Other_nonmci = nonmci_metadata_cohort[nonmci_metadata_cohort['canonical_race'] == 'Other'].shape[0]
+        perc_Other_nonmci =  num_Other_nonmci/nonmci_metadata_cohort.shape[0]   
+        stat_file.write('number of Other race in controls:\n')
+        stat_file.write(str(num_Other_nonmci))
+        stat_file.write('\n')
+        stat_file.write('percentage of Other race in controls:\n')
+        stat_file.write(str(perc_Other_nonmci))
+        stat_file.write('\n')
+
+        num_Asian_nonmci = nonmci_metadata_cohort[nonmci_metadata_cohort['canonical_race'] == 'Asian'].shape[0]
+        perc_Asian_nonmci =  num_Asian_nonmci/nonmci_metadata_cohort.shape[0]   
+        stat_file.write('number of Asian in controls:\n')
+        stat_file.write(str(num_Asian_nonmci))
+        stat_file.write('\n')
+        stat_file.write('percentage of Asian in controls:\n')
+        stat_file.write(str(perc_Asian_nonmci))
+        stat_file.write('\n')
+
+        num_Black_nonmci = nonmci_metadata_cohort[nonmci_metadata_cohort['canonical_race'] == 'Black'].shape[0]
+        perc_Black_nonmci =  num_Black_nonmci/nonmci_metadata_cohort.shape[0]   
+        stat_file.write('number of Black in controls:\n')
+        stat_file.write(str(num_Black_nonmci))
+        stat_file.write('\n')
+        stat_file.write('percentage of Black in controls:\n')
+        stat_file.write(str(perc_Black_nonmci))
+        stat_file.write('\n')
+
+        num_Unknown_nonmci = nonmci_metadata_cohort[nonmci_metadata_cohort['canonical_race'] == 'Unknown'].shape[0]
+        perc_Unknown_nonmci =  num_Unknown_nonmci/nonmci_metadata_cohort.shape[0]   
+        stat_file.write('number of Unknown in controls:\n')
+        stat_file.write(str(num_Unknown_nonmci))
+        stat_file.write('\n')
+        stat_file.write('percentage of Unknown in controls:\n')
+        stat_file.write(str(perc_Unknown_nonmci))
+        stat_file.write('\n')
+
+        num_Pacific_Islander_nonmci = nonmci_metadata_cohort[nonmci_metadata_cohort['canonical_race'] == 'Pacific Islander'].shape[0]
+        perc_Pacific_Islander_nonmci =  num_Pacific_Islander_nonmci/nonmci_metadata_cohort.shape[0]   
+        stat_file.write('number of Pacific Islander in controls:\n')
+        stat_file.write(str(num_Pacific_Islander_nonmci))
+        stat_file.write('\n')
+        stat_file.write('percentage of Pacific Islander in controls:\n')
+        stat_file.write(str(perc_Pacific_Islander_nonmci))
+        stat_file.write('\n')
+
+        num_Native_American_nonmci = nonmci_metadata_cohort[nonmci_metadata_cohort['canonical_race'] == 'Native American'].shape[0]
+        perc_Native_American_nonmci =  num_Native_American_nonmci/nonmci_metadata_cohort.shape[0]   
+        stat_file.write('number of Native American in controls:\n')
+        stat_file.write(str(num_Native_American_nonmci))
+        stat_file.write('\n')
+        stat_file.write('percentage of Native American in controls:\n')
+        stat_file.write(str(perc_Native_American_nonmci))
+        stat_file.write('\n')
+
+        # pdb.set_trace()
+        # Stats on important features
+        feature_ranking = pd.read_csv(feature_ranking_path, names=['Feature', 'Score']).sort_values(by='Score', ascending=False)
+        feature_ranking['Feature'] = feature_ranking['Feature'].str.strip()
+        feature_ranking = feature_ranking[~feature_ranking['Feature'].isin(['age from bdate to 2022','race','sex'])]
+
+        for i in range(30):
+            important_feature = feature_ranking['Feature'].iloc[i]
+            num_mcipatients = sum(data_all_pos[important_feature] > 0)
+            perc_mcipatients = num_mcipatients/(data_all_pos.shape[0])
+            
+            num_nonmcipatients = sum(data_all_neg[important_feature] > 0)
+            perc_nonmcipatients = num_nonmcipatients/(data_all_neg.shape[0])
+
+            stat_file.write('Feature number '+str(i)+':\n')
+            stat_file.write(important_feature)
+            stat_file.write('\n')
+            stat_file.write('Number of patients in cases:\n')
+            stat_file.write(str(num_mcipatients))
+            stat_file.write('\n')
+            stat_file.write('Percentage of patients in cases:\n')
+            stat_file.write(str(perc_mcipatients))
+            stat_file.write('\n')
+            stat_file.write('Number of patients in controls:\n')
+            stat_file.write(str(num_nonmcipatients))
+            stat_file.write('\n')
+            stat_file.write('Percentage of patients in controls:\n')
+            stat_file.write(str(perc_nonmcipatients))
+            stat_file.write('\n')        
+        pdb.set_trace()
+        print('Test')
+

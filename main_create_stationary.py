@@ -24,12 +24,12 @@ parser.add_argument("--logging_milestone", type=int, default=1000)
 
 
 parser.add_argument("--cohort", type=str, default='mci', choices = ['mci', 'nonmci'])    
-parser.add_argument("--top_n_med", type=int, default=10)    
-parser.add_argument("--top_n_proc", type=int, default=10)    
-parser.add_argument("--top_n_icd10", type=int, default=10)    
+parser.add_argument("--top_n_med", type=int, default=100)    
+parser.add_argument("--top_n_proc", type=int, default=100)    
+parser.add_argument("--top_n_icd10", type=int, default=100)    
 parser.add_argument("--top_n_icd9", type=int, default=0)    
 
-parser.add_argument("--prediction_window_size", type=int, default=6)    
+parser.add_argument("--prediction_window_size", type=int, default=12)    
 
 
 parser.add_argument("--mci_diagnosis_file_path", type=str, default='intermediate_files/diagnosis_codes_mci.csv')    

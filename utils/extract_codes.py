@@ -323,7 +323,8 @@ def extract_procedure(client_name
                 if line_counter%display_step==0:
                     print('Finished processing {} diagnoses records out of {} records.'.format(line_counter,total_num_records))                
 
-            # pdb.set_trace()
+            # if current_id_proc== 'JC29fcdc5':
+            #     pdb.set_trace()
             # print(line_counter)
             current_patient_proc_pd = pd.DataFrame(np.array(current_patient_proc), columns= field_names)
             procedure_data_grouped = current_patient_proc_pd.groupby(by=proc_time_field_name)

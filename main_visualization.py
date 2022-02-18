@@ -21,11 +21,13 @@ parser.add_argument("--plot_shaps_from_saved_model", type=int, default=0, choice
 parser.add_argument("--trained_model_path", type=str, default="saved_classical_ml_models/rf_model.pkl")    
 
 
-parser.add_argument("--prevalance_plot", type=str, default="none", choices = ["age", "none"])    
+parser.add_argument("--compute_table_1", type=int, default=0, choices = [0, 1])    
 
 
 parser.add_argument("--train_stationary_filename", type=str, default="stationary_data/stationary_data_imbratio1_normalized_train.csv")    
 parser.add_argument("--test_stationary_filename", type=str, default="stationary_data/stationary_data_imbratio1_normalized_test.csv")    
+parser.add_argument("--feature_ranking_path", type=str, default="saved_classical_ml_models/feature_impoerance_rf.csv")    
+
 parser.add_argument("--mci_metadata", type=str, default="intermediate_files/mci_metadata.csv")  
 parser.add_argument("--nonmci_metadata", type=str, default="intermediate_files/nonmci_metadata.csv")    
 
@@ -54,17 +56,18 @@ elif parser.parse_args().viz_method == "none":
 
 
 
-if parser.parse_args().prevalance_plot == "age":
+if parser.parse_args().compute_table_1 == 1:
     args = parser.parse_args()
-    vis_tools.plot_prevalance(args.train_stationary_filename 
+    vis_tools.compute_table_stats(args.train_stationary_filename 
                                 , args.test_stationary_filename     
                                 , args.features_to_show
                                 , args.mci_metadata     
                                 , args.nonmci_metadata                                
+                                , args.feature_ranking_path                                
                                 )
   
-elif parser.parse_args().prevalance_plot == "none":
-    print("Warning: no prevalance_plot method has been selected.")
+elif parser.parse_args().compute_table_1 == 0:
+    print("Warning: no compute_table_1 method has been selected.")
 
 
 
@@ -77,3 +80,5 @@ if parser.parse_args().plot_shaps_from_saved_model == 1:
         )
 else:
     print('Warning: you have chosen not to perform SHAP plots.')      
+
+
