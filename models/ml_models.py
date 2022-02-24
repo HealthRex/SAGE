@@ -19,20 +19,11 @@ import matplotlib.pyplot as plt
 # import shap
 # import xgboost as xgb
 
-def read_stationary_data(train_data_path
-                        , validation_data_path
-                        , test_data_path):
-    train_data_stationary = pd.read_csv(train_data_path)
-    validation_data_stationary = pd.read_csv(validation_data_path)
-    test_data_stationary = pd.read_csv(test_data_path)
-
-    return train_data_stationary, validation_data_stationary, test_data_stationary
 
 def performance_evaluation(rf_predictions
                         , test_data_for_eval
                         , best_model):
 
-    # pdb.set_trace()
     labels = test_data_for_eval['Label'].values
     rf_test_auc=roc_auc_score(test_data_for_eval['Label'], best_model.predict_proba(test_data_for_eval.drop(['Patient_ID', 'Label'], axis=1, inplace=False))[:,1])
     tp=0
@@ -85,7 +76,6 @@ def write_results(tn
                 , rf_test_auc
                 , model
                     ):
-    # pdb.set_trace()
     with open('results/classical_ml_models/'+model+'_prediction_performance.csv', 'w') as f_results:
         f_results.write("Precision is: ")
         f_results.write(str(precision))
@@ -132,9 +122,7 @@ def random_forest_model(train_data_path
                         ,path_to_features
                         ,top_n_features):
 
-    # pdb.set_trace()
-    # with open('results/classical_ml_models/rf_model.pkl', 'rb') as f:
-    #     clf2 = pickle.load(f)
+
     print('Reading the data:')
     print(train_data_path)
     print(test_data_path)
@@ -147,11 +135,12 @@ def random_forest_model(train_data_path
     train_data = train_data[selected_features]
     test_data = test_data[selected_features]
 
-    fig = feature_ranking.nlargest(top_n_features, columns='Score').plot(kind='barh', grid=True,figsize=(12,10))
-    fig.set_xlabel("Importance Score")
-    fig.set_ylabel("Features")
-    fig.get_figure().savefig("results/visualization_results/feature_importance_rf.png", dpi=300)
-    # fig.close()
+    
+    ax= feature_ranking.iloc[:top_n_features,:].plot.bar(x='Feature',y='Score')
+    ax.get_figure().savefig("results/visualization_results/feature_importance_rf.png", dpi=300)
+
+
+
     print('Finished reading data...')
     # Number of trees in random forest
     n_estimators = [int(x) for x in np.linspace(start = 200, stop = 2000, num = 10)]
@@ -186,20 +175,11 @@ def random_forest_model(train_data_path
         writer = csv.writer(csv_file)
         for key, value in hyperparameters.items():
            writer.writerow([key, value])
-    # pdb.set_trace()  
     train_data_shuffled = train_data.sample(frac=1).reset_index(drop=True)  
     test_data_shuffled = test_data.sample(frac=1).reset_index(drop=True)  
-    # training_all_shuffled = training_all.sample(frac=1)
-    # test_data_shuffled = test_data.sample(frac=1)
-    # training_all_shuffled = shuffle(training_all, random_state=123)
-    # test_data_shuffled = shuffle(test_data, random_state=123)
-    
-    # saving patinets IDs
-    # pdb.set_trace()
-    
 
-    randomCV = RandomizedSearchCV(estimator=RandomForestClassifier(n_jobs=-1, warm_start=True, verbose=1), param_distributions=hyperparameters, n_iter=50, cv=5,scoring="roc_auc")
-    randomCV.fit(train_data.drop(['Patient_ID', 'Label'], axis=1, inplace=False), train_data['Label'])
+    randomCV = RandomizedSearchCV(estimator=RandomForestClassifier(n_jobs=-1, warm_start=True, verbose=1), param_distributions=hyperparameters, n_iter=2, cv=5,scoring="roc_auc")
+    randomCV.fit(train_data_shuffled.drop(['Patient_ID', 'Label'], axis=1, inplace=False), train_data_shuffled['Label'])
     # pdb.set_trace()
     # === Save models
     with open('saved_classical_ml_models/rf_model.pkl','wb') as f:
@@ -207,18 +187,12 @@ def random_forest_model(train_data_path
     
     (pd.DataFrame.from_dict(data=randomCV.best_params_, orient='index').to_csv('saved_classical_ml_models/best_params_rf.csv', header=False))
     best_rf_model= randomCV.best_estimator_
-    # feat_importances = pd.Series(randomCV.best_estimator_.feature_importances_, index=training_all.iloc[:,1:-1].columns)
-    # pdb.set_trace() 
-    # fig = feat_importances.nlargest(len(training_all.columns)-2).plot(kind='barh', grid=True,figsize=(12,10))
-    # fig.set_xlabel("Importance Score")
-    # fig.set_ylabel("Features")
-    # fig.get_figure().savefig("results/classical_ml_models/feature_importance.png", dpi=300)
 
-    rf_predictions = best_rf_model.predict(test_data.drop(['Patient_ID', 'Label'], axis=1, inplace=False))    
+    rf_predictions = best_rf_model.predict(test_data_shuffled.drop(['Patient_ID', 'Label'], axis=1, inplace=False))    
     np.savetxt('saved_classical_ml_models/predictions_rf.csv', rf_predictions, delimiter=',')
 
     tn, tp, fn, fp, accuracy, precision, recall, specificity, F1, rf_test_auc = performance_evaluation(rf_predictions
-                                                                            , test_data
+                                                                            , test_data_shuffled
                                                                             , best_rf_model
                                                                             )   
     write_results(tn, tp, fn, fp, 
@@ -226,36 +200,12 @@ def random_forest_model(train_data_path
                 , F1, rf_test_auc
                 , 'rf')
     # pdb.set_trace()
-    metrics.plot_roc_curve(best_rf_model, test_data.drop(['Patient_ID', 'Label'], axis=1, inplace=False), test_data['Label'], name='Random Forest') 
+    metrics.plot_roc_curve(best_rf_model, test_data_shuffled.drop(['Patient_ID', 'Label'], axis=1, inplace=False), test_data_shuffled['Label'], name='Random Forest') 
     plt.savefig('results/classical_ml_models/roc_curve_rf.png', dpi=300)
     plt.close()
-    # print('Computing shap values....')
-    # explainer = shap.Explainer(best_rf_model)
-    # shap_values = explainer(training_all_shuffled.iloc[:,1:-1])
-    # print('Finished computing shap values....')
-    # pdb.set_trace()
-    # print('Plotting waterfall')
-    # shap.plots.waterfall(shap_values[0])
-    # plt.savefig('results/classical_ml_models/waterfall_rf.png', dpi=600)
-    # plt.close()    
 
-    # print('Plotting beeswarm')
-    # shap.plots.beeswarm(shap_values)
-    # plt.savefig('results/classical_ml_models/beeswarm_rf.png', dpi=600)
-    # plt.close()
-
-    # print('Saving shap values in a pickle')
-    # with open('results/classical_ml_models/shap_values_rf.pkl','wb') as f:
-    #     pickle.dump(shap_values,f)    
-
-    # print('Plotting abs of shap values in a bar diagram')
-    # shap.plots.bar(shap_values)
-    
-    # pdb.set_trace()
-    # print('End')
 
 def rf_feature_selection(train_data_path):
-    # pdb.set_trace()
     train_data = pd.read_csv(train_data_path)
     
     # Number of trees in random forest
@@ -291,11 +241,10 @@ def rf_feature_selection(train_data_path):
         writer = csv.writer(csv_file)
         for key, value in hyperparameters.items():
            writer.writerow([key, value])
-    # pdb.set_trace()  
     train_data_shuffled = train_data.sample(frac=1).reset_index(drop=True)      
 
-    randomCV = RandomizedSearchCV(estimator=RandomForestClassifier(n_jobs=-1, warm_start=True, verbose=1), param_distributions=hyperparameters, n_iter=50, cv=5,scoring="roc_auc")
-    randomCV.fit(train_data.drop(['Patient_ID', 'Label'], axis=1, inplace=False), train_data['Label'])
+    randomCV = RandomizedSearchCV(estimator=RandomForestClassifier(n_jobs=-1, warm_start=True, verbose=1), param_distributions=hyperparameters, n_iter=2, cv=5,scoring="roc_auc")
+    randomCV.fit(train_data_shuffled.drop(['Patient_ID', 'Label'], axis=1, inplace=False), train_data_shuffled['Label'])
     # pdb.set_trace()
     # === Save models
     with open('saved_classical_ml_models/rf_model_forFS.pkl','wb') as f:
@@ -304,7 +253,7 @@ def rf_feature_selection(train_data_path):
     (pd.DataFrame.from_dict(data=randomCV.best_params_, orient='index').to_csv('saved_classical_ml_models/best_params_rf_forFS.csv', header=False))
     best_rf_model= randomCV.best_estimator_
     
-    feat_importances = pd.Series(randomCV.best_estimator_.feature_importances_, index=train_data.drop(['Patient_ID', 'Label'], axis=1, inplace=False).columns)
+    feat_importances = pd.Series(randomCV.best_estimator_.feature_importances_, index=train_data_shuffled.drop(['Patient_ID', 'Label'], axis=1, inplace=False).columns)
     feat_importances.to_csv('saved_classical_ml_models/feature_impoerance_rf.csv')
     
     return 'saved_classical_ml_models/feature_impoerance_rf.csv'

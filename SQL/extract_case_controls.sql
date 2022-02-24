@@ -1,3 +1,29 @@
+I used this code to extract random controls:
+SELECT * 
+FROM `mining-clinical-decisions.proj_sage_sf.nonmci_all_cohort`  
+ORDER BY RAND() 
+LIMIT 150000
+
+SELECT DG.*
+FROM `mining-clinical-decisions.proj_sage_sf.nonmci_all_cohort_sampled2` N
+INNER JOIN `mining-clinical-decisions.shc_core.diagnosis_code` DG
+ON N.anon_id = DG.anon_id
+
+SELECT *
+FROM `mining-clinical-decisions.proj_sage_sf.nonmci_all_cohort_sampled2` N
+INNER JOIN `mining-clinical-decisions.shc_core.order_med` M
+ON N.anon_id = M.anon_id
+
+SELECT *
+FROM `mining-clinical-decisions.proj_sage_sf.nonmci_all_cohort_sampled2` N
+INNER JOIN `mining-clinical-decisions.shc_core.order_proc` P
+ON N.anon_id = P.anon_id
+
+SELECT *
+FROM `mining-clinical-decisions.proj_sage_sf.nonmci_all_cohort_sampled2` N
+LEFT JOIN `mining-clinical-decisions.shc_core.demographic` DM
+ON N.anon_id = DM.anon_id
+
 /*
 WITH
     SP AS

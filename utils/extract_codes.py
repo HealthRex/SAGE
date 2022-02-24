@@ -12,9 +12,8 @@ import csv
 
 def extract_diagnosis(client_name
                     , query_diag
-                    , unique_icd10_query
-                    , unique_icd9_query
                     , icd_to_ccs_table_query
+                    , icd9_to_icd10_query
                     , cohort
                     , icd10_field_name
                     , icd9_field_name   
@@ -33,38 +32,23 @@ def extract_diagnosis(client_name
     num_fields = len(cursor.description)
     field_names = [i[0] for i in cursor.description]
 
-    # # ==== Read icd to ccs map
-    # icd_to_ccs_table = pd.read_sql_query(icd_to_ccs_table_query, conn); 
+    # ==== Read icd to ccs map
+    icd_to_ccs_table = pd.read_sql_query(icd_to_ccs_table_query, conn); 
+    icd_to_ccs_table['ICD10'] = icd_to_ccs_table['ICD10'].str.strip()
+    icd_to_ccs_table['ICD10_string'] = icd_to_ccs_table['ICD10_string'].str.strip()
+    icd_to_ccs_table['CCSR_CATEGORY_1'] = icd_to_ccs_table['CCSR_CATEGORY_1'].str.strip()
 
-    # ==== Reading unique ICD 10 and 9 codes
-    cursor.execute(unique_icd10_query);    
-    results_unique_icd10s = cursor.fetchall();
-    unique_icd10s = [item[0] for item in results_unique_icd10s]
-    unique_icd10s_dict = {}
-    for i in range(len(unique_icd10s)):
-        if unique_icd10s[i] not in unique_icd10s_dict:
-            unique_icd10s_dict[unique_icd10s[i]] = 0
-    
-    cursor.execute(unique_icd9_query);    
-    results_unique_icd9s = cursor.fetchall();
-    unique_icd9s = [item[0] for item in results_unique_icd9s]
-    unique_icd9s_dict = {}
-    for i in range(len(unique_icd9s)):
-        if unique_icd9s[i] not in unique_icd9s_dict:
-            unique_icd9s_dict[unique_icd9s[i]] = 0
+    # ==== Read icd9 to icd10 table
+    icd9_to_icd10 = pd.read_sql_query(icd9_to_icd10_query, conn); 
+    icd9_to_icd10['icd9_string'] = icd9_to_icd10['icd9_string'].str.strip()
+    icd9_to_icd10['icd10_string'] = icd9_to_icd10['icd10_string'].str.strip()
 
-    # pdb.set_trace()
-    
-
-    # for row in results:
-    #     print( row );    
-
-    # diagnosis_data = pd.read_sql_query(query_diag, conn);        
-
-
-
-
-    #=== Reading first line of diagnoses 
+    # ==== Reading unique CCS codes
+    unique_ccs_codes = icd_to_ccs_table['CCSR_CATEGORY_1'].unique()
+    unique_ccs_dict = {}
+    for i in range(len(unique_ccs_codes)):
+        if unique_ccs_codes[i] not in unique_ccs_dict:
+            unique_ccs_dict[unique_ccs_codes[i]] = 0
 
     with open('intermediate_files/diagnosis_codes_'+cohort+'.csv', 'w') as diag_file:
         diag_file.write('patient id, timestamp, icd10 and icd9 codes, end of visit token\n')
@@ -100,63 +84,59 @@ def extract_diagnosis(client_name
             
             # if current_id_diag == 'JCcb67b1':
             # pdb.set_trace()
-            current_patient_all_icd_10s = []
-            current_patient_all_icd_9s = []
+            current_patient_all_ccs = []
             for timestamp, group in diagnosis_data_grouped:
                 diag_file.write(',')
                 diag_file.write(str(timestamp))                
                 diag_file.write(',')
                 
-                current_icd10s = ['ICD10_'+x for x in group.loc[group[icd10_field_name].notna()][icd10_field_name].values.tolist()]
-                current_icd10s = list(set(current_icd10s))
-                if current_icd10s:
-                    diag_file.write(','.join(current_icd10s))
+                current_icd10s = [x for x in group.loc[group[icd10_field_name].notna()][icd10_field_name].values.tolist()]                
+                current_icd10s = [x.strip() for x in current_icd10s]
+                current_icd10s_strings = [x.replace('.','') for x in current_icd10s]
+                current_icd_to_ccs = icd_to_ccs_table[icd_to_ccs_table['ICD10'].isin(current_icd10s) | icd_to_ccs_table['ICD10_string'].isin(current_icd10s_strings)]
+                current_ccs_codes_icd10 = current_icd_to_ccs['CCSR_CATEGORY_1'].unique().tolist()
+                current_ccs_codes_icd10 = list(set(current_ccs_codes_icd10))
+
+                current_icd9s = [x for x in group.loc[group[icd9_field_name].notna() & group[icd10_field_name].isna()][icd9_field_name].values.tolist()]    
+                current_icd9s = [x.strip() for x in current_icd9s]
+                current_icd9s_strings = [x.replace('.','') for x in current_icd9s]
+                current_icd9_to_icd10 = icd9_to_icd10[icd9_to_icd10['icd9_string'].isin(current_icd9s_strings)]
+                current_icd9_ccs = icd_to_ccs_table[icd_to_ccs_table['ICD10_string'].isin(current_icd9_to_icd10['icd10_string'].values.tolist()) ]
+                current_ccs_codes_icd9 = current_icd9_ccs['CCSR_CATEGORY_1'].unique().tolist()
+                current_ccs_codes_icd9 = list(set(current_ccs_codes_icd9))
+                
+                current_ccs_codes_all = current_ccs_codes_icd9 + current_ccs_codes_icd10
+                current_ccs_codes_all = list(set(current_ccs_codes_all))
+                if current_ccs_codes_all:   
+                    # pdb.set_trace()                   
+                    diag_file.write(','.join(current_ccs_codes_all))
                     diag_file.write(',')
-                    current_patient_all_icd_10s.extend(current_icd10s)
- 
-                current_icd9s = ['ICD9_'+x for x in group.loc[group[icd9_field_name].notna() & group[icd10_field_name].isna()][icd9_field_name].values.tolist()]    
-                current_icd9s = list(set(current_icd9s))
-                if current_icd9s:                      
-                    diag_file.write(','.join(current_icd9s))
-                    diag_file.write(',')
-                    current_patient_all_icd_9s.extend(current_icd9s)
+                    current_patient_all_ccs.extend(current_ccs_codes_all)
 
                 diag_file.write('EOV')
             # pdb.set_trace()
             diag_file.write('\n')
             
             # Computing stats for ICD codes
-            current_patient_all_icd_10s = list(set(current_patient_all_icd_10s))
-            for icd_idx in range(len(current_patient_all_icd_10s)):
-                if current_patient_all_icd_10s[icd_idx][6:] in unique_icd10s_dict:
-                    unique_icd10s_dict[current_patient_all_icd_10s[icd_idx][6:]] +=1
+            current_patient_all_ccs = list(set(current_patient_all_ccs))
+            for icd_idx in range(len(current_patient_all_ccs)):
+                if current_patient_all_ccs[icd_idx] in unique_ccs_dict:
+                    unique_ccs_dict[current_patient_all_ccs[icd_idx]] +=1
                 else:
                     pdb.set_trace()
                     print('ICD does not exists')
-            
-            current_patient_all_icd_9s = list(set(current_patient_all_icd_9s))
-            for icd_idx in range(len(current_patient_all_icd_9s)):
-                if current_patient_all_icd_9s[icd_idx][5:] in unique_icd9s_dict:
-                    unique_icd9s_dict[current_patient_all_icd_9s[icd_idx][5:]] +=1
-                else:
-                    pdb.set_trace()
-                    print('ICD does not exists')
-
+            # pdb.set_trace()
             patient_num += 1
             # if patient_num%logging_milestone==0:
             #     logging.info('Completed extracting and writing the diagnoses stream for {} patient with ENROLID = {}.'.format(cohort, current_id_diag))
     # pdb.set_trace()
     print('Finished processing all {} of diagnoses records for the cohort in {}'.format(total_num_records, (time.time() - proc_start_time)))            
-    with open('intermediate_files/icd10_frequencies_'+cohort+'.csv', 'w') as csv_file:  
+    with open('intermediate_files/ccs_frequencies_'+cohort+'.csv', 'w') as csv_file:  
         csv_file.write('Code, num patient\n')
         writer = csv.writer(csv_file)
-        for key, value in unique_icd10s_dict.items():
+        for key, value in unique_ccs_dict.items():
            writer.writerow([key, value])    
-    with open('intermediate_files/icd9_frequencies_'+cohort+'.csv', 'w') as csv_file:  
-        csv_file.write('Code, num patient\n')
-        writer = csv.writer(csv_file)
-        for key, value in unique_icd9s_dict.items():
-           writer.writerow([key, value])        
+       
     # logging.info('Finished processing all {} of diagnoses records for the {} cohort in {}'.format(total_num_records, cohort, (time.time() - start_time)))            
     # logging.info('================================')    
     # return 0      
@@ -186,17 +166,18 @@ def extract_medication(client_name
 
 
     # ==== Reading unique medication codes
+
     cursor.execute(unique_medication_id_query);    
-    results_unique_medication_id = cursor.fetchall();
-    unique_medication_id = [item[0] for item in results_unique_medication_id]
-    unique_medication_id_dict = {}
-    for i in range(len(unique_medication_id)):
-        if unique_medication_id[i] not in unique_medication_id_dict:
-            unique_medication_id_dict[unique_medication_id[i]] = 0
+    results_unique_pharm_class = cursor.fetchall();
+    unique_pharm_class = [item[0] for item in results_unique_pharm_class]
+    unique_pharm_class_dict = {}
+    for i in range(len(unique_pharm_class)):
+        if unique_pharm_class[i] not in unique_pharm_class_dict:
+            unique_pharm_class_dict[unique_pharm_class[i]] = 0
 
 
     with open('intermediate_files/medication_codes_'+cohort+'.csv', 'w') as med_file:
-        med_file.write('patient id, order_time_jittered, medication_id, end of visit token\n')
+        med_file.write('patient id, order_time_jittered, pharm_class, end of visit token\n')
         #==== While not end of the diagnoses file
         line_counter = 0
         patient_num = 0
@@ -228,7 +209,7 @@ def extract_medication(client_name
             med_file.write(current_id_med)
             
             # pdb.set_trace()
-            current_patient_all_medication_id = []
+            current_patient_all_pharm_class = []
             for timestamp, group in medication_data_grouped:
                 med_file.write(',')
                 med_file.write(str(timestamp))                
@@ -239,15 +220,15 @@ def extract_medication(client_name
                 if current_med_ids:
                     med_file.write(','.join([str(x) for x in current_med_ids]))
                     med_file.write(',')
-                    current_patient_all_medication_id.extend(current_med_ids)
+                    current_patient_all_pharm_class.extend(current_med_ids)
                 med_file.write('EOV')
             med_file.write('\n')
-
+            # pdb.set_trace()
             # Computing stats for medication codes
-            current_patient_all_medication_id = list(set(current_patient_all_medication_id))
-            for medication_id_idx in range(len(current_patient_all_medication_id)):
-                if current_patient_all_medication_id[medication_id_idx] in unique_medication_id_dict:
-                    unique_medication_id_dict[current_patient_all_medication_id[medication_id_idx]] +=1
+            current_patient_all_pharm_class = list(set(current_patient_all_pharm_class))
+            for pharm_class_idx in range(len(current_patient_all_pharm_class)):
+                if current_patient_all_pharm_class[pharm_class_idx] in unique_pharm_class_dict:
+                    unique_pharm_class_dict[current_patient_all_pharm_class[pharm_class_idx]] +=1
                 else:
                     pdb.set_trace()
                     print('ICD does not exists')
@@ -256,10 +237,10 @@ def extract_medication(client_name
             # if patient_num%logging_milestone==0:
             #     logging.info('Completed extracting and writing the diagnoses stream for {} patient with ENROLID = {}.'.format(cohort, current_id_diag))
     print('Finished processing all {} of medication records for the cohort in {}'.format(total_num_records, (time.time() - proc_start_time)))            
-    with open('intermediate_files/medication_id_frequencies_'+cohort+'.csv', 'w') as csv_file:  
+    with open('intermediate_files/pharm_class_frequencies_'+cohort+'.csv', 'w') as csv_file:  
         csv_file.write('Code, num patient\n')
         writer = csv.writer(csv_file)
-        for key, value in unique_medication_id_dict.items():
+        for key, value in unique_pharm_class_dict.items():
            writer.writerow([key, value])    
         # logging.info('Finished processing all {} of diagnoses records for the {} cohort in {}'.format(total_num_records, cohort, (time.time() - start_time)))            
         # logging.info('================================')    

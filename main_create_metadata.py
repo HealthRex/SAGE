@@ -28,6 +28,6 @@ elif  args.cohort_name == "nonmci":
 	time_field_name = 'start_date_utc'
 	# query_diag = "select * from `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology_nonmci_diagnosis` A ORDER BY A.anon_id"
 	# query_demog = "select * from `mining-clinical-decisions.proj_sage_sf.all_new_patients_in_neurology_nonmci_demographic` "
-	query_diag = "select * from `mining-clinical-decisions.proj_sage_sf.nonmci_all_cohort_sampled_diagnosis` A "
-	query_demog = "select * from `mining-clinical-decisions.proj_sage_sf.nonmci_all_cohort_sampled_demographic` "	
+	query_diag = "select * from `mining-clinical-decisions.proj_sage_sf.nonmci_all_cohort_sampled2_diagnosis` A "
+	query_demog = "select * from `mining-clinical-decisions.proj_sage_sf.nonmci_all_cohort_sampled2_demographic` "	
 	comp_pt_nums.compute_paients_numbers(args.cohort_name, client_name, patient_id, time_field_name, query_diag,query_demog, args.followup_window_size)
