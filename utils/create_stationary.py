@@ -17,7 +17,6 @@ def blind_data(patient_id
 				, line_proc_splited
 				, current_patient_demog
 				, prediction_window_size):
-	# pdb.set_trace()
 	line_meds_blinded = []
 	line_diags_blinded = []
 	line_procs_blinded = []
@@ -41,33 +40,27 @@ def blind_data(patient_id
 		idx_date = datetime.strptime(current_patient_demog['index_date_OR_diag_date'].values[0][:10],'%Y-%m-%d')
 	else:
 		idx_date = last_record_date + relativedelta(months= -prediction_window_size)
-		
+	# pdb.set_trace()	
 	for i in range(len(line_med_splited)):
-		current_date = datetime.strptime(line_med_splited[i][0][:10], '%Y-%m-%d') 
-		current_date_to_idx_date =  (idx_date.year - current_date.year) * 12 + idx_date.month - current_date.month 
-		if current_date_to_idx_date >= prediction_window_size:
+		current_date = datetime.strptime(line_med_splited[i][0][:10], '%Y-%m-%d') 		
+		current_date_to_idx_date = (idx_date-current_date).days
+		# current_date_to_idx_date =  (idx_date.year - current_date.year) * 12 + idx_date.month - current_date.month 
+		if current_date_to_idx_date >= (prediction_window_size*30):
 			line_meds_blinded.append(line_med_splited[i])
-
-	# if patient_id == 'JCe45608':
-	# pdb.set_trace()
-
+	# pdb.set_trace()		
 	for i in range(len(line_diag_splited)):
 		current_date = datetime.strptime(line_diag_splited[i][0][:10], '%Y-%m-%d') 
-		current_date_to_idx_date =  (idx_date.year - current_date.year) * 12 + idx_date.month - current_date.month 
-		if current_date_to_idx_date >= prediction_window_size:
+		current_date_to_idx_date = (idx_date-current_date).days
+		# current_date_to_idx_date =  (idx_date.year - current_date.year) * 12 + idx_date.month - current_date.month 
+		if current_date_to_idx_date >= (prediction_window_size*30):
 			line_diags_blinded.append(line_diag_splited[i])
-
-	# if patient_id == 'JCe45608':
-	# pdb.set_trace()
-
+	# pdb.set_trace()		
 	for i in range(len(line_proc_splited)):
 		current_date = datetime.strptime(line_proc_splited[i][0][:10], '%Y-%m-%d') 
-		current_date_to_idx_date =  (idx_date.year - current_date.year) * 12 + idx_date.month - current_date.month 
-		if current_date_to_idx_date >= prediction_window_size:
+		current_date_to_idx_date = (idx_date-current_date).days
+		# current_date_to_idx_date =  (idx_date.year - current_date.year) * 12 + idx_date.month - current_date.month 
+		if current_date_to_idx_date >= (prediction_window_size*30):
 			line_procs_blinded.append(line_proc_splited[i])
-
-	# if patient_id == 'JCe45608':
-	# pdb.set_trace()
 
 	return line_meds_blinded, line_diags_blinded, line_procs_blinded	
 
@@ -126,8 +119,6 @@ def create_stationary_ccs(patient_id, line_diag_splited, frequent_ccs_dict):
 				continue  
 				print('test') 
 	# pdb.set_trace()
-	# if patient_id == 'JC29fcdc5':# and line_diag_splited[i][j][6:]=='R13.10':
-	# 	pdb.set_trace()	
 	frequent_ccs_dict_sorted = dict(collections.OrderedDict(sorted(frequent_ccs_dict.items())))    
 	num_records = len(line_diag_splited)
 	if (num_records > 1):
@@ -197,6 +188,7 @@ def create_stationary(diagnosis_file_path
 					, prediction_window_size
 					, cohort	
 					, logging_milestone		
+					, recommender
 					):
 	# pdb.set_trace()
 	print('Reading demographic data ...')
@@ -243,7 +235,7 @@ def create_stationary(diagnosis_file_path
 
 
 	# pdb.set_trace()
-	with open(diagnosis_file_path) as diag_file, open(medication_file_path) as med_file, open(procedure_file_path) as proc_file, open('stationary_data/stationary_dataset_'+cohort+'.csv', 'w') as stationary_file, open('intermediate_files/elig_patients_'+cohort+'.csv', 'w') as elig_patients_file, open('intermediate_files/unelig_patients_'+cohort+'.csv', 'w') as unelig_patients_file:
+	with open(diagnosis_file_path) as diag_file, open(medication_file_path) as med_file, open(procedure_file_path) as proc_file, open('stationary_data/'+recommender+'stationary_dataset_'+cohort+'.csv', 'w') as stationary_file, open('intermediate_files/'+recommender+'elig_patients_'+cohort+'.csv', 'w') as elig_patients_file, open('intermediate_files/'+recommender+'unelig_patients_'+cohort+'.csv', 'w') as unelig_patients_file:
 		header_diag = next(diag_file)
 		header_med = next(med_file)
 		header_proc = next(proc_file)

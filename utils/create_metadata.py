@@ -24,10 +24,15 @@ def compute_paients_numbers(cohort_name, client_name, patient_id , time_field_na
     metadata_columns=[patient_id, 'num_records', 'first_record_date', 'index_date_OR_diag_date', 'last_record_date', 'sex', 'bdate', 'canonical_race', 'MCI_label']
     metadata_list = []
     print('Extracting demographics and labeling the cohort ...')
+    patient_counter= 0
+    num_patients = len(diagnosis_data_grouped)
     for id,group in diagnosis_data_grouped:
         # if id=='JC2a00006':
         #     pdb.set_trace()
-        current_demog = demographic_data[demographic_data[patient_id]==id]
+        patient_counter += 1
+        if patient_counter % 10000 ==0:
+            print('Finished processing {} patients out of {}'.format(patient_counter, num_patients))
+        current_demog = demographic_data[demographic_data['ANON_ID']==id]
         group = group.sort_values(by=time_field_name,ascending=True)    
         num_records = len(group)
         first_record_date = group[time_field_name].iloc[0]

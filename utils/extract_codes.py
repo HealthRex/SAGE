@@ -33,16 +33,41 @@ def extract_diagnosis(client_name
     field_names = [i[0] for i in cursor.description]
 
     # ==== Read icd to ccs map
+    # pdb.set_trace()
     icd_to_ccs_table = pd.read_sql_query(icd_to_ccs_table_query, conn); 
     icd_to_ccs_table['ICD10'] = icd_to_ccs_table['ICD10'].str.strip()
     icd_to_ccs_table['ICD10_string'] = icd_to_ccs_table['ICD10_string'].str.strip()
     icd_to_ccs_table['CCSR_CATEGORY_1'] = icd_to_ccs_table['CCSR_CATEGORY_1'].str.strip()
 
+    icd10_to_ccs_table_dict = {}   
+    for i in range(len(icd_to_ccs_table)):
+        if icd_to_ccs_table['ICD10'].iloc[i] not in icd10_to_ccs_table_dict:
+            icd10_to_ccs_table_dict[icd_to_ccs_table['ICD10'].iloc[i]] = icd_to_ccs_table['CCSR_CATEGORY_1'].iloc[i]
+        else:
+            pdb.set_trace()    
+    
+    icd_string_to_ccs_table_dict = {}   
+    for i in range(len(icd_to_ccs_table)):
+        if icd_to_ccs_table['ICD10_string'].iloc[i] not in icd_string_to_ccs_table_dict:
+            icd_string_to_ccs_table_dict[icd_to_ccs_table['ICD10_string'].iloc[i]] = icd_to_ccs_table['CCSR_CATEGORY_1'].iloc[i]
+        else:
+            pdb.set_trace()    
+    
+
+    # pdb.set_trace()
     # ==== Read icd9 to icd10 table
     icd9_to_icd10 = pd.read_sql_query(icd9_to_icd10_query, conn); 
     icd9_to_icd10['icd9_string'] = icd9_to_icd10['icd9_string'].str.strip()
     icd9_to_icd10['icd10_string'] = icd9_to_icd10['icd10_string'].str.strip()
 
+    icd9_to_icd10_dict = {}   
+    for i in range(len(icd9_to_icd10)):
+        if icd9_to_icd10['icd9_string'].iloc[i] not in icd9_to_icd10_dict:
+            icd9_to_icd10_dict[icd9_to_icd10['icd9_string'].iloc[i]] = [icd9_to_icd10['icd10_string'].iloc[i]]
+        else:
+            # pdb.set_trace()  
+            icd9_to_icd10_dict[icd9_to_icd10['icd9_string'].iloc[i]].append(icd9_to_icd10['icd10_string'].iloc[i])
+                
     # ==== Reading unique CCS codes
     unique_ccs_codes = icd_to_ccs_table['CCSR_CATEGORY_1'].unique()
     unique_ccs_dict = {}
@@ -78,6 +103,9 @@ def extract_diagnosis(client_name
             # pdb.set_trace()
             # print(line_counter)
             current_patient_diags_pd = pd.DataFrame(np.array(current_patient_diags), columns= field_names)
+            current_patient_diags_pd[icd10_field_name] = current_patient_diags_pd[icd10_field_name].str.strip()
+            current_patient_diags_pd[icd9_field_name] = current_patient_diags_pd[icd9_field_name].str.strip()
+
             diagnosis_data_grouped = current_patient_diags_pd.groupby(by=diag_time_field_name)
             # current_patient_diags_ar = np.array(current_patient_diags, dtype='U')       
             diag_file.write(current_id_diag)
@@ -91,19 +119,31 @@ def extract_diagnosis(client_name
                 diag_file.write(',')
                 
                 current_icd10s = [x for x in group.loc[group[icd10_field_name].notna()][icd10_field_name].values.tolist()]                
-                current_icd10s = [x.strip() for x in current_icd10s]
+                # current_icd10s = [x.strip() for x in current_icd10s]
                 current_icd10s_strings = [x.replace('.','') for x in current_icd10s]
-                current_icd_to_ccs = icd_to_ccs_table[icd_to_ccs_table['ICD10'].isin(current_icd10s) | icd_to_ccs_table['ICD10_string'].isin(current_icd10s_strings)]
-                current_ccs_codes_icd10 = current_icd_to_ccs['CCSR_CATEGORY_1'].unique().tolist()
-                current_ccs_codes_icd10 = list(set(current_ccs_codes_icd10))
-
+                
+                temp1_ccs=[icd10_to_ccs_table_dict[x] for x in current_icd10s if x in icd10_to_ccs_table_dict]                
+                temp2_ccs=[icd_string_to_ccs_table_dict[x] for x in current_icd10s_strings if x in icd_string_to_ccs_table_dict]
+                current_ccs_codes_icd10 = temp1_ccs + temp2_ccs
+                # pdb.set_trace()
+                # current_icd_to_ccs = icd_to_ccs_table[icd_to_ccs_table['ICD10'].isin(current_icd10s) | icd_to_ccs_table['ICD10_string'].isin(current_icd10s_strings)]
+                # current_ccs_codes_icd10 = current_icd_to_ccs['CCSR_CATEGORY_1'].unique().tolist()
+                # current_ccs_codes_icd10 = list(set(current_ccs_codes_icd10))
+                
+                # pdb.set_trace()
                 current_icd9s = [x for x in group.loc[group[icd9_field_name].notna() & group[icd10_field_name].isna()][icd9_field_name].values.tolist()]    
-                current_icd9s = [x.strip() for x in current_icd9s]
+                # if current_icd9s:
+                #     pdb.set_trace()
+                # current_icd9s = [x.strip() for x in current_icd9s]
                 current_icd9s_strings = [x.replace('.','') for x in current_icd9s]
-                current_icd9_to_icd10 = icd9_to_icd10[icd9_to_icd10['icd9_string'].isin(current_icd9s_strings)]
-                current_icd9_ccs = icd_to_ccs_table[icd_to_ccs_table['ICD10_string'].isin(current_icd9_to_icd10['icd10_string'].values.tolist()) ]
-                current_ccs_codes_icd9 = current_icd9_ccs['CCSR_CATEGORY_1'].unique().tolist()
-                current_ccs_codes_icd9 = list(set(current_ccs_codes_icd9))
+                current_icd9_to_icd10 = [icd9_to_icd10_dict[x] for x in current_icd9s_strings if x in icd9_to_icd10_dict]
+                current_icd9_to_icd10 = [item for sublist in current_icd9_to_icd10 for item in sublist]
+                current_ccs_codes_icd9 = [icd_string_to_ccs_table_dict[x] for x in current_icd9_to_icd10 if x in icd_string_to_ccs_table_dict]
+
+                # current_icd9_to_icd10 = icd9_to_icd10[icd9_to_icd10['icd9_string'].isin(current_icd9s_strings)]
+                # current_icd9_ccs =  icd_to_ccs_table[icd_to_ccs_table['ICD10_string'].isin(current_icd9_to_icd10['icd10_string'].values.tolist()) ]
+                # current_ccs_codes_icd9 = current_icd9_ccs['CCSR_CATEGORY_1'].unique().tolist()
+                # current_ccs_codes_icd9 = list(set(current_ccs_codes_icd9))
                 
                 current_ccs_codes_all = current_ccs_codes_icd9 + current_ccs_codes_icd10
                 current_ccs_codes_all = list(set(current_ccs_codes_all))
@@ -252,42 +292,45 @@ def extract_medication(client_name
 def extract_procedure(client_name
                     , query_proc
                     , unique_proc_id_query
+                    , num_lines_query
                     , cohort
                     , proc_code_field_name
                     , proc_time_field_name
                     , proc_patient_id_field_name                     
                     , display_step):
-    # pdb.set_trace()
-    # end_of_proc_file = False
-    # execute medication query
+    
     proc_start_time = time.time()
     client = bigquery.Client(client_name); 
-    conn = dbapi.connect(client);
+    conn = dbapi.connect(client);    
     cursor = conn.cursor();
     cursor.execute(query_proc);    
-    results = cursor.fetchall();
+    #### results = cursor.fetchall();
     num_fields = len(cursor.description)
     field_names = [i[0] for i in cursor.description]
+    
 
     # ==== Reading unique procedure codes
-    cursor.execute(unique_proc_id_query);    
-    results_unique_proc_id = cursor.fetchall();
+    cursor_unique_procs = conn.cursor();
+    cursor_unique_procs.execute(unique_proc_id_query);    
+    results_unique_proc_id = cursor_unique_procs.fetchall();
     unique_proc_id = [item[0] for item in results_unique_proc_id]
     unique_proc_id_dict = {}
     for i in range(len(unique_proc_id)):
         if unique_proc_id[i] not in unique_proc_id_dict:
             unique_proc_id_dict[unique_proc_id[i]] = 0
 
-
+    # pdb.set_trace()
     with open('intermediate_files/procedure_codes_'+cohort+'.csv', 'w') as proc_file:
         proc_file.write('patient id, order_time_jittered_utc, proc_id, end of visit token\n')
         #==== While not end of the diagnoses file
         line_counter = 0
         patient_num = 0
-        total_num_records = len(results)
+        # total_num_records = len(results)
+        total_num_records = pd.read_sql_query(num_lines_query, conn).iloc[0,0]
 
-        line_proc = results[line_counter]
-        while line_counter < total_num_records:
+        line_proc = cursor.fetchone();
+        # line_proc = results[line_counter]
+        while line_counter < total_num_records:           
             if line_counter%display_step==0:
                 print('Finished processing {} procedure records out of {} records.'.format(line_counter,total_num_records))
             #==== Reading diagnoses visits for current patients           
@@ -296,17 +339,19 @@ def extract_procedure(client_name
             # pdb.set_trace()
             while current_id_proc == line_proc[proc_patient_id_field_name]:
                 current_patient_proc.append(line_proc)
-                line_counter+=1
+                line_counter+=1                
                 if line_counter >= total_num_records:
                     break
 
-                line_proc = results[line_counter]            
+                # line_proc = results[line_counter]   
+                line_proc = cursor.fetchone();  
+                if line_proc == None:
+                    pdb.set_trace()
+                    break       
                 if line_counter%display_step==0:
                     print('Finished processing {} diagnoses records out of {} records.'.format(line_counter,total_num_records))                
-
-            # if current_id_proc== 'JC29fcdc5':
-            #     pdb.set_trace()
-            # print(line_counter)
+            
+            # pdb.set_trace()
             current_patient_proc_pd = pd.DataFrame(np.array(current_patient_proc), columns= field_names)
             procedure_data_grouped = current_patient_proc_pd.groupby(by=proc_time_field_name)
             # current_patient_proc_ar = np.array(current_patient_proc, dtype='U')       

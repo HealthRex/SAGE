@@ -30,6 +30,8 @@ parser.add_argument("--top_n_ccs", type=int, default=100)
 
 parser.add_argument("--prediction_window_size", type=int, default=12)    
 
+parser.add_argument("--recommender", type=str, default='', choices=['', 'for_recommender_'])    
+
 
 parser.add_argument("--mci_diagnosis_file_path", type=str, default='intermediate_files/diagnosis_codes_mci.csv')    
 parser.add_argument("--mci_medication_file_path", type=str, default='intermediate_files/medication_codes_mci.csv')    
@@ -61,6 +63,7 @@ if parser.parse_args().cohort == 'mci':
 							,parser.parse_args().prediction_window_size							 							
 							,parser.parse_args().cohort
 							,parser.parse_args().logging_milestone
+							,parser.parse_args().recommender
 							)
 							 
 if parser.parse_args().cohort == 'nonmci':
@@ -76,5 +79,6 @@ if parser.parse_args().cohort == 'nonmci':
 							,parser.parse_args().top_n_proc
 							,parser.parse_args().prediction_window_size							 															
 							,parser.parse_args().cohort	
-							,parser.parse_args().logging_milestone											 
+							,parser.parse_args().logging_milestone	
+							,parser.parse_args().recommender																	 
 							)

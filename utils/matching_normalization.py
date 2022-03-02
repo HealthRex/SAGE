@@ -96,4 +96,3 @@ def normalization(data_path
 
 	trainset.to_csv(data_path[:-4]+'_normalized_train.csv', index=False)
 	testset.to_csv(data_path[:-4]+'_normalized_test.csv', index=False)
-

@@ -33,7 +33,7 @@ client_name ="mining-clinical-decisions"
 # logging.basicConfig(format='Date-Time : %(asctime)s : Line No. : %(lineno)d - %(message)s', level = logging.INFO, filename = 'log/logfile_extract_streams.log', filemode = 'a')
 
 if  parser.parse_args().table_type == "diagnosis" and parser.parse_args().cohort == 'mci':
-    query_string = "SELECT * FROM `mining-clinical-decisions.proj_sage_sf.mci_all_cohort_diagnosis` A ORDER BY A.anon_id, A.start_date_utc LIMIT 50000"
+    query_string = "SELECT * FROM `mining-clinical-decisions.proj_sage_sf2.mci_cohort_metadata_diagnosis` A ORDER BY A.anon_id, A.start_date_utc"
     icd_to_ccs_table_query = "SELECT * FROM `mining-clinical-decisions.mapdata.ahrq_ccsr_diagnosis`"
     icd9_to_icd10_query = "SELECT * FROM `mining-clinical-decisions.mapdata.icd9gem`"
     ext_cd.extract_diagnosis(client_name
@@ -47,7 +47,7 @@ if  parser.parse_args().table_type == "diagnosis" and parser.parse_args().cohort
                             , parser.parse_args().diag_patient_id_field_name                            
                             , parser.parse_args().display_step)
 elif  parser.parse_args().table_type == "medication" and parser.parse_args().cohort == 'mci':
-    query_string = "SELECT * FROM `mining-clinical-decisions.proj_sage_sf.mci_all_cohort_order_med` A ORDER BY A.anon_id, A.order_time_jittered LIMIT 50000"
+    query_string = "SELECT * FROM `mining-clinical-decisions.proj_sage_sf2.mci_cohort_metadata_order_med` A ORDER BY A.anon_id, A.order_time_jittered"
     unique_medication_id_query = "SELECT * FROM `mining-clinical-decisions.proj_sage_sf.unique_pharm_class_abbr` A WHERE A.pharm_class_abbr is not NULL"
     ext_cd.extract_medication(client_name
                             , query_string
@@ -59,11 +59,13 @@ elif  parser.parse_args().table_type == "medication" and parser.parse_args().coh
                             , parser.parse_args().display_step)
 
 elif  parser.parse_args().table_type == "procedure" and parser.parse_args().cohort == 'mci':
-    query_string = "SELECT * FROM `mining-clinical-decisions.proj_sage_sf.mci_all_cohort_order_proc` A ORDER BY A.anon_id, A.ordering_date_jittered LIMIT 50000"
+    query_string = "SELECT * FROM `mining-clinical-decisions.proj_sage_sf2.mci_cohort_metadata_order_proc` A ORDER BY A.anon_id, A.ordering_date_jittered"
     unique_proc_id_query = "SELECT * FROM `mining-clinical-decisions.proj_sage_sf.unique_proc_ids` A WHERE A.proc_id is not NULL"    
+    num_lines_query = "SELECT COUNT(*) FROM `mining-clinical-decisions.proj_sage_sf2.mci_cohort_metadata_order_proc`"
     ext_cd.extract_procedure(client_name
                             , query_string
                             , unique_proc_id_query
+                            , num_lines_query
                             , parser.parse_args().cohort
                             , parser.parse_args().proc_code_field_name
                             , parser.parse_args().proc_time_field_name
@@ -72,7 +74,7 @@ elif  parser.parse_args().table_type == "procedure" and parser.parse_args().coho
 
 
 elif  parser.parse_args().table_type == "diagnosis" and parser.parse_args().cohort == 'nonmci':
-    query_string = "SELECT * FROM `mining-clinical-decisions.proj_sage_sf.nonmci_all_cohort_sampled2_diagnosis` A ORDER BY A.anon_id, A.start_date_utc LIMIT 50000"
+    query_string = "SELECT * FROM `mining-clinical-decisions.proj_sage_sf2.nonmci_cohort_metadata_age_matched_diagnosis` A ORDER BY A.anon_id, A.start_date_utc"
     icd_to_ccs_table_query = "SELECT * FROM `mining-clinical-decisions.ahrq_ccsr.diagnosis_code`"
     icd9_to_icd10_query = "SELECT * FROM `mining-clinical-decisions.mapdata.icd9gem`"
     ext_cd.extract_diagnosis(client_name
@@ -88,7 +90,7 @@ elif  parser.parse_args().table_type == "diagnosis" and parser.parse_args().coho
 
 
 elif  parser.parse_args().table_type == "medication" and parser.parse_args().cohort == 'nonmci':
-    query_string = "SELECT * FROM `mining-clinical-decisions.proj_sage_sf.nonmci_all_cohort_sampled2_order_med` A ORDER BY A.anon_id, A.order_time_jittered LIMIT 50000"
+    query_string = "SELECT * FROM `mining-clinical-decisions.proj_sage_sf2.nonmci_cohort_metadata_age_matched_order_med` A ORDER BY A.anon_id, A.order_time_jittered"
     unique_medication_id_query = "SELECT * FROM `mining-clinical-decisions.proj_sage_sf.unique_pharm_class_abbr` A WHERE A.pharm_class_abbr is not NULL"    
     ext_cd.extract_medication(client_name
                             , query_string
@@ -100,11 +102,13 @@ elif  parser.parse_args().table_type == "medication" and parser.parse_args().coh
                             , parser.parse_args().display_step)
 
 elif  parser.parse_args().table_type == "procedure" and parser.parse_args().cohort == 'nonmci':
-    query_string = "SELECT * FROM `mining-clinical-decisions.proj_sage_sf.nonmci_all_cohort_sampled2_order_proc` A ORDER BY A.anon_id, A.ordering_date_jittered LIMIT 50000"
+    query_string = "SELECT * FROM `mining-clinical-decisions.proj_sage_sf2.nonmci_cohort_metadata_age_matched_order_proc` A ORDER BY A.anon_id, A.ordering_date_jittered"
     unique_proc_id_query = "SELECT * FROM `mining-clinical-decisions.proj_sage_sf.unique_proc_ids` A WHERE A.proc_id is not NULL"        
+    num_lines_query = "SELECT COUNT(*) FROM `mining-clinical-decisions.proj_sage_sf2.nonmci_cohort_metadata_age_matched_order_proc`"
     ext_cd.extract_procedure(client_name
                             , query_string
                             , unique_proc_id_query
+                            , num_lines_query
                             , parser.parse_args().cohort
                             , parser.parse_args().proc_code_field_name
                             , parser.parse_args().proc_time_field_name

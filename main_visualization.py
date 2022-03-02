@@ -17,7 +17,6 @@ parser.add_argument("--num_it", type=int, default=2000)
 parser.add_argument("--lr_rate", type=int, default=200)   
 
 parser.add_argument("--sample_size_for_shap", type=float, default=0.05)  
-parser.add_argument("--plot_shaps_from_saved_model", type=int, default=0, choices = [0,1])    
 parser.add_argument("--trained_model_path", type=str, default="saved_classical_ml_models/rf_model.pkl")    
 
 
@@ -73,12 +72,5 @@ elif parser.parse_args().compute_table_1 == 0:
 
 
 
-if parser.parse_args().plot_shaps_from_saved_model == 1:
-    args = parser.parse_args()
-    vis_tools.plot_shaps_from_saved_model(args.test_stationary_filename
-                        , args.trained_model_path                
-        )
-else:
-    print('Warning: you have chosen not to perform SHAP plots.')      
 
 

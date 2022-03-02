@@ -6,7 +6,7 @@ from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
-# from scipy.stats import mannwhitneyu
+from scipy.stats import mannwhitneyu
 # from scipy.stats import ttest_ind
 # import math
 import shap
@@ -158,7 +158,7 @@ def pca_visualization(train_stationary_filename
 def plot_shaps_from_saved_model (test_stationary_filename
                 , trained_model_path                     
             ):
-    pdb.set_trace()
+    # pdb.set_trace()
     print('Reading the test data ....')
     test_data = pd.read_csv(test_stationary_filename)
     test_data = test_data.sample(frac=0.21).reset_index(drop=True) 
@@ -221,7 +221,7 @@ def compute_table_stats(train_stationary_filename
                                 , nonmci_metadata_path
                                 , feature_ranking_path
                                 ):
-    pdb.set_trace()
+    # pdb.set_trace()
 
     print('Reading training and testing data from {} and {}'.format(train_stationary_filename, test_stationary_filename))
     train_data=pd.read_csv(train_stationary_filename)
@@ -368,6 +368,7 @@ def compute_table_stats(train_stationary_filename
         stat_file.write(str(perc_Native_American_mci))
         stat_file.write('\n')
 
+        
         num_white_nonmci = nonmci_metadata_cohort[nonmci_metadata_cohort['canonical_race'] == 'White'].shape[0]
         perc_white_nonmci =  num_white_nonmci/nonmci_metadata_cohort.shape[0]   
         stat_file.write('number of white in controls:\n')
@@ -436,15 +437,24 @@ def compute_table_stats(train_stationary_filename
         # Stats on important features
         feature_ranking = pd.read_csv(feature_ranking_path, names=['Feature', 'Score']).sort_values(by='Score', ascending=False)
         feature_ranking['Feature'] = feature_ranking['Feature'].str.strip()
-        feature_ranking = feature_ranking[~feature_ranking['Feature'].isin(['age from bdate to 2022','race','sex'])]
-
-        for i in range(30):
+        # feature_ranking = feature_ranking[~feature_ranking['Feature'].isin(['age','race','sex'])]
+        data_stationary_before_norm = pd.read_csv('stationary_data/stationary_data_imbratio1.csv')
+        temp_check = sum(data_stationary_before_norm['Patient_ID'].isin(data_all['Patient_ID'].values.tolist()))
+        if not(temp_check == data_all.shape[0] and temp_check == data_stationary_before_norm.shape[0]):
+            pdb.set_trace()
+            print('WARNING.')
+        data_stationary_before_norm_pos = data_stationary_before_norm[data_stationary_before_norm['Label']==1]    
+        data_stationary_before_norm_neg = data_stationary_before_norm[data_stationary_before_norm['Label']==0]    
+        
+        for i in range(len(feature_ranking)-1):
             important_feature = feature_ranking['Feature'].iloc[i]
-            num_mcipatients = sum(data_all_pos[important_feature] > 0)
-            perc_mcipatients = num_mcipatients/(data_all_pos.shape[0])
+            num_mcipatients = sum(data_stationary_before_norm_pos[important_feature] > 0)
+            perc_mcipatients = num_mcipatients/(data_stationary_before_norm_pos.shape[0])
             
-            num_nonmcipatients = sum(data_all_neg[important_feature] > 0)
-            perc_nonmcipatients = num_nonmcipatients/(data_all_neg.shape[0])
+            num_nonmcipatients = sum(data_stationary_before_norm_neg[important_feature] > 0)
+            perc_nonmcipatients = num_nonmcipatients/(data_stationary_before_norm_neg.shape[0])
+
+            U1, pval = mannwhitneyu(data_stationary_before_norm_pos[important_feature], data_stationary_before_norm_neg[important_feature] )
 
             stat_file.write('Feature number '+str(i)+':\n')
             stat_file.write(important_feature)
@@ -460,7 +470,13 @@ def compute_table_stats(train_stationary_filename
             stat_file.write('\n')
             stat_file.write('Percentage of patients in controls:\n')
             stat_file.write(str(perc_nonmcipatients))
-            stat_file.write('\n')        
-        pdb.set_trace()
+            stat_file.write('\n') 
+            stat_file.write('U-stat is:\n') 
+            stat_file.write(str(U1))
+            stat_file.write('\n') 
+            stat_file.write('P-value is:\n')
+            stat_file.write(str(pval))          
+            stat_file.write('\n') 
+        # pdb.set_trace()
         print('Test')
 
