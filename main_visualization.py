@@ -11,9 +11,9 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--viz_method", type=str, default="none", choices = ["pca", "tsne", "none"])    
 parser.add_argument("--features_to_show", type=str, default="meds_diags_procs", choices = ["meds_diags_procs","all"])    
 parser.add_argument("--sampled", type=int, default=1, choices = [0,1])    
-parser.add_argument("--sample_size", type=int, default=2000)    
-parser.add_argument("--perplex", type=int, default=15)    
-parser.add_argument("--num_it", type=int, default=2000)    
+parser.add_argument("--sample_size", type=int, default=1000)    
+parser.add_argument("--perplex", type=int, default=35)    
+parser.add_argument("--num_it", type=int, default=1000)    
 parser.add_argument("--lr_rate", type=int, default=200)   
 
 parser.add_argument("--sample_size_for_shap", type=float, default=0.05)  
@@ -21,6 +21,7 @@ parser.add_argument("--trained_model_path", type=str, default="saved_classical_m
 
 
 parser.add_argument("--compute_table_1", type=int, default=0, choices = [0, 1])    
+parser.add_argument("--plot_violins_flag", type=int, default=0, choices = [0, 1])    
 
 
 parser.add_argument("--train_stationary_filename", type=str, default="stationary_data/stationary_data_imbratio1_normalized_train.csv")    
@@ -70,7 +71,14 @@ elif parser.parse_args().compute_table_1 == 0:
 
 
 
-
+if parser.parse_args().plot_violins_flag == 1:
+    args = parser.parse_args()
+    vis_tools.plot_violins(args.train_stationary_filename 
+                                , args.test_stationary_filename 
+                                , args.feature_ranking_path     
+                                , args.sampled     
+                                , args.sample_size
+                                )  
 
 
 

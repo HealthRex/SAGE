@@ -26,7 +26,7 @@ def create_stationary_for_treatment_recom(mci_metadata_path
 		Select the procedure codes within MCI diagnosis date +/- 1 month and create a multi-hot encoding vector.
 		To create the multihot-encoding vector
 	'''	
-	# pdb.set_trace()
+	pdb.set_trace()
 	mci_metadata = pd.read_csv(mci_metadata_path)
 	# train_data = pd.read_csv(train_data_path)
 	# test_data = pd.read_csv(test_data_path)
@@ -45,13 +45,40 @@ def create_stationary_for_treatment_recom(mci_metadata_path
 	mci_data['Patient_ID'] = mci_original_data['Patient_ID']
 	mci_data['Label'] = mci_original_data['Label']
 
+	
+	frequent_procs = pd.read_csv(procedure_id_frequencies_mci_path)
+	frequent_procs.columns = frequent_procs.columns.str.strip()	
+	# frequent_procs['description'] = frequent_procs['description'].str.replace(' ','')
+	list_of_proc_to_remove = ['GLUCOSE BY METER', 'OXYGEN: NASAL CANNULA (NURSING ONLY)', 'DIET', 'PHYSICAL ACTIVITY',
+	'REASON TO CALL YOUR PHYSICIAN', 'WHEN TO RESUME ACTIVITIES', 'FOLLOW UP INSTRUCTIONS', 'GLUCOSE BY METER (POC)',
+	'MONITOR INTAKE AND OUTPUT', 'INCENTIVE SPIROMETER (WHILE AWAKE)', 'VITAL SIGNS PER PROTOCOL', 'VITAL SIGNS', 'NURSING PULSE OXIMETRY',
+	'ECG PROCEDURE SCANNED REPORT', 'WEIGHT', 'OXYGEN ADMINISTRATION', 'FALL RISK PRECAUTIONS', 'NOTIFY MD: VITAL SIGNS', 'PERIPHERAL IV INSERTION/CARE',
+	'SALINE LOCK AND FLUSH', 'SPECIMEN REMARK', 'SURGICAL PROCEDURE', 'CARDIAC MONITOR', 'TRANSFER PATIENT/CHANGE LEVEL OF CARE',
+	'UP AD LIB', 'SEQUENTIAL COMPRESSION DEVICE (SCD)', 'NURSING COMMUNICATION', 'UHA FLU SHOT PROTOCOL AUTHORIZATION 2017-2018',
+	'ADDITIONAL INSTRUCTIONS', 'UHA FLU SHOT PROTOCOL AUTHORIZATION', 'NOTIFY MD:VITAL SIGNS', 'RISK FOR VENOUS THROMBOEMBOLISM - VTE RISK ASSESSMENT',
+	'ADMIT TO PHASE', 'DIET NPO', 'DIET REGULAR',
+	'OXYGEN: NASAL CANNULA(NURSING ONLY)', 'OXYGEN: NASAL CANNULA(NURSING ONLY)', 'DISCHARGE WOUND CARE', 'OTHER PROCEDURE SCANNED REPORT',
+	'OTHER ORDER SCANNED REPORT', 'ADMIT TO INPATIENT','POPULATION HEALTH PROTOCOL AUTHORIZATION',
+	'DISCHARGE PATIENT', 'FULL CODE', 'HX IMAGING PROC SCAN REPORT', 'HX OTH PROC SCAN REPORT',
+	'HX OTH ORD SCAN REPORT', 'HX LAB PROC SCAN REPORT', 'DISCHARGE PATIENT WHEN CRITERIA MET', 'WOUND CARE',
+	'DISCHARGE DIET', 'NOTIFY MD:', 'GLUCOSE BY METER (POC)', 'DISCHARGE MD TO CALL FOR QUESTIONS'
+	, 'TYPE AND SCREEN','ADMIT TO PHASE (POST PROCEDURE AREA)', 'DISCHARGE TRANSPORT',
+	'TRANSFER PATIENT/CHANGE LEVEL OF CARE', 'CHANGE LEVEL OF CARE/TRANSFER PATIENT',
+	'TRANSFER PATIENT/CHANGE LEVEL OF CARE', 'CHANGE LEVEL OF CARE/TRANSFER PATIENT', 'CHANGE LEVEL OF CARE/TRANSFER INPATIENT',
+	'TRANSFER PATIENT', 'NURSING COMMUNICATION', 'NURSING COMMUNICATION(FOR ORDERSET ONLY)', 'PERIPHERAL IV INSERTION CARE', 'CBC WITH DIFFERENTIAL', 'CBC WITH DIFF',
+	'AMBULATE WITH ASSISTANCE', 'POC GLUCOSE BY METER', 'URINE CULTURE']
 
-	# frequent_procs = pd.read_csv(procedure_id_frequencies_mci_path)
-	# frequent_procs.columns = frequent_procs.columns.str.strip()
+	
+	# pdb.set_trace()
+	frequent_procs = frequent_procs[~frequent_procs.description.isin(list_of_proc_to_remove)]
+	frequent_procs[frequent_procs['proc_id']==735]
+	# frequent_procs[frequent_procs.description == 'DISCHARGE PATIENT']
 	# frequent_procs = frequent_procs.sort_values(by='num patient', ascending=False)	
 	# frequent_procs_top_n = frequent_procs['Code'].values[:top_n_proc].tolist()
-	frequent_procs_top_n = [1369, 2220, 464825, 475, 147416, 147415, 1368, 445875, 999416, 2295]
-
+	# frequent_procs_tto_filter = [1435, 17918, 735, 787, 147416, 147415, 445875, 999416]
+	
+	frequent_procs_top_n = frequent_procs['proc_id'].unique().tolist()
+	
 	frequent_procs_dict = {}
 	for i in range(len(frequent_procs_top_n)):
 		frequent_procs_dict[str(frequent_procs_top_n[i])] = 0 

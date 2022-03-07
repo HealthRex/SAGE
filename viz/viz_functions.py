@@ -34,7 +34,9 @@ def tSNE_visualization(train_stationary_filename
     train_data=pd.read_csv(train_stationary_filename, index_col='Patient_ID')
     test_data=pd.read_csv(test_stationary_filename, index_col='Patient_ID')    
     data_all = pd.concat([train_data, test_data])
-
+    
+    data_all = data_all.drop(['age', 'sex', 'race'], axis=1)
+    
     if sampled ==1:
         data_pos = data_all[data_all['Label'] == 1]
         data_neg = data_all[data_all['Label'] == 0]
@@ -49,17 +51,18 @@ def tSNE_visualization(train_stationary_filename
 
     data['Label'] = data['Label'].map({1: 'MCI-positive', 0: 'MCI-negative'})
 
-    if features_to_show == "meds_diags_procs":
-        data_treatment_ready=data.iloc[:,3:-1]
-        features = 'meds_diags_procs'
-    elif features_to_show == "all":    
-        data_treatment_ready=data.iloc[:,:-1]
-        features = 'allfeatures'
+    data_treatment_ready = data
+    # if features_to_show == "meds_diags_procs":
+    #     data_treatment_ready=data.iloc[:,3:-1]
+    features = 'meds_diags_procs'
+    # elif features_to_show == "all":    
+    #     data_treatment_ready=data.iloc[:,:-1]
+    #     features = 'allfeatures'
 
-    tsne_model = TSNE(n_components=2, perplexity=perplex, n_iter=num_it)
-    tsne_results = tsne_model.fit_transform(data_treatment_ready)
+    tsne_model = TSNE(n_components=2, perplexity=perplex, n_iter=num_it, learning_rate=lr_rate)
+    tsne_results = tsne_model.fit_transform(data_treatment_ready.drop(['Label'],axis=1))
     print("kl divergence is: ",tsne_model.kl_divergence_)
-    df_tsne_results = pd.DataFrame({'Patient_ID': data.index, 'First dimension of tSNE': tsne_results[:,0], 'Second dimension of tSNE': tsne_results[:,1], 'Label': data['Label']})
+    df_tsne_results = pd.DataFrame({'Patient_ID': data.index, 'First dimension of tSNE': tsne_results[:,0], 'Second dimension of tSNE': tsne_results[:,1], 'Label': data_treatment_ready['Label']})
     fig = plt.figure(figsize = (8,8))
     ax = fig.add_subplot(1,1,1) 
     ax.set_xlabel('tSNE 1', fontsize = 15)
@@ -85,10 +88,13 @@ def pca_visualization(train_stationary_filename
                                 , sample_size
                                 , features_to_show
                                 ):
-    pdb.set_trace()
+    # pdb.set_trace()
     train_data=pd.read_csv(train_stationary_filename, index_col='Patient_ID')
     test_data=pd.read_csv(test_stationary_filename, index_col='Patient_ID')    
     data_all = pd.concat([train_data, test_data])
+
+    data_all = data_all.drop(['age', 'sex', 'race'], axis=1)
+
 
     if sampled ==1:
         data_pos = data_all[data_all['Label'] == 1]
@@ -104,14 +110,15 @@ def pca_visualization(train_stationary_filename
 
     data['Label'] = data['Label'].map({1: 'MCI-positive', 0: 'MCI-negative'})
 
-    if features_to_show == "meds_diags_procs":
-        data_treatment_ready=data.iloc[:,3:-1]
-        features = 'meds_diags_procs'
-    elif features_to_show == "all":    
-        data_treatment_ready=data.iloc[:,:-1]
-        features = 'allfeatures'
+    data_treatment_ready = data
+    # if features_to_show == "meds_diags_procs":
+    #     data_treatment_ready=data.iloc[:,3:-1]
+    features = 'meds_diags_procs'
+    # elif features_to_show == "all":    
+    #     data_treatment_ready=data.iloc[:,:-1]
+    #     features = 'allfeatures'
     # pdb.set_trace()
-    data_treatment_std = StandardScaler().fit_transform(data_treatment_ready)
+    data_treatment_std = StandardScaler().fit_transform(data_treatment_ready.drop(['Label'],axis=1))
     pca_model = PCA(n_components=2)
     data_pca = pca_model.fit_transform(data_treatment_std)
 
@@ -134,7 +141,7 @@ def pca_visualization(train_stationary_filename
         pca_file.write('\n')        
     pdb.set_trace()
 
-    df_pca_final = pd.DataFrame({'Patient_ID': data.index, 'principal component 1': data_pca[:,0], 'principal component 2': data_pca[:,1], 'Label': data['Label']})
+    df_pca_final = pd.DataFrame({'Patient_ID': data_treatment_ready.index, 'principal component 1': data_pca[:,0], 'principal component 2': data_pca[:,1], 'Label': data_treatment_ready['Label']})
     df_pca_final.to_csv('results/visualization_results/Final_PCA.csv')
 
     fig = plt.figure(figsize = (8,8))
@@ -480,3 +487,34 @@ def compute_table_stats(train_stationary_filename
         # pdb.set_trace()
         print('Test')
 
+
+def plot_violins(train_stationary_filename 
+                                , test_stationary_filename  
+                                , feature_ranking_path   
+                                , sampled     
+                                , sample_size
+                                ):
+    # pdb.set_trace()
+
+    train_data=pd.read_csv(train_stationary_filename, index_col='Patient_ID')
+    test_data=pd.read_csv(test_stationary_filename, index_col='Patient_ID')    
+    data_all = pd.concat([train_data, test_data])
+
+    data=data_all.sample(frac=1)
+    file_name = 'alldata'
+
+    data['Label'] = data['Label'].map({1: 'MCI-positive', 0: 'MCI-negative'})
+
+    feature_ranking = pd.read_csv(feature_ranking_path, names=['Feature', 'Score']).sort_values(by='Score', ascending=False)
+    feature_ranking['Feature'] = feature_ranking['Feature'].str.strip()
+
+
+    data_pos = data[data['Label']=='MCI-positive']
+    data_neg = data[data['Label']=='MCI-negative']
+    # pdb.set_trace()
+    for i in range(60):#len(feature_ranking)):
+        current_feature = feature_ranking['Feature'].iloc[i]
+        current_data = data[[current_feature]+['Label'] ]
+        ax = sns.violinplot(x="Label", y=current_feature, data=current_data)
+        plt.savefig('results/visualization_results/violin_'+current_feature+'.png',dpi=600)
+        plt.close()

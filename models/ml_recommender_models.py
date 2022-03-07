@@ -17,126 +17,22 @@ import random
 import pickle
 import matplotlib.pyplot as plt
 # import shap
-# import xgboost as xgb
+import xgboost as xgb
+from sklearn.multiclass import OneVsRestClassifier
+from sklearn.multioutput import MultiOutputClassifier
 
-def read_stationary_data(train_data_path
-                        , validation_data_path
-                        , test_data_path):
-    train_data_stationary = pd.read_csv(train_data_path)
-    validation_data_stationary = pd.read_csv(validation_data_path)
-    test_data_stationary = pd.read_csv(test_data_path)
 
-    return train_data_stationary, validation_data_stationary, test_data_stationary
-
-def performance_evaluation(rf_predictions
-                        , test_data_for_eval
-                        , best_model):
-
-    # pdb.set_trace()
-    labels = test_data_for_eval['Label'].values
-    rf_test_auc=roc_auc_score(test_data_for_eval['Label'], best_model.predict_proba(test_data_for_eval.drop(['Patient_ID', 'Label'], axis=1, inplace=False))[:,1])
-    tp=0
-    tn=0
-    fn=0
-    fp=0
-    accuracy=0
-    precision=0
-    recall=0
-    F1=0
-    specificity=0
-    for asses_ind in range(len(rf_predictions)):
-        if(rf_predictions[asses_ind]==0 and labels[asses_ind]==0):
-            tn=tn+1
-        elif(rf_predictions[asses_ind]==0 and labels[asses_ind]==1):
-            fn=fn+1
-        elif(rf_predictions[asses_ind]==1 and labels[asses_ind]==1):
-            tp=tp+1
-        elif(rf_predictions[asses_ind]==1 and labels[asses_ind]==0):    
-            fp=fp+1
-    accuracy=(tn+tp)/(tn+tp+fn+fp)
-    if(tp+fp == 0):
-        precision=0
-    else:
-        precision=tp/(tp+fp)
-    if(tp+fn==0):
-        recall=0
-    else:
-        recall=tp/(tp+fn)
-    if(precision==0 and recall==0):
-        F1=0
-    else:            
-        F1=(2*precision*recall)/(precision+recall)
-    if(tn+fp==0):
-        specificity= 0
-    else:
-        specificity= tn/(tn+fp)    
-
-    return tn, tp, fn, fp, accuracy, precision, recall, specificity, F1, rf_test_auc    
-
-def write_results(tn
-                , tp
-                , fn
-                , fp
-                , accuracy
-                , precision
-                , recall
-                , specificity
-                , F1
-                , rf_test_auc
-                , model
-                    ):
-    # pdb.set_trace()
-    with open('results/classical_ml_models/'+model+'_prediction_performance.csv', 'w') as f_results:
-        f_results.write("Precision is: ")
-        f_results.write(str(precision))
-        f_results.write("\n")
-        
-        f_results.write("Recall is: ")
-        f_results.write(str(recall))
-        f_results.write("\n")
-        
-        f_results.write("Accuracy is: ")
-        f_results.write(str(accuracy))
-        f_results.write("\n") 
-
-        f_results.write("F1 is: ")
-        f_results.write(str(F1))
-        f_results.write("\n")
-
-        f_results.write("Specificity is: ")
-        f_results.write(str(specificity))
-        f_results.write("\n")
-
-        f_results.write("AUC is: ")
-        f_results.write(str(rf_test_auc))
-        f_results.write("\n")
-
-        f_results.write("TP is: ")
-        f_results.write(str(tp))
-        f_results.write("\n")
-
-        f_results.write("TN is: ")
-        f_results.write(str(tn))
-        f_results.write("\n")
-
-        f_results.write("FP is: ")
-        f_results.write(str(fp))
-        f_results.write("\n")
-
-        f_results.write("FN is: ")
-        f_results.write(str(fn))
-        f_results.write("\n")
 
 def random_forest_model(train_data_path
                         ,test_data_path
                         ,path_to_features
                         ,top_n_features
-                        ,num_target
+                        # ,num_target
                         ,dropped_targets):
 
     # pdb.set_trace()
    
-    num_target = num_target - len(dropped_targets)
+    # num_target = num_target - len(dropped_targets)
     # with open('results/classical_ml_models/rf_model.pkl', 'rb') as f:
     #     clf2 = pickle.load(f)
     print('Reading the data:')
@@ -144,20 +40,27 @@ def random_forest_model(train_data_path
     print(test_data_path)
     train_data = pd.read_csv(train_data_path)
     test_data = pd.read_csv(test_data_path)
-    train_data = train_data.drop(columns=dropped_targets)
-    test_data = test_data.drop(columns=dropped_targets) 
+    train_data = train_data.sample(frac=1).reset_index(drop=True)  
+    test_data = test_data.sample(frac=1).reset_index(drop=True) 
 
-    feature_ranking = pd.read_csv(path_to_features, names=['Feature', 'Score']).sort_values(by='Score', ascending=False)
-    selected_features = feature_ranking.iloc[:top_n_features, 0].values.tolist()
-    selected_features = ['Patient_ID'] + selected_features + train_data.columns.tolist()[-num_target:]
-    train_data = train_data[selected_features]
-    test_data = test_data[selected_features]
+    target_col_names = [x for x in train_data.columns if 'target_proc_' in x]
+    
+    train_data_x = train_data[train_data.columns[~train_data.columns.isin(target_col_names + ['Patient_ID'])]]
+    train_data_y = train_data[train_data.columns[train_data.columns.isin(target_col_names)]]
 
-    fig = feature_ranking.nlargest(top_n_features, columns='Score').plot(kind='barh', grid=True,figsize=(12,10))
-    fig.set_xlabel("Importance Score")
-    fig.set_ylabel("Features")
-    fig.get_figure().savefig("results/visualization_results/feature_importance_rf_recommender.png", dpi=300)
-    # fig.close()
+    test_data_x = test_data[test_data.columns[~test_data.columns.isin(target_col_names + ['Patient_ID'])]]
+    test_data_y = test_data[test_data.columns[test_data.columns.isin(target_col_names)]]
+    # feature_ranking = pd.read_csv(path_to_features, names=['Feature', 'Score']).sort_values(by='Score', ascending=False)
+    # selected_features = feature_ranking.iloc[:top_n_features, 0].values.tolist()
+    # selected_features = ['Patient_ID'] + selected_features + train_data.columns.tolist()[-num_target:]
+    # train_data = train_data[selected_features]
+    # test_data = test_data[selected_features]
+
+    # fig = feature_ranking.nlargest(top_n_features, columns='Score').plot(kind='barh', grid=True,figsize=(12,10))
+    # fig.set_xlabel("Importance Score")
+    # fig.set_ylabel("Features")
+    # fig.get_figure().savefig("results/visualization_results/feature_importance_rf_recommender.png", dpi=300)
+    # # fig.close()
     print('Finished reading data...')
     # Number of trees in random forest
     n_estimators = [int(x) for x in np.linspace(start = 200, stop = 2000, num = 10)]
@@ -186,6 +89,7 @@ def random_forest_model(train_data_path
                    , 'min_samples_leaf': min_samples_leaf
                    #, 'bootstrap': bootstrap
                    }#,'ccp_alpha': ccp_alpha}
+    pdb.set_trace() 
     print('Hyperparameters:')
     print(hyperparameters)
     with open('saved_classical_ml_models/rf_hyperparameters_recommender.csv', 'w') as csv_file:  
@@ -193,44 +97,172 @@ def random_forest_model(train_data_path
         for key, value in hyperparameters.items():
            writer.writerow([key, value])
     # pdb.set_trace()  
-    train_data_shuffled = train_data.sample(frac=1).reset_index(drop=True)  
-    test_data_shuffled = test_data.sample(frac=1).reset_index(drop=True)  
-    # training_all_shuffled = training_all.sample(frac=1)
-    # test_data_shuffled = test_data.sample(frac=1)
-    # training_all_shuffled = shuffle(training_all, random_state=123)
-    # test_data_shuffled = shuffle(test_data, random_state=123)
-    
-    # saving patinets IDs
-    # pdb.set_trace()
-    
+ 
 
-    randomCV = RandomizedSearchCV(estimator=RandomForestClassifier(n_jobs=-1, warm_start=True, verbose=1), param_distributions=hyperparameters, n_iter=50, cv=5,scoring="roc_auc")
-    randomCV.fit(train_data.iloc[:,1:-num_target], train_data.iloc[:,-num_target:])
-    # pdb.set_trace()
+    randomCV = RandomizedSearchCV(estimator=RandomForestClassifier(n_jobs=-1, warm_start=True, verbose=1), param_distributions=hyperparameters, n_iter=20, cv=5,scoring="roc_auc")
+    randomCV.fit(train_data_x, train_data_y)
+    
+    train_data_x.to_csv('saved_classical_ml_models/train_predictors_recommender_final.csv', index=False)
+    train_data_y.to_csv('saved_classical_ml_models/train_targets_recommender_final.csv', index=False)
     # === Save models
     with open('saved_classical_ml_models/rf_model_recommender.pkl','wb') as f:
         pickle.dump(randomCV,f)
     
     (pd.DataFrame.from_dict(data=randomCV.best_params_, orient='index').to_csv('saved_classical_ml_models/best_params_rf_recommender.csv', header=False))
-    best_rf_model= randomCV.best_estimator_
-    # feat_importances = pd.Series(randomCV.best_estimator_.feature_importances_, index=training_all.iloc[:,1:-1].columns)
-    # pdb.set_trace() 
-    # fig = feat_importances.nlargest(len(training_all.columns)-2).plot(kind='barh', grid=True,figsize=(12,10))
-    # fig.set_xlabel("Importance Score")
-    # fig.set_ylabel("Features")
-    # fig.get_figure().savefig("results/classical_ml_models/feature_importance.png", dpi=300)
+    best_rf_model = randomCV.best_estimator_
 
-    rf_predictions = best_rf_model.predict(test_data.iloc[:,1:-num_target])    
+    rf_predictions = best_rf_model.predict(test_data_x)    
+    test_data_x.to_csv('saved_classical_ml_models/test_predictors_recommender_final.csv', index=False)
+    test_data_y.to_csv('saved_classical_ml_models/test_targets_recommender_final.csv', index=False)
+
     np.savetxt('saved_classical_ml_models/predictions_rf_recommender.csv', rf_predictions, delimiter=',')
 
-    # precision = metrics.precision_score(y_true=test_data.iloc[:,-num_target:], y_pred=np.array(rf_predictions), average='micro')
-
-    results_report = metrics.classification_report(y_true=test_data.iloc[:,-num_target:], y_pred=np.array(rf_predictions), output_dict=True)
+    results_report = metrics.classification_report(y_true=test_data_y, y_pred=np.array(rf_predictions), output_dict=True, target_names=test_data_y.columns)
    
-    # results_report_df.index[:num_target] = test_data.iloc[:,-num_target:].columns   
-
     results_report_df = pd.DataFrame(results_report).transpose()
     results_report_df.to_csv('results/classical_ml_models/results_rf_recommender.csv')
+
+    probabilities_test = best_rf_model.predict_proba(test_data_x)
+    probabilities_test_reshaped = np.array(probabilities_test)[:,:,1].T
+
+    rf_test_auc_micro = roc_auc_score(test_data_y, probabilities_test_reshaped, multi_class='ovr', average='micro')
+    rf_test_auc_macro = roc_auc_score(test_data_y, probabilities_test_reshaped, multi_class='ovr', average='macro')
+    rf_test_auc_weighted = roc_auc_score(test_data_y, probabilities_test_reshaped, multi_class='ovr', average='weighted')
+
+    rf_test_auc_class_based = roc_auc_score(test_data_y, probabilities_test_reshaped, multi_class='ovr', average=None)
+
+    with open('results/classical_ml_models/results_rf_recommender_detailed_auc.csv', 'w') as auc_file:
+        auc_file.write('Micro auc is:\n')
+        auc_file.write(str(rf_test_auc_micro))
+        auc_file.write('\n')
+
+        auc_file.write('Macro auc is:\n')
+        auc_file.write(str(rf_test_auc_macro))
+        auc_file.write('\n')
+
+        auc_file.write('Weighted auc is:\n')
+        auc_file.write(str(rf_test_auc_weighted))
+        auc_file.write('\n')
+        
+        auc_file.write(','.join(test_data_y.columns))
+        auc_file.write('\n')
+        auc_file.write(','.join([str(x) for x in rf_test_auc_class_based]))
+
+
+
+def xgboost_model(train_data_path
+                        ,test_data_path
+                        ,path_to_features
+                        ,top_n_features
+                        # ,num_target
+                        ,dropped_targets):
+
+    # num_target = num_target - len(dropped_targets)
+    # with open('results/classical_ml_models/rf_model.pkl', 'rb') as f:
+    #     clf2 = pickle.load(f)
+    print('Reading the data:')
+    print(train_data_path)
+    print(test_data_path)
+    train_data = pd.read_csv(train_data_path)
+    test_data = pd.read_csv(test_data_path)
+    train_data = train_data.sample(frac=1).reset_index(drop=True)  
+    test_data = test_data.sample(frac=1).reset_index(drop=True) 
+
+    target_col_names = [x for x in train_data.columns if 'target_proc_' in x]
+    
+    train_data_x = train_data[train_data.columns[~train_data.columns.isin(target_col_names + ['Patient_ID'])]]
+    train_data_y = train_data[train_data.columns[train_data.columns.isin(target_col_names)]]
+
+    test_data_x = test_data[test_data.columns[~test_data.columns.isin(target_col_names + ['Patient_ID'])]]
+    test_data_y = test_data[test_data.columns[test_data.columns.isin(target_col_names)]]
+
+    print('Finished reading data...')
+    # n_estimators = [int(x) for x in np.linspace(start = 200, stop = 2000, num = 10)]
+    # # Maximum number of levels in tree
+    # max_depth = [4, 8, 16, 32, 64]# [int(x) for x in np.linspace(10, 110, num = 11)]
+    # gamma = [0.001, 0.01, 0.1, 1, 10]
+    # learning_rate = [0.0001, 0.001, 0.01, 0.1, 1]
+    # # Create the random grid
+    # hyperparameters = {'estimator__n_estimators': n_estimators
+    #                , 'estimator__max_depth': max_depth
+    #                , 'estimator__gamma': gamma
+    #                , 'estimator__learning_rate':learning_rate
+    #                }
+
+    # print('Hyperparameters:')
+    # print(hyperparameters)
+    # with open('saved_classical_ml_models/xgb_hyperparameters_recommender.csv', 'w') as csv_file:  
+    #     writer = csv.writer(csv_file)
+    #     for key, value in hyperparameters.items():
+    #        writer.writerow([key, value]) 
+     
+    optimum_params= pd.read_csv('saved_classical_ml_models/best_params_xgb.csv', header=None)
+    optimum_params.columns = ['param','val']
+
+    n_estimators_optimum = optimum_params[optimum_params['param']=='n_estimators']['val'].values[0]
+    max_depth_optimum = optimum_params[optimum_params['param']=='max_depth']['val'].values[0]
+    learning_rate_optimum = optimum_params[optimum_params['param']=='learning_rate']['val'].values[0]
+    gamma_optimum = optimum_params[optimum_params['param']=='gamma']['val'].values[0]
+    print(n_estimators_optimum)
+    print(max_depth_optimum)
+    print(learning_rate_optimum)
+    print(gamma_optimum)
+
+    clf = MultiOutputClassifier(xgb.XGBClassifier(booster='gbtree', n_estimators = int(n_estimators_optimum), max_depth=int(max_depth_optimum), learning_rate=learning_rate_optimum, gamma=gamma_optimum, verbosity=1, n_jobs=-1, objective='binary:logistic', use_label_encoder=False))
+    # randomCV = RandomizedSearchCV(estimator=clf, param_distributions=hyperparameters, n_iter=10, cv=3,scoring="roc_auc")
+    clf.fit(train_data_x, train_data_y)
+    
+    # pdb.set_trace()
+    # clf = OneVsRestClassifier(xgb.XGBClassifier(booster='gbtree', verbosity=1, n_jobs=-1, objective='binary:logistic', use_label_encoder=False))
+    # randomCV = RandomizedSearchCV(estimator=clf, param_distributions=hyperparameters, n_iter=10, cv=3,scoring="roc_auc")
+    # randomCV.fit(train_data_x.iloc[:100,:], train_data_y.iloc[:100,:])
+      
+      
+    train_data_x.to_csv('saved_classical_ml_models/train_predictors_recommender_final_xgb.csv', index=False)
+    train_data_y.to_csv('saved_classical_ml_models/train_targets_recommender_final_xgb.csv', index=False)
+    # === Save models
+    with open('saved_classical_ml_models/xgb_model_recommender.pkl','wb') as f:
+        pickle.dump(clf,f)
+    # pdb.set_trace() 
+    # (pd.DataFrame.from_dict(data=clf.best_params_, orient='index').to_csv('saved_classical_ml_models/best_params_xgb_recommender.csv', header=False))
+    # best_rf_model = randomCV.best_estimator_
+    best_rf_model = clf
+    rf_predictions = best_rf_model.predict(test_data_x)    
+    test_data_x.to_csv('saved_classical_ml_models/test_predictors_recommender_final_xgb.csv', index=False)
+    test_data_y.to_csv('saved_classical_ml_models/test_targets_recommender_final_xgb.csv', index=False)
+
+    np.savetxt('saved_classical_ml_models/predictions_xgb_recommender.csv', rf_predictions, delimiter=',')
+
+    results_report = metrics.classification_report(y_true=test_data_y, y_pred=np.array(rf_predictions), output_dict=True, target_names=test_data_y.columns)
+   
+    results_report_df = pd.DataFrame(results_report).transpose()
+    results_report_df.to_csv('results/classical_ml_models/results_xgb_recommender.csv')
+
+    probabilities_test = best_rf_model.predict_proba(test_data_x)
+    probabilities_test_reshaped = np.array(probabilities_test)[:,:,1].T
+
+    rf_test_auc_micro = roc_auc_score(test_data_y, probabilities_test_reshaped, multi_class='ovr', average='micro')
+    rf_test_auc_macro = roc_auc_score(test_data_y, probabilities_test_reshaped, multi_class='ovr', average='macro')
+    rf_test_auc_weighted = roc_auc_score(test_data_y, probabilities_test_reshaped, multi_class='ovr', average='weighted')
+
+    rf_test_auc_class_based = roc_auc_score(test_data_y, probabilities_test_reshaped, multi_class='ovr', average=None)
+
+    with open('results/classical_ml_models/results_xgb_recommender_detailed_auc.csv', 'w') as auc_file:
+        auc_file.write('Micro auc is:\n')
+        auc_file.write(str(rf_test_auc_micro))
+        auc_file.write('\n')
+
+        auc_file.write('Macro auc is:\n')
+        auc_file.write(str(rf_test_auc_macro))
+        auc_file.write('\n')
+
+        auc_file.write('Weighted auc is:\n')
+        auc_file.write(str(rf_test_auc_weighted))
+        auc_file.write('\n')
+        
+        auc_file.write(','.join(test_data_y.columns))
+        auc_file.write('\n')
+        auc_file.write(','.join([str(x) for x in rf_test_auc_class_based]))
 
 
 
@@ -312,8 +344,53 @@ def rf_feature_selection(train_data_path
 
 
 
+def baseline_models(test_data_path):
+
+    # pdb.set_trace()
+    print('Reading the data:')
+    print(test_data_path)
+    test_data = pd.read_csv(test_data_path)
+    test_data = test_data.sample(frac=1).reset_index(drop=True) 
+
+    target_col_names = [x for x in test_data.columns if 'target_proc_' in x]
+    
+    test_data_x = test_data[test_data.columns[~test_data.columns.isin(target_col_names + ['Patient_ID'])]]
+    test_data_y = test_data[test_data.columns[test_data.columns.isin(target_col_names)]]
 
 
+    predictions = np.random.randint(0,2,size=(len(test_data),len(target_col_names)))
+
+    np.savetxt('saved_classical_ml_models/predictions_random_recommender.csv', predictions, delimiter=',')
+
+    results_report = metrics.classification_report(y_true=test_data_y, y_pred=np.array(predictions), output_dict=True, target_names=test_data_y.columns)
+   
+    results_report_df = pd.DataFrame(results_report).transpose()
+    results_report_df.to_csv('results/classical_ml_models/results_random_recommender.csv')
+
+
+    probabilities_test_reshaped = np.random.uniform(0,1, size=(len(test_data),len(target_col_names)))
+
+    test_auc_micro = roc_auc_score(test_data_y, probabilities_test_reshaped, multi_class='ovr', average='micro')
+    test_auc_macro = roc_auc_score(test_data_y, probabilities_test_reshaped, multi_class='ovr', average='macro')
+    test_auc_weighted = roc_auc_score(test_data_y, probabilities_test_reshaped, multi_class='ovr', average='weighted')
+    test_auc_class_based = roc_auc_score(test_data_y, probabilities_test_reshaped, multi_class='ovr', average=None)
+
+    with open('results/classical_ml_models/results_random_recommender_detailed_auc.csv', 'w') as auc_file:
+        auc_file.write('Micro auc is:\n')
+        auc_file.write(str(test_auc_micro))
+        auc_file.write('\n')
+
+        auc_file.write('Macro auc is:\n')
+        auc_file.write(str(test_auc_macro))
+        auc_file.write('\n')
+
+        auc_file.write('Weighted auc is:\n')
+        auc_file.write(str(test_auc_weighted))
+        auc_file.write('\n')
+        
+        auc_file.write(','.join(test_data_y.columns))
+        auc_file.write('\n')
+        auc_file.write(','.join([str(x) for x in test_auc_class_based]))
 
 
 

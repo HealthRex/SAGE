@@ -15,10 +15,10 @@ parser.add_argument("--test_data_path", type=str, default='recommender_data/reco
 
 parser.add_argument("--ml_model", type=str, default='rf') 
 
-parser.add_argument("--fs_flag", type=int, default=1, choices=[0, 1])    
+parser.add_argument("--fs_flag", type=int, default=0, choices=[0, 1])    
 parser.add_argument("--fs_method", type=str, default='rf') 
 parser.add_argument("--top_n_features", type=int, default=30) 
-parser.add_argument("--num_target", type=int, default=10) 
+# parser.add_argument("--num_target", type=int, default=10) 
 
 
 
@@ -36,3 +36,28 @@ if  args.ml_model == 'rf' and args.fs_flag==1:
                             ,args.top_n_features
                             , args.num_target
                             , dropped_targets)
+
+elif  args.ml_model == 'rf' and args.fs_flag==0:
+    print('Performing feature selection first')
+    print('Starting to train a random forest model using:\n')
+    cl_ml.random_forest_model(args.train_data_path
+                            ,args.test_data_path
+                            ,'NONE'
+                            ,args.top_n_features
+                            , 'NONE')
+
+elif  args.ml_model == 'xgb' and args.fs_flag==0:
+    print('Performing feature selection first')
+    print('Starting to train a random forest model using:\n')
+    cl_ml.xgboost_model(args.train_data_path
+                            ,args.test_data_path
+                            ,'NONE'
+                            ,args.top_n_features
+                            , 'NONE')
+elif  args.ml_model == 'bl' and args.fs_flag==0:
+    print('Performing feature selection first')
+    print('Starting to train a random forest model using:\n')
+    cl_ml.baseline_models(args.test_data_path)
+
+
+

@@ -164,7 +164,7 @@ def create_stationary_proc(patient_id, line_proc_splited, frequent_procs_dict):
 				continue  
 				print('test') 
 	# pdb.set_trace()
-	# if patient_id == 'JC29fcdc5':
+	# if patient_id == 'JCcb6601':
 	# 	pdb.set_trace()		
 	frequent_procs_dict_sorted = dict(collections.OrderedDict(sorted(frequent_procs_dict.items())))    
 	num_records = len(line_proc_splited)
@@ -415,7 +415,11 @@ def create_stationary(diagnosis_file_path
 						
 			# pdb.set_trace()
 			# if line_med[0] == 'JC2a00006' or line_diag[0] == 'JC2a00006':
-			# 	pdb.set_trace()			
+			# 	pdb.set_trace()	
+			current_patient_age = int(current_patient_demog['index_date_OR_diag_date'].values[0].split('-')[0])-int(current_patient_demog['bdate'].values[0].split('-')[0])
+			if current_patient_age<50:
+				continue
+
 			stationary_file.write((line_diag[0]))
 			stationary_file.write(',')
 
