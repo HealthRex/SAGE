@@ -19,6 +19,7 @@ import matplotlib.pyplot as plt
 import shap
 import xgboost as xgb
 from sklearn.multiclass import OneVsRestClassifier
+from sklearn.metrics import precision_recall_curve
 
 
 def performance_evaluation(rf_predictions
@@ -514,7 +515,51 @@ def test_with_imb(trained_rf_path
     metrics.plot_roc_curve(best_model, test_data_imb.drop(['Patient_ID', 'Label'], axis=1, inplace=False), test_data_imb['Label'], name='Random Forest') 
     plt.savefig('results/classical_ml_models/imb_roc_curve_rf.png', dpi=300)
     plt.close()
+    probabilities = best_model.predict_proba(test_data_imb.drop(['Patient_ID', 'Label'], axis=1, inplace=False))[:,1]
+    precisions_temp, recalls_temp, thresholds_temp = precision_recall_curve(test_data_imb['Label'], probabilities)    
 
+    for i in range(len(precisions_temp)):
+        if precisions_temp [i] >= 0.3:
+            r_at_p_precision_rf = precisions_temp[i]
+            r_at_p_recall_rf = recalls_temp[i]
+            r_at_p_index_rf = i
+            break
+
+    with open('results/classical_ml_models/reapeated_testing/reapeated_testing_rf.csv', 'w') as res_file:   
+        res_file.write('Precision, Recall, F1, AUC, TP, TN, FP, FN\n')
+
+        test_data_imb_pos = test_data_imb[test_data_imb.Label == 1]
+        test_data_imb_neg = test_data_imb[test_data_imb.Label == 0]
+        
+        test_data_imb_pos_kfolds = np.array_split(test_data_imb_pos, 100)  
+        test_data_imb_neg_kfolds = np.array_split(test_data_imb_neg, 100)  
+        fold_counter=0 
+        for i in range(len(test_data_imb_pos_kfolds)):
+            temp_test_fold_pos = test_data_imb[test_data_imb.Patient_ID.isin(test_data_imb_pos_kfolds[i]['Patient_ID'].values.tolist())]
+            temp_test_fold_neg = test_data_imb[test_data_imb.Patient_ID.isin(test_data_imb_neg_kfolds[i]['Patient_ID'].values.tolist())]        
+            temp_test_fold = pd.concat([temp_test_fold_pos, temp_test_fold_neg])
+            temp_test_fold.to_csv('saved_classical_ml_models/kfolds_testing/test_fold'+str(fold_counter)+'.csv', index=False)
+            fold_counter +=1
+
+            predictions = best_model.predict(temp_test_fold.drop(['Patient_ID', 'Label'], axis=1, inplace=False))        
+            tn, tp, fn, fp, accuracy, precision, recall, specificity, F1, test_auc = performance_evaluation(predictions, temp_test_fold, best_model)   
+            res_file.write(str(precision))
+            res_file.write(',')
+            res_file.write(str(recall))
+            res_file.write(',')
+            res_file.write(str(F1))
+            res_file.write(',')
+            res_file.write(str(test_auc))
+            res_file.write(',')
+            res_file.write(str(tp))
+            res_file.write(',')
+            res_file.write(str(tn))
+            res_file.write(',')
+            res_file.write(str(fp))
+            res_file.write(',')
+            res_file.write(str(fn))
+            res_file.write('\n')
+    # pdb.set_trace()
 
     randomCV = pickle.load(open(trained_lr_path, 'rb'))
     best_model= randomCV.best_estimator_
@@ -531,7 +576,45 @@ def test_with_imb(trained_rf_path
     metrics.plot_roc_curve(best_model, test_data_imb.drop(['Patient_ID', 'Label'], axis=1, inplace=False), test_data_imb['Label'], name='Logistic Regression') 
     plt.savefig('results/classical_ml_models/imb_roc_curve_lr.png', dpi=300)
     plt.close()
+    probabilities = best_model.predict_proba(test_data_imb.drop(['Patient_ID', 'Label'], axis=1, inplace=False))[:,1]
+    precisions_temp, recalls_temp, thresholds_temp = precision_recall_curve(test_data_imb['Label'], probabilities)    
+    
+    for i in range(len(precisions_temp)):
+        if precisions_temp [i] >= 0.7:
+            r_at_p_precision_lr = precisions_temp[i]
+            r_at_p_recall_lr = recalls_temp[i]
+            r_at_p_index_lr = i
+            break    
+    with open('results/classical_ml_models/reapeated_testing/reapeated_testing_lr.csv', 'w') as res_file:   
+        res_file.write('Precision, Recall, F1, AUC, TP, TN, FP, FN\n')
 
+        fold_counter=0 
+        for i in range(len(test_data_imb_pos_kfolds)):
+            temp_test_fold_pos = test_data_imb[test_data_imb.Patient_ID.isin(test_data_imb_pos_kfolds[i]['Patient_ID'].values.tolist())]
+            temp_test_fold_neg = test_data_imb[test_data_imb.Patient_ID.isin(test_data_imb_neg_kfolds[i]['Patient_ID'].values.tolist())]        
+            temp_test_fold = pd.concat([temp_test_fold_pos, temp_test_fold_neg])
+            # temp_test_fold.to_csv('saved_classical_ml_models/kfolds_testing/test_fold'+str(fold_counter)+'.csv', index=False)
+            fold_counter +=1
+
+            predictions = best_model.predict(temp_test_fold.drop(['Patient_ID', 'Label'], axis=1, inplace=False))        
+            tn, tp, fn, fp, accuracy, precision, recall, specificity, F1, test_auc = performance_evaluation(predictions, temp_test_fold, best_model)   
+            res_file.write(str(precision))
+            res_file.write(',')
+            res_file.write(str(recall))
+            res_file.write(',')
+            res_file.write(str(F1))
+            res_file.write(',')
+            res_file.write(str(test_auc))
+            res_file.write(',')
+            res_file.write(str(tp))
+            res_file.write(',')
+            res_file.write(str(tn))
+            res_file.write(',')
+            res_file.write(str(fp))
+            res_file.write(',')
+            res_file.write(str(fn))
+            res_file.write('\n')            
+    # pdb.set_trace()
     
     randomCV = pickle.load(open(trained_xgb_path, 'rb'))
     best_model= randomCV.best_estimator_
@@ -548,3 +631,52 @@ def test_with_imb(trained_rf_path
     metrics.plot_roc_curve(best_model, test_data_imb.drop(['Patient_ID', 'Label'], axis=1, inplace=False), test_data_imb['Label'], name='XGBoost') 
     plt.savefig('results/classical_ml_models/imb_roc_curve_xgb.png', dpi=300)
     plt.close()
+    probabilities = best_model.predict_proba(test_data_imb.drop(['Patient_ID', 'Label'], axis=1, inplace=False))[:,1]
+    precisions_temp, recalls_temp, thresholds_temp = precision_recall_curve(test_data_imb['Label'], probabilities)    
+    
+    for i in range(len(precisions_temp)):
+        if precisions_temp [i] >= 0.7:
+            r_at_p_precision_xgb = precisions_temp[i]
+            r_at_p_recall_xgb = recalls_temp[i]
+            r_at_p_index_xgb = i
+            break    
+   
+    with open('results/classical_ml_models/reapeated_testing/reapeated_testing_xgb.csv', 'w') as res_file:   
+        res_file.write('Precision, Recall, F1, AUC, TP, TN, FP, FN\n')
+
+        fold_counter=0 
+        for i in range(len(test_data_imb_pos_kfolds)):
+            temp_test_fold_pos = test_data_imb[test_data_imb.Patient_ID.isin(test_data_imb_pos_kfolds[i]['Patient_ID'].values.tolist())]
+            temp_test_fold_neg = test_data_imb[test_data_imb.Patient_ID.isin(test_data_imb_neg_kfolds[i]['Patient_ID'].values.tolist())]        
+            temp_test_fold = pd.concat([temp_test_fold_pos, temp_test_fold_neg])
+            # temp_test_fold.to_csv('saved_classical_ml_models/kfolds_testing/test_fold'+str(fold_counter)+'.csv', index=False)
+            fold_counter +=1
+
+            predictions = best_model.predict(temp_test_fold.drop(['Patient_ID', 'Label'], axis=1, inplace=False))        
+            tn, tp, fn, fp, accuracy, precision, recall, specificity, F1, test_auc = performance_evaluation(predictions, temp_test_fold, best_model)   
+            res_file.write(str(precision))
+            res_file.write(',')
+            res_file.write(str(recall))
+            res_file.write(',')
+            res_file.write(str(F1))
+            res_file.write(',')
+            res_file.write(str(test_auc))
+            res_file.write(',')
+            res_file.write(str(tp))
+            res_file.write(',')
+            res_file.write(str(tn))
+            res_file.write(',')
+            res_file.write(str(fp))
+            res_file.write(',')
+            res_file.write(str(fn))
+            res_file.write('\n')                 
+    # pdb.set_trace()
+    print('Test')
+
+
+
+
+
+
+
+

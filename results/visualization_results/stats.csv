@@ -1,0 +1,4326 @@
+Average age in cases:
+74.36144578313252
+std age in cases:
+9.972671396905296
+25Perc age in cases:
+68.0
+50Perc age in cases:
+76.0
+75Perc age in cases:
+83.0
+Average age in controls:
+76.33316941234325
+std age in controls:
+9.447339684492386
+25Perc age in controls:
+70.0
+50Perc age in controls:
+78.0
+75Perc age in controls:
+84.0
+number of females in cases:
+2213
+percentage of females in casess:
+0.5441357265797886
+number of females in controls:
+2213
+percentage of females in controls:
+0.5441357265797886
+number of white in cases:
+2785
+percentage of white in cases:
+0.6847799360708139
+number of Other race in cases:
+433
+percentage of Other race in cases:
+0.10646668305876568
+number of Asian in cases:
+458
+percentage of Asian in cases:
+0.11261372018686992
+number of Black in cases:
+225
+percentage of Black in cases:
+0.05532333415293828
+number of Unknown in cases:
+120
+percentage of Unknown in cases:
+0.029505778214900417
+number of Pacific Islander in cases:
+32
+percentage of Pacific Islander in cases:
+0.007868207523973445
+number of Native American in cases:
+14
+percentage of Native American in cases:
+0.0034423407917383822
+number of white in controls:
+2446
+percentage of white in controls:
+0.6014261126137201
+number of Other race in controls:
+494
+percentage of Other race in controls:
+0.12146545365134005
+number of Asian in controls:
+595
+percentage of Asian in controls:
+0.14629948364888123
+number of Black in controls:
+150
+percentage of Black in controls:
+0.036882222768625524
+number of Unknown in controls:
+337
+percentage of Unknown in controls:
+0.08286206048684534
+number of Pacific Islander in controls:
+32
+percentage of Pacific Islander in controls:
+0.007868207523973445
+number of Native American in controls:
+13
+percentage of Native American in controls:
+0.003196459306614212
+Feature number 0:
+age
+Number of patients in cases:
+4067
+Percentage of patients in cases:
+1.0
+Number of patients in controls:
+4067
+Percentage of patients in controls:
+1.0
+U-stat is:
+7296942.5
+P-value is:
+3.6831577776095736e-20
+Feature number 1:
+1369
+Number of patients in cases:
+2491
+Percentage of patients in cases:
+0.6124907794443079
+Number of patients in controls:
+1156
+Percentage of patients in controls:
+0.2842389968035407
+U-stat is:
+11082494.5
+P-value is:
+2.422135813659907e-186
+Feature number 2:
+FAC016
+Number of patients in cases:
+1537
+Percentage of patients in cases:
+0.37791984263584955
+Number of patients in controls:
+565
+Percentage of patients in controls:
+0.13892303909515613
+U-stat is:
+10199486.5
+P-value is:
+6.454463977615363e-124
+Feature number 3:
+SYM010
+Number of patients in cases:
+1332
+Percentage of patients in cases:
+0.32751413818539465
+Number of patients in controls:
+379
+Percentage of patients in controls:
+0.09318908286206048
+U-stat is:
+10232892.5
+P-value is:
+3.417810333462577e-149
+Feature number 4:
+2220
+Number of patients in cases:
+1948
+Percentage of patients in cases:
+0.47897713302188344
+Number of patients in controls:
+720
+Percentage of patients in controls:
+0.1770346692894025
+U-stat is:
+10805003.5
+P-value is:
+6.511266071050311e-181
+Feature number 5:
+464825
+Number of patients in cases:
+33
+Percentage of patients in cases:
+0.008114089009097615
+Number of patients in controls:
+519
+Percentage of patients in controls:
+0.1276124907794443
+U-stat is:
+7278537.0
+P-value is:
+2.3310568718763357e-102
+Feature number 6:
+FAC014
+Number of patients in cases:
+2024
+Percentage of patients in cases:
+0.49766412589132036
+Number of patients in controls:
+902
+Percentage of patients in controls:
+0.2217850995820015
+U-stat is:
+10544372.0
+P-value is:
+5.093873114442059e-138
+Feature number 7:
+475
+Number of patients in cases:
+2498
+Percentage of patients in cases:
+0.614211949840177
+Number of patients in controls:
+1279
+Percentage of patients in controls:
+0.3144824194738136
+U-stat is:
+10811085.0
+P-value is:
+5.740051696187457e-150
+Feature number 8:
+MUS010
+Number of patients in cases:
+1762
+Percentage of patients in cases:
+0.4332431767887878
+Number of patients in controls:
+757
+Percentage of patients in controls:
+0.1861322842389968
+U-stat is:
+10337489.5
+P-value is:
+1.5699863408715482e-125
+Feature number 9:
+147416
+Number of patients in cases:
+1882
+Percentage of patients in cases:
+0.46274895500368823
+Number of patients in controls:
+891
+Percentage of patients in controls:
+0.2190804032456356
+U-stat is:
+10356303.5
+P-value is:
+2.8544401477797874e-120
+Feature number 10:
+1368
+Number of patients in cases:
+2144
+Percentage of patients in cases:
+0.5271699041062208
+Number of patients in controls:
+1055
+Percentage of patients in controls:
+0.2594049668059995
+U-stat is:
+10478827.5
+P-value is:
+7.988892562760277e-124
+Feature number 11:
+445875
+Number of patients in cases:
+161
+Percentage of patients in cases:
+0.039586919104991396
+Number of patients in controls:
+303
+Percentage of patients in controls:
+0.07450208999262356
+U-stat is:
+7980091.0
+P-value is:
+9.287305750954138e-12
+Feature number 12:
+M4D
+Number of patients in cases:
+1881
+Percentage of patients in cases:
+0.46250307351856407
+Number of patients in controls:
+1060
+Percentage of patients in controls:
+0.26063437423162034
+U-stat is:
+9951947.0
+P-value is:
+3.914474924216924e-76
+Feature number 13:
+416542
+Number of patients in cases:
+145
+Percentage of patients in cases:
+0.03565281534300467
+Number of patients in controls:
+278
+Percentage of patients in controls:
+0.0683550528645193
+U-stat is:
+7999241.5
+P-value is:
+2.9002988314768495e-11
+Feature number 14:
+147415
+Number of patients in cases:
+1546
+Percentage of patients in cases:
+0.38013277600196704
+Number of patients in controls:
+715
+Percentage of patients in controls:
+0.17580526186378165
+U-stat is:
+9958185.0
+P-value is:
+1.3034932517238498e-90
+Feature number 15:
+END010
+Number of patients in cases:
+2206
+Percentage of patients in cases:
+0.5424145561839193
+Number of patients in controls:
+1551
+Percentage of patients in controls:
+0.3813621834275879
+U-stat is:
+9842886.0
+P-value is:
+8.981031451132485e-59
+Feature number 16:
+CIR007
+Number of patients in cases:
+2248
+Percentage of patients in cases:
+0.5527415785591345
+Number of patients in controls:
+1775
+Percentage of patients in controls:
+0.43643963609540204
+U-stat is:
+9541685.5
+P-value is:
+6.924166087357452e-38
+Feature number 17:
+999416
+Number of patients in cases:
+1655
+Percentage of patients in cases:
+0.40693385788050157
+Number of patients in controls:
+884
+Percentage of patients in controls:
+0.2173592328497664
+U-stat is:
+9907958.0
+P-value is:
+4.221340051735433e-79
+Feature number 18:
+FAC008
+Number of patients in cases:
+1458
+Percentage of patients in cases:
+0.35849520531104007
+Number of patients in controls:
+622
+Percentage of patients in controls:
+0.15293828374723384
+U-stat is:
+9962396.5
+P-value is:
+1.695896835740811e-96
+Feature number 19:
+MBD002
+Number of patients in cases:
+975
+Percentage of patients in cases:
+0.23973444799606589
+Number of patients in controls:
+314
+Percentage of patients in controls:
+0.07720678632898943
+U-stat is:
+9635825.5
+P-value is:
+1.646208229406163e-91
+Feature number 20:
+474
+Number of patients in cases:
+1919
+Percentage of patients in cases:
+0.4718465699532825
+Number of patients in controls:
+942
+Percentage of patients in controls:
+0.23162035898696828
+U-stat is:
+10250446.0
+P-value is:
+1.5491656062039198e-106
+Feature number 21:
+1883
+Number of patients in cases:
+1544
+Percentage of patients in cases:
+0.3796410130317187
+Number of patients in controls:
+674
+Percentage of patients in controls:
+0.1657241209736907
+U-stat is:
+10058503.5
+P-value is:
+8.187249443507851e-103
+Feature number 22:
+NVS016
+Number of patients in cases:
+1196
+Percentage of patients in cases:
+0.2940742562085075
+Number of patients in controls:
+458
+Percentage of patients in controls:
+0.11261372018686992
+U-stat is:
+9807466.0
+P-value is:
+1.0585846577763561e-94
+Feature number 23:
+SYM016
+Number of patients in cases:
+1456
+Percentage of patients in cases:
+0.35800344234079173
+Number of patients in controls:
+726
+Percentage of patients in controls:
+0.17850995820014753
+U-stat is:
+9750200.0
+P-value is:
+8.058262291947774e-72
+Feature number 24:
+SYM017
+Number of patients in cases:
+2013
+Percentage of patients in cases:
+0.49495942955495453
+Number of patients in controls:
+1160
+Percentage of patients in controls:
+0.28522252274403737
+U-stat is:
+10085042.0
+P-value is:
+1.2989798857860464e-84
+Feature number 25:
+FAC021
+Number of patients in cases:
+1957
+Percentage of patients in cases:
+0.481190066388001
+Number of patients in controls:
+1185
+Percentage of patients in controls:
+0.29136955987214164
+U-stat is:
+9787470.0
+P-value is:
+5.063859919775113e-60
+Feature number 26:
+1285
+Number of patients in cases:
+1322
+Percentage of patients in cases:
+0.32505532333415293
+Number of patients in controls:
+466
+Percentage of patients in controls:
+0.1145807720678633
+U-stat is:
+10032676.5
+P-value is:
+9.748736059206566e-117
+Feature number 27:
+2295
+Number of patients in cases:
+1110
+Percentage of patients in cases:
+0.2729284484878289
+Number of patients in controls:
+319
+Percentage of patients in controls:
+0.07843619375461028
+U-stat is:
+9874849.5
+P-value is:
+1.5443510668176648e-115
+Feature number 28:
+2261
+Number of patients in cases:
+1598
+Percentage of patients in cases:
+0.3929186132284239
+Number of patients in controls:
+685
+Percentage of patients in controls:
+0.16842881731005654
+U-stat is:
+10158631.5
+P-value is:
+3.5413469607417655e-112
+Feature number 29:
+race
+Number of patients in cases:
+4067
+Percentage of patients in cases:
+1.0
+Number of patients in controls:
+4067
+Percentage of patients in controls:
+1.0
+U-stat is:
+7421959.5
+P-value is:
+6.268959025525069e-21
+Feature number 30:
+H2S
+Number of patients in cases:
+793
+Percentage of patients in cases:
+0.19498401770346693
+Number of patients in controls:
+246
+Percentage of patients in controls:
+0.06048684534054586
+U-stat is:
+9394603.5
+P-value is:
+7.074279548791604e-75
+Feature number 31:
+9994130
+Number of patients in cases:
+1390
+Percentage of patients in cases:
+0.34177526432259653
+Number of patients in controls:
+681
+Percentage of patients in controls:
+0.16744529136955988
+U-stat is:
+9776420.5
+P-value is:
+4.405816377200291e-77
+Feature number 32:
+H3U
+Number of patients in cases:
+1652
+Percentage of patients in cases:
+0.40619621342512907
+Number of patients in controls:
+795
+Percentage of patients in controls:
+0.19547578067371527
+U-stat is:
+10019035.0
+P-value is:
+4.1201498748742006e-92
+Feature number 33:
+1036
+Number of patients in cases:
+1368
+Percentage of patients in cases:
+0.33636587164986476
+Number of patients in controls:
+547
+Percentage of patients in controls:
+0.13449717236292108
+U-stat is:
+9933271.5
+P-value is:
+5.4462925184967805e-99
+Feature number 34:
+999415
+Number of patients in cases:
+1249
+Percentage of patients in cases:
+0.3071059749200885
+Number of patients in controls:
+655
+Percentage of patients in controls:
+0.16105237275633144
+U-stat is:
+9487180.0
+P-value is:
+4.2784440772536634e-54
+Feature number 35:
+H4B
+Number of patients in cases:
+994
+Percentage of patients in cases:
+0.24440619621342513
+Number of patients in controls:
+390
+Percentage of patients in controls:
+0.09589377919842636
+U-stat is:
+9517401.0
+P-value is:
+2.2629261596286717e-72
+Feature number 36:
+787
+Number of patients in cases:
+1846
+Percentage of patients in cases:
+0.4538972215392181
+Number of patients in controls:
+984
+Percentage of patients in controls:
+0.24194738136218344
+U-stat is:
+9984843.0
+P-value is:
+7.047921660627106e-81
+Feature number 37:
+999414
+Number of patients in cases:
+1347
+Percentage of patients in cases:
+0.3312023604622572
+Number of patients in controls:
+702
+Percentage of patients in controls:
+0.17260880255716746
+U-stat is:
+9611253.0
+P-value is:
+5.94784781910545e-62
+Feature number 38:
+M9P
+Number of patients in cases:
+1626
+Percentage of patients in cases:
+0.3998032948119007
+Number of patients in controls:
+976
+Percentage of patients in controls:
+0.23998032948119008
+U-stat is:
+9546405.0
+P-value is:
+5.265374038551758e-48
+Feature number 39:
+MUS028
+Number of patients in cases:
+652
+Percentage of patients in cases:
+0.16031472830095894
+Number of patients in controls:
+284
+Percentage of patients in controls:
+0.06983034177526433
+U-stat is:
+9015017.0
+P-value is:
+6.427432781213645e-37
+Feature number 40:
+MUS011
+Number of patients in cases:
+1327
+Percentage of patients in cases:
+0.32628473075977377
+Number of patients in controls:
+680
+Percentage of patients in controls:
+0.1671994098844357
+U-stat is:
+9595129.0
+P-value is:
+2.0736660626460595e-61
+Feature number 41:
+FAC025
+Number of patients in cases:
+1647
+Percentage of patients in cases:
+0.40496680599950824
+Number of patients in controls:
+845
+Percentage of patients in controls:
+0.20776985492992378
+U-stat is:
+9877474.5
+P-value is:
+3.5486125278793214e-77
+Feature number 42:
+H6J
+Number of patients in cases:
+1665
+Percentage of patients in cases:
+0.4093926727317433
+Number of patients in controls:
+821
+Percentage of patients in controls:
+0.2018686992869437
+U-stat is:
+9956221.5
+P-value is:
+7.217739540866831e-85
+Feature number 43:
+391410
+Number of patients in cases:
+922
+Percentage of patients in cases:
+0.22670272928448487
+Number of patients in controls:
+335
+Percentage of patients in controls:
+0.082370297516597
+U-stat is:
+9455035.0
+P-value is:
+8.797616816781967e-71
+Feature number 44:
+CIR017
+Number of patients in cases:
+1054
+Percentage of patients in cases:
+0.25915908532087534
+Number of patients in controls:
+859
+Percentage of patients in controls:
+0.21121219572166217
+U-stat is:
+8621176.0
+P-value is:
+8.271461937438145e-06
+Feature number 45:
+MUS006
+Number of patients in cases:
+1170
+Percentage of patients in cases:
+0.2876813375952791
+Number of patients in controls:
+656
+Percentage of patients in controls:
+0.1612982542414556
+U-stat is:
+9305227.0
+P-value is:
+7.88654487497007e-41
+Feature number 46:
+2637
+Number of patients in cases:
+774
+Percentage of patients in cases:
+0.1903122694861077
+Number of patients in controls:
+214
+Percentage of patients in controls:
+0.05261863781657241
+U-stat is:
+9409511.0
+P-value is:
+3.514982043130684e-80
+Feature number 47:
+D4J
+Number of patients in cases:
+1432
+Percentage of patients in cases:
+0.35210228669781163
+Number of patients in controls:
+742
+Percentage of patients in controls:
+0.18244406196213425
+U-stat is:
+9668434.0
+P-value is:
+1.821532178137416e-64
+Feature number 48:
+1916
+Number of patients in cases:
+1409
+Percentage of patients in cases:
+0.34644701253995575
+Number of patients in controls:
+641
+Percentage of patients in controls:
+0.15761003196459306
+U-stat is:
+9833818.5
+P-value is:
+1.5920954497058006e-83
+Feature number 49:
+SYM006
+Number of patients in cases:
+1221
+Percentage of patients in cases:
+0.30022129333661174
+Number of patients in controls:
+528
+Percentage of patients in controls:
+0.12982542414556184
+U-stat is:
+9693350.0
+P-value is:
+4.643525537659826e-78
+Feature number 50:
+1709
+Number of patients in cases:
+1578
+Percentage of patients in cases:
+0.3880009835259405
+Number of patients in controls:
+805
+Percentage of patients in controls:
+0.19793459552495696
+U-stat is:
+9833694.5
+P-value is:
+2.651495859153253e-75
+Feature number 51:
+1435
+Number of patients in cases:
+1551
+Percentage of patients in cases:
+0.3813621834275879
+Number of patients in controls:
+745
+Percentage of patients in controls:
+0.18318170641750675
+U-stat is:
+9906577.0
+P-value is:
+2.194129925070742e-84
+Feature number 52:
+2471
+Number of patients in cases:
+1414
+Percentage of patients in cases:
+0.3476764199655766
+Number of patients in controls:
+636
+Percentage of patients in controls:
+0.15638062453897222
+U-stat is:
+9852983.5
+P-value is:
+1.5442384557109823e-85
+Feature number 53:
+C1F
+Number of patients in cases:
+1233
+Percentage of patients in cases:
+0.3031718711581018
+Number of patients in controls:
+642
+Percentage of patients in controls:
+0.15785591344971725
+U-stat is:
+9429230.0
+P-value is:
+8.794576289369358e-50
+Feature number 54:
+A9A
+Number of patients in cases:
+1067
+Percentage of patients in cases:
+0.26235554462748956
+Number of patients in controls:
+680
+Percentage of patients in controls:
+0.1671994098844357
+U-stat is:
+9062670.0
+P-value is:
+2.024998179208732e-25
+Feature number 55:
+MBD005
+Number of patients in cases:
+751
+Percentage of patients in cases:
+0.18465699532825178
+Number of patients in controls:
+263
+Percentage of patients in controls:
+0.06466683058765675
+U-stat is:
+9262922.0
+P-value is:
+5.461715691293303e-60
+Feature number 56:
+1944
+Number of patients in cases:
+1094
+Percentage of patients in cases:
+0.26899434472584216
+Number of patients in controls:
+382
+Percentage of patients in controls:
+0.093926727317433
+U-stat is:
+9721200.0
+P-value is:
+2.0309967652661256e-92
+Feature number 57:
+SKN007
+Number of patients in cases:
+1036
+Percentage of patients in cases:
+0.2547332185886403
+Number of patients in controls:
+458
+Percentage of patients in controls:
+0.11261372018686992
+U-stat is:
+9430271.5
+P-value is:
+3.4942074379590443e-59
+Feature number 58:
+C6D
+Number of patients in cases:
+990
+Percentage of patients in cases:
+0.24342267027292844
+Number of patients in controls:
+505
+Percentage of patients in controls:
+0.12417014998770592
+U-stat is:
+9243646.5
+P-value is:
+3.5386313985653653e-42
+Feature number 59:
+S2B
+Number of patients in cases:
+1053
+Percentage of patients in cases:
+0.25891320383575117
+Number of patients in controls:
+458
+Percentage of patients in controls:
+0.11261372018686992
+U-stat is:
+9479305.0
+P-value is:
+1.4328596519773043e-63
+Feature number 60:
+J7C
+Number of patients in cases:
+1282
+Percentage of patients in cases:
+0.3152200639291861
+Number of patients in controls:
+753
+Percentage of patients in controls:
+0.1851487582985001
+U-stat is:
+9324950.5
+P-value is:
+3.460414201269113e-39
+Feature number 61:
+END001
+Number of patients in cases:
+957
+Percentage of patients in cases:
+0.23530858126383083
+Number of patients in controls:
+565
+Percentage of patients in controls:
+0.13892303909515613
+U-stat is:
+9096015.5
+P-value is:
+2.040097784934639e-30
+Feature number 62:
+NEO073
+Number of patients in cases:
+939
+Percentage of patients in cases:
+0.23088271453159578
+Number of patients in controls:
+472
+Percentage of patients in controls:
+0.11605606097860831
+U-stat is:
+9200245.5
+P-value is:
+2.0066160786302894e-40
+Feature number 63:
+1826
+Number of patients in cases:
+939
+Percentage of patients in cases:
+0.23088271453159578
+Number of patients in controls:
+339
+Percentage of patients in controls:
+0.08335382345709368
+U-stat is:
+9482422.5
+P-value is:
+5.174398991523473e-73
+Feature number 64:
+DIG025
+Number of patients in cases:
+735
+Percentage of patients in cases:
+0.18072289156626506
+Number of patients in controls:
+321
+Percentage of patients in controls:
+0.07892795672485863
+U-stat is:
+9108591.5
+P-value is:
+7.336801607672815e-42
+Feature number 65:
+D6S
+Number of patients in cases:
+1456
+Percentage of patients in cases:
+0.35800344234079173
+Number of patients in controls:
+710
+Percentage of patients in controls:
+0.17457585443816082
+U-stat is:
+9765776.0
+P-value is:
+1.1260403010511903e-73
+Feature number 66:
+189214
+Number of patients in cases:
+835
+Percentage of patients in cases:
+0.2053110400786821
+Number of patients in controls:
+309
+Percentage of patients in controls:
+0.07597737890336857
+U-stat is:
+9348233.0
+P-value is:
+1.2088602154867648e-63
+Feature number 67:
+482552
+Number of patients in cases:
+118
+Percentage of patients in cases:
+0.029014015244652077
+Number of patients in controls:
+129
+Percentage of patients in controls:
+0.03171871158101795
+U-stat is:
+8248373.5
+P-value is:
+0.48717373480832415
+Feature number 68:
+FAC009
+Number of patients in cases:
+1306
+Percentage of patients in cases:
+0.3211212195721662
+Number of patients in controls:
+744
+Percentage of patients in controls:
+0.18293582493238258
+U-stat is:
+9400912.0
+P-value is:
+1.5202421990090015e-44
+Feature number 69:
+SYM011
+Number of patients in cases:
+882
+Percentage of patients in cases:
+0.21686746987951808
+Number of patients in controls:
+365
+Percentage of patients in controls:
+0.0897467420703221
+U-stat is:
+9314524.0
+P-value is:
+9.309757851557403e-56
+Feature number 70:
+END007
+Number of patients in cases:
+619
+Percentage of patients in cases:
+0.1522006392918613
+Number of patients in controls:
+296
+Percentage of patients in controls:
+0.07278091959675437
+U-stat is:
+8928547.5
+P-value is:
+9.05166887223079e-30
+Feature number 71:
+DIG004
+Number of patients in cases:
+1051
+Percentage of patients in cases:
+0.25842144086550284
+Number of patients in controls:
+606
+Percentage of patients in controls:
+0.14900417998524712
+U-stat is:
+9180501.5
+P-value is:
+2.5285357929767278e-34
+Feature number 72:
+H20
+Number of patients in cases:
+982
+Percentage of patients in cases:
+0.24145561839193508
+Number of patients in controls:
+409
+Percentage of patients in controls:
+0.10056552741578559
+U-stat is:
+9444068.0
+P-value is:
+4.591837513227267e-64
+Feature number 73:
+SYM013
+Number of patients in cases:
+1315
+Percentage of patients in cases:
+0.32333415293828377
+Number of patients in controls:
+703
+Percentage of patients in controls:
+0.17285468404229162
+U-stat is:
+9496041.0
+P-value is:
+1.2649013639491522e-52
+Feature number 74:
+CIR011
+Number of patients in cases:
+799
+Percentage of patients in cases:
+0.19645930661421196
+Number of patients in controls:
+614
+Percentage of patients in controls:
+0.15097123186624048
+U-stat is:
+8627509.0
+P-value is:
+3.2146990826023686e-07
+Feature number 75:
+H3E
+Number of patients in cases:
+1488
+Percentage of patients in cases:
+0.36587164986476517
+Number of patients in controls:
+799
+Percentage of patients in controls:
+0.19645930661421196
+U-stat is:
+9627500.0
+P-value is:
+8.634417772796087e-59
+Feature number 76:
+C1B
+Number of patients in cases:
+1429
+Percentage of patients in cases:
+0.35136464224243913
+Number of patients in controls:
+669
+Percentage of patients in controls:
+0.16449471354806983
+U-stat is:
+9781346.0
+P-value is:
+7.179286328701286e-77
+Feature number 77:
+639
+Number of patients in cases:
+1092
+Percentage of patients in cases:
+0.2685025817555938
+Number of patients in controls:
+494
+Percentage of patients in controls:
+0.12146545365134005
+U-stat is:
+9479568.5
+P-value is:
+2.95804037721563e-61
+Feature number 78:
+1721
+Number of patients in cases:
+1363
+Percentage of patients in cases:
+0.3351364642242439
+Number of patients in controls:
+687
+Percentage of patients in controls:
+0.1689205802803049
+U-stat is:
+9639146.0
+P-value is:
+1.8608497186428058e-64
+Feature number 79:
+sex
+Number of patients in cases:
+4067
+Percentage of patients in cases:
+1.0
+Number of patients in controls:
+4067
+Percentage of patients in controls:
+1.0
+U-stat is:
+8302780.5
+P-value is:
+0.7218340421984211
+Feature number 80:
+H3A
+Number of patients in cases:
+1395
+Percentage of patients in cases:
+0.34300467174821736
+Number of patients in controls:
+681
+Percentage of patients in controls:
+0.16744529136955988
+U-stat is:
+9702958.5
+P-value is:
+8.326551759477621e-70
+Feature number 81:
+147420
+Number of patients in cases:
+1371
+Percentage of patients in cases:
+0.33710351610523726
+Number of patients in controls:
+634
+Percentage of patients in controls:
+0.15588886156872386
+U-stat is:
+9776657.5
+P-value is:
+6.650311437196262e-79
+Feature number 82:
+MUS013
+Number of patients in cases:
+662
+Percentage of patients in cases:
+0.16277354315220063
+Number of patients in controls:
+373
+Percentage of patients in controls:
+0.09171379395131547
+U-stat is:
+8864914.5
+P-value is:
+3.0295094194832683e-22
+Feature number 83:
+MUS038
+Number of patients in cases:
+707
+Percentage of patients in cases:
+0.1738382099827883
+Number of patients in controls:
+283
+Percentage of patients in controls:
+0.06958446029014015
+U-stat is:
+9135817.5
+P-value is:
+5.650434414589658e-47
+Feature number 84:
+INJ031
+Number of patients in cases:
+851
+Percentage of patients in cases:
+0.2092451438406688
+Number of patients in controls:
+419
+Percentage of patients in controls:
+0.1030243422670273
+U-stat is:
+9143965.5
+P-value is:
+5.48717727319693e-39
+Feature number 85:
+A4D
+Number of patients in cases:
+916
+Percentage of patients in cases:
+0.22522744037373985
+Number of patients in controls:
+556
+Percentage of patients in controls:
+0.1367101057290386
+U-stat is:
+9013589.0
+P-value is:
+1.348686580629467e-25
+Feature number 86:
+A4F
+Number of patients in cases:
+687
+Percentage of patients in cases:
+0.1689205802803049
+Number of patients in controls:
+497
+Percentage of patients in controls:
+0.12220309810671257
+U-stat is:
+8646448.5
+P-value is:
+6.943063662099514e-09
+Feature number 87:
+C6Z
+Number of patients in cases:
+982
+Percentage of patients in cases:
+0.24145561839193508
+Number of patients in controls:
+499
+Percentage of patients in controls:
+0.1226948610769609
+U-stat is:
+9218065.0
+P-value is:
+2.2617072740123613e-40
+Feature number 88:
+17918
+Number of patients in cases:
+1416
+Percentage of patients in cases:
+0.3481681829358249
+Number of patients in controls:
+665
+Percentage of patients in controls:
+0.16351118760757316
+U-stat is:
+9774936.0
+P-value is:
+1.1307303262898839e-76
+Feature number 89:
+FAC012
+Number of patients in cases:
+578
+Percentage of patients in cases:
+0.14211949840177035
+Number of patients in controls:
+233
+Percentage of patients in controls:
+0.05729038603393165
+U-stat is:
+8974724.0
+P-value is:
+1.7116147929866023e-37
+Feature number 90:
+MUS025
+Number of patients in cases:
+745
+Percentage of patients in cases:
+0.18318170641750675
+Number of patients in controls:
+327
+Percentage of patients in controls:
+0.08040324563560364
+U-stat is:
+9116098.0
+P-value is:
+4.685663364183834e-42
+Feature number 91:
+34370
+Number of patients in cases:
+588
+Percentage of patients in cases:
+0.14457831325301204
+Number of patients in controls:
+121
+Percentage of patients in controls:
+0.029751659700024587
+U-stat is:
+9222419.0
+P-value is:
+1.9309573239621538e-75
+Feature number 92:
+W7C
+Number of patients in cases:
+706
+Percentage of patients in cases:
+0.17359232849766412
+Number of patients in controls:
+266
+Percentage of patients in controls:
+0.06540447504302926
+U-stat is:
+9159556.5
+P-value is:
+2.9315713611211577e-50
+Feature number 93:
+198428
+Number of patients in cases:
+257
+Percentage of patients in cases:
+0.06319154167691172
+Number of patients in controls:
+24
+Percentage of patients in controls:
+0.005901155642980083
+U-stat is:
+8744534.5
+P-value is:
+1.6960197845032545e-45
+Feature number 94:
+CIR008
+Number of patients in cases:
+505
+Percentage of patients in cases:
+0.12417014998770592
+Number of patients in controls:
+286
+Percentage of patients in controls:
+0.07032210474551266
+U-stat is:
+8717015.0
+P-value is:
+2.268240113921308e-16
+Feature number 95:
+1287
+Number of patients in cases:
+987
+Percentage of patients in cases:
+0.24268502581755594
+Number of patients in controls:
+451
+Percentage of patients in controls:
+0.11089254979100074
+U-stat is:
+9353262.5
+P-value is:
+2.1784120783630896e-53
+Feature number 96:
+EAR006
+Number of patients in cases:
+533
+Percentage of patients in cases:
+0.1310548315711827
+Number of patients in controls:
+268
+Percentage of patients in controls:
+0.0658962380132776
+U-stat is:
+8803729.5
+P-value is:
+1.9434091255088298e-22
+Feature number 97:
+CIR012
+Number of patients in cases:
+891
+Percentage of patients in cases:
+0.2190804032456356
+Number of patients in controls:
+450
+Percentage of patients in controls:
+0.11064666830587656
+U-stat is:
+9148898.5
+P-value is:
+9.617617736025618e-38
+Feature number 98:
+P3A
+Number of patients in cases:
+689
+Percentage of patients in cases:
+0.16941234325055324
+Number of patients in controls:
+411
+Percentage of patients in controls:
+0.10105729038603393
+U-stat is:
+8851150.5
+P-value is:
+2.72440671895671e-20
+Feature number 99:
+SYM012
+Number of patients in cases:
+904
+Percentage of patients in cases:
+0.22227686255224982
+Number of patients in controls:
+530
+Percentage of patients in controls:
+0.13031718711581017
+U-stat is:
+9008409.0
+P-value is:
+9.048061798412272e-26
+Feature number 100:
+END002
+Number of patients in cases:
+730
+Percentage of patients in cases:
+0.1794934841406442
+Number of patients in controls:
+534
+Percentage of patients in controls:
+0.13130071305630686
+U-stat is:
+8705105.0
+P-value is:
+7.338217304542501e-11
+Feature number 101:
+R1M
+Number of patients in cases:
+595
+Percentage of patients in cases:
+0.14629948364888123
+Number of patients in controls:
+434
+Percentage of patients in controls:
+0.10671256454388985
+U-stat is:
+8594283.0
+P-value is:
+1.1665929899061298e-07
+Feature number 102:
+1316
+Number of patients in cases:
+1208
+Percentage of patients in cases:
+0.2970248340299975
+Number of patients in controls:
+603
+Percentage of patients in controls:
+0.1482665355298746
+U-stat is:
+9478601.5
+P-value is:
+2.3996115919845555e-55
+Feature number 103:
+735
+Number of patients in cases:
+1497
+Percentage of patients in cases:
+0.3680845832308827
+Number of patients in controls:
+749
+Percentage of patients in controls:
+0.18416523235800344
+U-stat is:
+9773001.0
+P-value is:
+1.5384117078535414e-72
+Feature number 104:
+H2E
+Number of patients in cases:
+1023
+Percentage of patients in cases:
+0.25153675928202607
+Number of patients in controls:
+440
+Percentage of patients in controls:
+0.10818785345463487
+U-stat is:
+9465233.5
+P-value is:
+9.879782122242114e-64
+Feature number 105:
+M4E
+Number of patients in cases:
+768
+Percentage of patients in cases:
+0.18883698057536266
+Number of patients in controls:
+377
+Percentage of patients in controls:
+0.09269731989181215
+U-stat is:
+9048382.0
+P-value is:
+5.564078224236509e-34
+Feature number 106:
+P5A
+Number of patients in cases:
+1005
+Percentage of patients in cases:
+0.247110892549791
+Number of patients in controls:
+479
+Percentage of patients in controls:
+0.1177772313744775
+U-stat is:
+9335683.0
+P-value is:
+1.8058185310763761e-50
+Feature number 107:
+EYE002
+Number of patients in cases:
+720
+Percentage of patients in cases:
+0.1770346692894025
+Number of patients in controls:
+359
+Percentage of patients in controls:
+0.08827145315957709
+U-stat is:
+8988167.5
+P-value is:
+1.303795675869326e-30
+Feature number 108:
+CIR019
+Number of patients in cases:
+342
+Percentage of patients in cases:
+0.08409146791246619
+Number of patients in controls:
+313
+Percentage of patients in controls:
+0.07696090484386525
+U-stat is:
+8328034.5
+P-value is:
+0.24744159262564425
+Feature number 109:
+EAR004
+Number of patients in cases:
+615
+Percentage of patients in cases:
+0.15121711335136465
+Number of patients in controls:
+343
+Percentage of patients in controls:
+0.08433734939759036
+U-stat is:
+8815938.0
+P-value is:
+3.3852831347904874e-20
+Feature number 110:
+R1F
+Number of patients in cases:
+635
+Percentage of patients in cases:
+0.15613474305384806
+Number of patients in controls:
+364
+Percentage of patients in controls:
+0.08950086058519793
+U-stat is:
+8821941.5
+P-value is:
+6.349373211180609e-20
+Feature number 111:
+GEN004
+Number of patients in cases:
+703
+Percentage of patients in cases:
+0.17285468404229162
+Number of patients in controls:
+336
+Percentage of patients in controls:
+0.08261617900172118
+U-stat is:
+9015050.5
+P-value is:
+7.503010790442847e-34
+Feature number 112:
+2265
+Number of patients in cases:
+1173
+Percentage of patients in cases:
+0.2884189820506516
+Number of patients in controls:
+525
+Percentage of patients in controls:
+0.12908777969018934
+U-stat is:
+9584083.0
+P-value is:
+2.5965827921819648e-68
+Feature number 113:
+659308
+Number of patients in cases:
+603
+Percentage of patients in cases:
+0.1482665355298746
+Number of patients in controls:
+383
+Percentage of patients in controls:
+0.09417260880255716
+U-stat is:
+8711533.0
+P-value is:
+1.9625080394455954e-13
+Feature number 114:
+GEN003
+Number of patients in cases:
+533
+Percentage of patients in cases:
+0.1310548315711827
+Number of patients in controls:
+399
+Percentage of patients in controls:
+0.0981067125645439
+U-stat is:
+8552935.5
+P-value is:
+1.3852727201900912e-06
+Feature number 115:
+NVS010
+Number of patients in cases:
+632
+Percentage of patients in cases:
+0.15539709859847553
+Number of patients in controls:
+230
+Percentage of patients in controls:
+0.056552741578559135
+U-stat is:
+9093119.5
+P-value is:
+6.242661639303156e-48
+Feature number 116:
+34544
+Number of patients in cases:
+581
+Percentage of patients in cases:
+0.14285714285714285
+Number of patients in controls:
+244
+Percentage of patients in controls:
+0.05999508237029752
+U-stat is:
+8959706.0
+P-value is:
+1.837466331291465e-35
+Feature number 117:
+GEN012
+Number of patients in cases:
+518
+Percentage of patients in cases:
+0.12736660929432014
+Number of patients in controls:
+303
+Percentage of patients in controls:
+0.07450208999262356
+U-stat is:
+8710342.0
+P-value is:
+1.858356762413045e-15
+Feature number 118:
+W1Q
+Number of patients in cases:
+940
+Percentage of patients in cases:
+0.23112859601671995
+Number of patients in controls:
+408
+Percentage of patients in controls:
+0.10031964593066142
+U-stat is:
+9343137.0
+P-value is:
+3.513120461550493e-55
+Feature number 119:
+2263
+Number of patients in cases:
+975
+Percentage of patients in cases:
+0.23973444799606589
+Number of patients in controls:
+385
+Percentage of patients in controls:
+0.09466437177280551
+U-stat is:
+9452706.5
+P-value is:
+3.656265873106566e-66
+Feature number 120:
+P4L
+Number of patients in cases:
+541
+Percentage of patients in cases:
+0.13302188345217605
+Number of patients in controls:
+275
+Percentage of patients in controls:
+0.06761740840914679
+U-stat is:
+8808439.5
+P-value is:
+1.858099796156803e-22
+Feature number 121:
+17968
+Number of patients in cases:
+1191
+Percentage of patients in cases:
+0.29284484878288664
+Number of patients in controls:
+514
+Percentage of patients in controls:
+0.12638308335382345
+U-stat is:
+9632309.5
+P-value is:
+4.7224741162424946e-73
+Feature number 122:
+34496
+Number of patients in cases:
+424
+Percentage of patients in cases:
+0.10425374969264814
+Number of patients in controls:
+267
+Percentage of patients in controls:
+0.06565035652815343
+U-stat is:
+8590046.0
+P-value is:
+4.2203157104735133e-10
+Feature number 123:
+CIR016
+Number of patients in cases:
+568
+Percentage of patients in cases:
+0.13966068355052866
+Number of patients in controls:
+412
+Percentage of patients in controls:
+0.1013031718711581
+U-stat is:
+8574150.5
+P-value is:
+3.85005262893508e-07
+Feature number 124:
+1453
+Number of patients in cases:
+1356
+Percentage of patients in cases:
+0.3334152938283747
+Number of patients in controls:
+666
+Percentage of patients in controls:
+0.16375706909269733
+U-stat is:
+9670424.5
+P-value is:
+5.192384394903383e-68
+Feature number 125:
+1048
+Number of patients in cases:
+976
+Percentage of patients in cases:
+0.23998032948119008
+Number of patients in controls:
+447
+Percentage of patients in controls:
+0.10990902385050405
+U-stat is:
+9331117.0
+P-value is:
+1.0050968608612895e-51
+Feature number 126:
+Z2P
+Number of patients in cases:
+1168
+Percentage of patients in cases:
+0.28718957462503075
+Number of patients in controls:
+551
+Percentage of patients in controls:
+0.13548069830341775
+U-stat is:
+9498735.0
+P-value is:
+2.0976075749857497e-59
+Feature number 127:
+1001
+Number of patients in cases:
+919
+Percentage of patients in cases:
+0.22596508482911237
+Number of patients in controls:
+465
+Percentage of patients in controls:
+0.11433489058273912
+U-stat is:
+9190531.5
+P-value is:
+3.1814399971513512e-40
+Feature number 128:
+C1D
+Number of patients in cases:
+1173
+Percentage of patients in cases:
+0.2884189820506516
+Number of patients in controls:
+633
+Percentage of patients in controls:
+0.1556429800835997
+U-stat is:
+9354422.5
+P-value is:
+5.403170610482685e-45
+Feature number 129:
+EYE001
+Number of patients in cases:
+451
+Percentage of patients in cases:
+0.11089254979100074
+Number of patients in controls:
+222
+Percentage of patients in controls:
+0.054585689697565776
+U-stat is:
+8731813.0
+P-value is:
+7.259783612011741e-20
+Feature number 130:
+FAC003
+Number of patients in cases:
+847
+Percentage of patients in cases:
+0.2082616179001721
+Number of patients in controls:
+328
+Percentage of patients in controls:
+0.0806491271207278
+U-stat is:
+9322434.0
+P-value is:
+2.138959322581067e-59
+Feature number 131:
+H3H
+Number of patients in cases:
+1356
+Percentage of patients in cases:
+0.3334152938283747
+Number of patients in controls:
+659
+Percentage of patients in controls:
+0.16203589869682813
+U-stat is:
+9663990.0
+P-value is:
+1.4296097437113754e-67
+Feature number 132:
+SYM014
+Number of patients in cases:
+797
+Percentage of patients in cases:
+0.1959675436439636
+Number of patients in controls:
+307
+Percentage of patients in controls:
+0.07548561593312024
+U-stat is:
+9267344.0
+P-value is:
+2.3811682621451297e-56
+Feature number 133:
+W7L
+Number of patients in cases:
+765
+Percentage of patients in cases:
+0.18809933611999016
+Number of patients in controls:
+320
+Percentage of patients in controls:
+0.07868207523973444
+U-stat is:
+9177844.0
+P-value is:
+1.1274952006335424e-47
+Feature number 134:
+BLD003
+Number of patients in cases:
+713
+Percentage of patients in cases:
+0.17531349889353331
+Number of patients in controls:
+406
+Percentage of patients in controls:
+0.09982788296041308
+U-stat is:
+8900844.0
+P-value is:
+2.6406458207181905e-23
+Feature number 135:
+832
+Number of patients in cases:
+836
+Percentage of patients in cases:
+0.20555692156380626
+Number of patients in controls:
+459
+Percentage of patients in controls:
+0.1128596016719941
+U-stat is:
+9011091.0
+P-value is:
+4.503911844117131e-28
+Feature number 136:
+GEN008
+Number of patients in cases:
+449
+Percentage of patients in cases:
+0.1104007868207524
+Number of patients in controls:
+170
+Percentage of patients in controls:
+0.04179985247110893
+U-stat is:
+8836261.0
+P-value is:
+3.0243839352421523e-31
+Feature number 137:
+CIR026
+Number of patients in cases:
+506
+Percentage of patients in cases:
+0.12441603147283009
+Number of patients in controls:
+383
+Percentage of patients in controls:
+0.09417260880255716
+U-stat is:
+8508438.0
+P-value is:
+3.2801170061297564e-05
+Feature number 138:
+H0A
+Number of patients in cases:
+1079
+Percentage of patients in cases:
+0.2653061224489796
+Number of patients in controls:
+516
+Percentage of patients in controls:
+0.1268748463240718
+U-stat is:
+9403288.0
+P-value is:
+9.258877896003509e-54
+Feature number 139:
+H3D
+Number of patients in cases:
+701
+Percentage of patients in cases:
+0.17236292107204326
+Number of patients in controls:
+355
+Percentage of patients in controls:
+0.08728792721908041
+U-stat is:
+8955754.0
+P-value is:
+1.494362057983275e-28
+Feature number 140:
+NVS006
+Number of patients in cases:
+297
+Percentage of patients in cases:
+0.07302680108187853
+Number of patients in controls:
+102
+Percentage of patients in controls:
+0.025079911482665355
+U-stat is:
+8666467.5
+P-value is:
+1.5523363794183873e-23
+Feature number 141:
+Q7P
+Number of patients in cases:
+696
+Percentage of patients in cases:
+0.17113351364642243
+Number of patients in controls:
+282
+Percentage of patients in controls:
+0.06933857880501598
+U-stat is:
+9110032.0
+P-value is:
+8.900525826102619e-45
+Feature number 142:
+2349
+Number of patients in cases:
+776
+Percentage of patients in cases:
+0.19080403245635605
+Number of patients in controls:
+256
+Percentage of patients in controls:
+0.06294566019178756
+U-stat is:
+9330995.5
+P-value is:
+3.131185569208375e-67
+Feature number 143:
+H7C
+Number of patients in cases:
+334
+Percentage of patients in cases:
+0.08212441603147283
+Number of patients in controls:
+96
+Percentage of patients in controls:
+0.023604622571920333
+U-stat is:
+8755399.0
+P-value is:
+3.2429579875638216e-32
+Feature number 144:
+Q5P
+Number of patients in cases:
+682
+Percentage of patients in cases:
+0.16769117285468405
+Number of patients in controls:
+294
+Percentage of patients in controls:
+0.07228915662650602
+U-stat is:
+9051010.0
+P-value is:
+5.2381699995336606e-39
+Feature number 145:
+INJ027
+Number of patients in cases:
+503
+Percentage of patients in cases:
+0.12367838701745759
+Number of patients in controls:
+183
+Percentage of patients in controls:
+0.04499631177772314
+U-stat is:
+8921308.0
+P-value is:
+2.836523792331464e-37
+Feature number 146:
+NEO072
+Number of patients in cases:
+521
+Percentage of patients in cases:
+0.12810425374969264
+Number of patients in controls:
+282
+Percentage of patients in controls:
+0.06933857880501598
+U-stat is:
+8749501.5
+P-value is:
+2.242622812721866e-18
+Feature number 147:
+W1W
+Number of patients in cases:
+1008
+Percentage of patients in cases:
+0.24784853700516352
+Number of patients in controls:
+492
+Percentage of patients in controls:
+0.12097369068109172
+U-stat is:
+9301061.0
+P-value is:
+5.779043456584896e-47
+Feature number 148:
+1215
+Number of patients in cases:
+774
+Percentage of patients in cases:
+0.1903122694861077
+Number of patients in controls:
+378
+Percentage of patients in controls:
+0.09294320137693632
+U-stat is:
+9063659.5
+P-value is:
+4.3600323334745873e-35
+Feature number 149:
+17581
+Number of patients in cases:
+1280
+Percentage of patients in cases:
+0.3147283009589378
+Number of patients in controls:
+636
+Percentage of patients in controls:
+0.15638062453897222
+U-stat is:
+9566832.0
+P-value is:
+6.939297888927265e-61
+Feature number 150:
+SYM015
+Number of patients in cases:
+690
+Percentage of patients in cases:
+0.1696582247356774
+Number of patients in controls:
+286
+Percentage of patients in controls:
+0.07032210474551266
+U-stat is:
+9098237.5
+P-value is:
+1.1869233010665854e-43
+Feature number 151:
+FAC001
+Number of patients in cases:
+625
+Percentage of patients in cases:
+0.15367592820260634
+Number of patients in controls:
+259
+Percentage of patients in controls:
+0.06368330464716007
+U-stat is:
+9012653.5
+P-value is:
+1.6537704607599982e-38
+Feature number 152:
+RSP006
+Number of patients in cases:
+455
+Percentage of patients in cases:
+0.11187607573149742
+Number of patients in controls:
+182
+Percentage of patients in controls:
+0.04475043029259897
+U-stat is:
+8826845.5
+P-value is:
+1.5895647236285926e-29
+Feature number 153:
+Q9B
+Number of patients in cases:
+521
+Percentage of patients in cases:
+0.12810425374969264
+Number of patients in controls:
+280
+Percentage of patients in controls:
+0.06884681583476764
+U-stat is:
+8762945.0
+P-value is:
+2.2625646474595676e-19
+Feature number 154:
+DIG013
+Number of patients in cases:
+483
+Percentage of patients in cases:
+0.11876075731497418
+Number of patients in controls:
+256
+Percentage of patients in controls:
+0.06294566019178756
+U-stat is:
+8718780.5
+P-value is:
+1.9570445354884513e-17
+Feature number 155:
+MUS009
+Number of patients in cases:
+543
+Percentage of patients in cases:
+0.1335136464224244
+Number of patients in controls:
+217
+Percentage of patients in controls:
+0.05335628227194492
+U-stat is:
+8927840.5
+P-value is:
+9.119034914814969e-35
+Feature number 156:
+100973
+Number of patients in cases:
+1072
+Percentage of patients in cases:
+0.2635849520531104
+Number of patients in controls:
+507
+Percentage of patients in controls:
+0.12466191295795427
+U-stat is:
+9409302.5
+P-value is:
+9.82535052663147e-55
+Feature number 157:
+SKN002
+Number of patients in cases:
+602
+Percentage of patients in cases:
+0.14802065404475043
+Number of patients in controls:
+261
+Percentage of patients in controls:
+0.0641750676174084
+U-stat is:
+8961338.0
+P-value is:
+2.7584153230527102e-34
+Feature number 158:
+END003
+Number of patients in cases:
+414
+Percentage of patients in cases:
+0.10179493484140645
+Number of patients in controls:
+267
+Percentage of patients in controls:
+0.06565035652815343
+U-stat is:
+8573992.5
+P-value is:
+2.3471757228459506e-09
+Feature number 159:
+RSP009
+Number of patients in cases:
+430
+Percentage of patients in cases:
+0.10572903860339317
+Number of patients in controls:
+211
+Percentage of patients in controls:
+0.051880993361199904
+U-stat is:
+8714421.0
+P-value is:
+2.750866404603393e-19
+Feature number 160:
+H22
+Number of patients in cases:
+956
+Percentage of patients in cases:
+0.23506269977870667
+Number of patients in controls:
+404
+Percentage of patients in controls:
+0.09933611999016474
+U-stat is:
+9377253.5
+P-value is:
+3.244568475822858e-58
+Feature number 161:
+68376
+Number of patients in cases:
+1104
+Percentage of patients in cases:
+0.2714531595770838
+Number of patients in controls:
+542
+Percentage of patients in controls:
+0.13326776493730022
+U-stat is:
+9390233.5
+P-value is:
+2.5156166287769017e-51
+Feature number 162:
+118571
+Number of patients in cases:
+1222
+Percentage of patients in cases:
+0.3004671748217359
+Number of patients in controls:
+637
+Percentage of patients in controls:
+0.1566265060240964
+U-stat is:
+9447975.0
+P-value is:
+1.1445130142334031e-51
+Feature number 163:
+118367
+Number of patients in cases:
+1191
+Percentage of patients in cases:
+0.29284484878288664
+Number of patients in controls:
+610
+Percentage of patients in controls:
+0.1499877059257438
+U-stat is:
+9440718.5
+P-value is:
+2.9687129849534384e-52
+Feature number 164:
+EYE005
+Number of patients in cases:
+493
+Percentage of patients in cases:
+0.12121957216621589
+Number of patients in controls:
+300
+Percentage of patients in controls:
+0.07376444553725105
+U-stat is:
+8659149.0
+P-value is:
+9.61590763919645e-13
+Feature number 165:
+706
+Number of patients in cases:
+1137
+Percentage of patients in cases:
+0.2795672485861815
+Number of patients in controls:
+532
+Percentage of patients in controls:
+0.13080895008605853
+U-stat is:
+9488821.5
+P-value is:
+8.5513095288561e-60
+Feature number 166:
+CIR003
+Number of patients in cases:
+397
+Percentage of patients in cases:
+0.09761494959429555
+Number of patients in controls:
+294
+Percentage of patients in controls:
+0.07228915662650602
+U-stat is:
+8478230.0
+P-value is:
+4.867306967811157e-05
+Feature number 167:
+B6W
+Number of patients in cases:
+625
+Percentage of patients in cases:
+0.15367592820260634
+Number of patients in controls:
+274
+Percentage of patients in controls:
+0.06737152692402262
+U-stat is:
+8976347.5
+P-value is:
+1.6670515604940864e-34
+Feature number 168:
+37118
+Number of patients in cases:
+1102
+Percentage of patients in cases:
+0.2709613966068355
+Number of patients in controls:
+534
+Percentage of patients in controls:
+0.13130071305630686
+U-stat is:
+9409503.5
+P-value is:
+2.727675428212298e-53
+Feature number 169:
+118576
+Number of patients in cases:
+1247
+Percentage of patients in cases:
+0.3066142119498402
+Number of patients in controls:
+619
+Percentage of patients in controls:
+0.1522006392918613
+U-stat is:
+9540480.5
+P-value is:
+1.208657086271674e-59
+Feature number 170:
+SYM001
+Number of patients in cases:
+412
+Percentage of patients in cases:
+0.1013031718711581
+Number of patients in controls:
+194
+Percentage of patients in controls:
+0.04770100811408901
+U-stat is:
+8713023.0
+P-value is:
+4.132813019576537e-20
+Feature number 171:
+Z2D
+Number of patients in cases:
+615
+Percentage of patients in cases:
+0.15121711335136465
+Number of patients in controls:
+298
+Percentage of patients in controls:
+0.0732726825670027
+U-stat is:
+8913176.5
+P-value is:
+1.5923823988859164e-28
+Feature number 172:
+J7A
+Number of patients in cases:
+586
+Percentage of patients in cases:
+0.1440865502827637
+Number of patients in controls:
+363
+Percentage of patients in controls:
+0.08925497910007377
+U-stat is:
+8707510.5
+P-value is:
+1.2876829936858462e-13
+Feature number 173:
+46821
+Number of patients in cases:
+895
+Percentage of patients in cases:
+0.2200639291861323
+Number of patients in controls:
+461
+Percentage of patients in controls:
+0.11335136464224244
+U-stat is:
+9143652.5
+P-value is:
+5.460222172476573e-37
+Feature number 174:
+118573
+Number of patients in cases:
+1114
+Percentage of patients in cases:
+0.27391197442832554
+Number of patients in controls:
+573
+Percentage of patients in controls:
+0.1408900909761495
+U-stat is:
+9364585.5
+P-value is:
+3.503045393035626e-48
+Feature number 175:
+1434
+Number of patients in cases:
+1036
+Percentage of patients in cases:
+0.2547332185886403
+Number of patients in controls:
+512
+Percentage of patients in controls:
+0.12589132038357512
+U-stat is:
+9315652.5
+P-value is:
+4.282086037530925e-47
+Feature number 176:
+26702
+Number of patients in cases:
+1008
+Percentage of patients in cases:
+0.24784853700516352
+Number of patients in controls:
+533
+Percentage of patients in controls:
+0.1310548315711827
+U-stat is:
+9235633.5
+P-value is:
+1.4691218421396458e-40
+Feature number 177:
+1634
+Number of patients in cases:
+826
+Percentage of patients in cases:
+0.20309810671256454
+Number of patients in controls:
+372
+Percentage of patients in controls:
+0.09146791246619129
+U-stat is:
+9187384.5
+P-value is:
+7.620213172269232e-45
+Feature number 178:
+NVS020
+Number of patients in cases:
+389
+Percentage of patients in cases:
+0.09564789771330219
+Number of patients in controls:
+99
+Percentage of patients in controls:
+0.024342267027292846
+U-stat is:
+8861659.0
+P-value is:
+6.060746366122292e-42
+Feature number 179:
+END011
+Number of patients in cases:
+661
+Percentage of patients in cases:
+0.16252766166707647
+Number of patients in controls:
+348
+Percentage of patients in controls:
+0.08556675682321122
+U-stat is:
+8904176.5
+P-value is:
+1.3922159733667276e-25
+Feature number 180:
+C4L
+Number of patients in cases:
+422
+Percentage of patients in cases:
+0.10376198672239981
+Number of patients in controls:
+248
+Percentage of patients in controls:
+0.0609786083107942
+U-stat is:
+8626658.0
+P-value is:
+1.6703462497864088e-12
+Feature number 181:
+END016
+Number of patients in cases:
+542
+Percentage of patients in cases:
+0.13326776493730022
+Number of patients in controls:
+281
+Percentage of patients in controls:
+0.06909269731989182
+U-stat is:
+8796043.0
+P-value is:
+2.3480411210134374e-21
+Feature number 182:
+2233
+Number of patients in cases:
+913
+Percentage of patients in cases:
+0.22448979591836735
+Number of patients in controls:
+449
+Percentage of patients in controls:
+0.1104007868207524
+U-stat is:
+9203186.5
+P-value is:
+8.178575971585681e-42
+Feature number 183:
+W7Z
+Number of patients in cases:
+650
+Percentage of patients in cases:
+0.1598229653307106
+Number of patients in controls:
+239
+Percentage of patients in controls:
+0.05876567494467667
+U-stat is:
+9105446.5
+P-value is:
+4.8693422100359336e-48
+Feature number 184:
+M9K
+Number of patients in cases:
+865
+Percentage of patients in cases:
+0.2126874846324072
+Number of patients in controls:
+452
+Percentage of patients in controls:
+0.11113843127612491
+U-stat is:
+9093160.5
+P-value is:
+8.585882860879296e-34
+Feature number 185:
+FAC010
+Number of patients in cases:
+607
+Percentage of patients in cases:
+0.1492500614703713
+Number of patients in controls:
+304
+Percentage of patients in controls:
+0.07474797147774773
+U-stat is:
+8885579.5
+P-value is:
+2.5818705732641127e-26
+Feature number 186:
+NVS011
+Number of patients in cases:
+265
+Percentage of patients in cases:
+0.06515859355790508
+Number of patients in controls:
+117
+Percentage of patients in controls:
+0.028768133759527907
+U-stat is:
+8568899.5
+P-value is:
+1.4276136007564973e-14
+Feature number 187:
+H3T
+Number of patients in cases:
+912
+Percentage of patients in cases:
+0.22424391443324318
+Number of patients in controls:
+446
+Percentage of patients in controls:
+0.10966314236537988
+U-stat is:
+9188845.5
+P-value is:
+1.0987911221475708e-40
+Feature number 188:
+337
+Number of patients in cases:
+654
+Percentage of patients in cases:
+0.16080649127120727
+Number of patients in controls:
+231
+Percentage of patients in controls:
+0.05679862306368331
+U-stat is:
+9124464.5
+P-value is:
+2.30601630597047e-50
+Feature number 189:
+958
+Number of patients in cases:
+1078
+Percentage of patients in cases:
+0.26506024096385544
+Number of patients in controls:
+526
+Percentage of patients in controls:
+0.1293336611753135
+U-stat is:
+9384313.5
+P-value is:
+8.231987161206423e-52
+Feature number 190:
+MUS007
+Number of patients in cases:
+514
+Percentage of patients in cases:
+0.12638308335382345
+Number of patients in controls:
+228
+Percentage of patients in controls:
+0.056060978608310795
+U-stat is:
+8852206.0
+P-value is:
+3.676294515014678e-28
+Feature number 191:
+NVS015
+Number of patients in cases:
+353
+Percentage of patients in cases:
+0.08679616424883206
+Number of patients in controls:
+152
+Percentage of patients in controls:
+0.03737398573887386
+U-stat is:
+8680269.5
+P-value is:
+2.0841828950761424e-20
+Feature number 192:
+900
+Number of patients in cases:
+684
+Percentage of patients in cases:
+0.16818293582493238
+Number of patients in controls:
+273
+Percentage of patients in controls:
+0.06712564543889846
+U-stat is:
+9107047.5
+P-value is:
+2.7190534484612324e-45
+Feature number 193:
+SYM007
+Number of patients in cases:
+554
+Percentage of patients in cases:
+0.13621834275879027
+Number of patients in controls:
+240
+Percentage of patients in controls:
+0.059011556429800834
+U-stat is:
+8912337.0
+P-value is:
+5.257947433418917e-32
+Feature number 194:
+Z2Q
+Number of patients in cases:
+476
+Percentage of patients in cases:
+0.11703958691910499
+Number of patients in controls:
+235
+Percentage of patients in controls:
+0.05778214900417999
+U-stat is:
+8755853.0
+P-value is:
+7.873981519143554e-21
+Feature number 195:
+34504
+Number of patients in cases:
+565
+Percentage of patients in cases:
+0.13892303909515613
+Number of patients in controls:
+269
+Percentage of patients in controls:
+0.06614211949840176
+U-stat is:
+8865983.0
+P-value is:
+1.1740774371120739e-26
+Feature number 196:
+C6L
+Number of patients in cases:
+461
+Percentage of patients in cases:
+0.11335136464224244
+Number of patients in controls:
+216
+Percentage of patients in controls:
+0.05311040078682075
+U-stat is:
+8763529.5
+P-value is:
+2.3763953885671154e-22
+Feature number 197:
+J1B
+Number of patients in cases:
+414
+Percentage of patients in cases:
+0.10179493484140645
+Number of patients in controls:
+155
+Percentage of patients in controls:
+0.038111630194246376
+U-stat is:
+8798644.0
+P-value is:
+1.5561030187362697e-29
+Feature number 198:
+1428
+Number of patients in cases:
+1045
+Percentage of patients in cases:
+0.2569461519547578
+Number of patients in controls:
+534
+Percentage of patients in controls:
+0.13130071305630686
+U-stat is:
+9307226.0
+P-value is:
+1.141716566303065e-45
+Feature number 199:
+FAC022
+Number of patients in cases:
+415
+Percentage of patients in cases:
+0.10204081632653061
+Number of patients in controls:
+246
+Percentage of patients in controls:
+0.06048684534054586
+U-stat is:
+8607966.5
+P-value is:
+1.6863617348324322e-11
+Feature number 200:
+C6C
+Number of patients in cases:
+406
+Percentage of patients in cases:
+0.09982788296041308
+Number of patients in controls:
+215
+Percentage of patients in controls:
+0.05286451930169658
+U-stat is:
+8651253.0
+P-value is:
+5.5138419133654724e-15
+Feature number 201:
+2470
+Number of patients in cases:
+868
+Percentage of patients in cases:
+0.2134251290877797
+Number of patients in controls:
+418
+Percentage of patients in controls:
+0.10277846078190313
+U-stat is:
+9176269.0
+P-value is:
+2.2402235580806472e-41
+Feature number 202:
+C3B
+Number of patients in cases:
+402
+Percentage of patients in cases:
+0.0988443570199164
+Number of patients in controls:
+232
+Percentage of patients in controls:
+0.057044504548807475
+U-stat is:
+8615542.0
+P-value is:
+2.3008829566570683e-12
+Feature number 203:
+34506
+Number of patients in cases:
+435
+Percentage of patients in cases:
+0.10695844602901401
+Number of patients in controls:
+209
+Percentage of patients in controls:
+0.051389230390951564
+U-stat is:
+8729912.5
+P-value is:
+1.8358338702437817e-20
+Feature number 204:
+2215
+Number of patients in cases:
+721
+Percentage of patients in cases:
+0.17728055077452667
+Number of patients in controls:
+333
+Percentage of patients in controls:
+0.08187853454634866
+U-stat is:
+9046018.5
+P-value is:
+3.771972108912037e-36
+Feature number 205:
+C1W
+Number of patients in cases:
+823
+Percentage of patients in cases:
+0.20236046225719204
+Number of patients in controls:
+390
+Percentage of patients in controls:
+0.09589377919842636
+U-stat is:
+9130542.0
+P-value is:
+2.8532029847487588e-39
+Feature number 206:
+A7B
+Number of patients in cases:
+475
+Percentage of patients in cases:
+0.11679370543398082
+Number of patients in controls:
+276
+Percentage of patients in controls:
+0.06786328989427096
+U-stat is:
+8666832.0
+P-value is:
+8.804866767039284e-14
+Feature number 207:
+400099
+Number of patients in cases:
+879
+Percentage of patients in cases:
+0.21612982542414555
+Number of patients in controls:
+404
+Percentage of patients in controls:
+0.09933611999016474
+U-stat is:
+9223005.0
+P-value is:
+1.1790931547634789e-45
+Feature number 208:
+J9A
+Number of patients in cases:
+848
+Percentage of patients in cases:
+0.20850749938529628
+Number of patients in controls:
+412
+Percentage of patients in controls:
+0.1013031718711581
+U-stat is:
+9151395.0
+P-value is:
+7.106039481519384e-40
+Feature number 209:
+703
+Number of patients in cases:
+831
+Percentage of patients in cases:
+0.2043275141381854
+Number of patients in controls:
+418
+Percentage of patients in controls:
+0.10277846078190313
+U-stat is:
+9104133.5
+P-value is:
+3.8251619403337545e-36
+Feature number 210:
+118570
+Number of patients in cases:
+860
+Percentage of patients in cases:
+0.21145807720678633
+Number of patients in controls:
+395
+Percentage of patients in controls:
+0.0971231866240472
+U-stat is:
+9206861.5
+P-value is:
+5.710683158873376e-45
+Feature number 211:
+U5B
+Number of patients in cases:
+321
+Percentage of patients in cases:
+0.07892795672485863
+Number of patients in controls:
+132
+Percentage of patients in controls:
+0.03245635603639046
+U-stat is:
+8651245.5
+P-value is:
+1.3859439868385223e-19
+Feature number 212:
+W1D
+Number of patients in cases:
+549
+Percentage of patients in cases:
+0.1349889353331694
+Number of patients in controls:
+244
+Percentage of patients in controls:
+0.05999508237029752
+U-stat is:
+8886540.5
+P-value is:
+1.1945881497060732e-29
+Feature number 213:
+119815
+Number of patients in cases:
+718
+Percentage of patients in cases:
+0.17654290631915417
+Number of patients in controls:
+361
+Percentage of patients in controls:
+0.08876321612982542
+U-stat is:
+9002460.0
+P-value is:
+8.948623069013709e-32
+Feature number 214:
+37225
+Number of patients in cases:
+641
+Percentage of patients in cases:
+0.15761003196459306
+Number of patients in controls:
+335
+Percentage of patients in controls:
+0.082370297516597
+U-stat is:
+8885811.5
+P-value is:
+7.0162905063739305e-25
+Feature number 215:
+C1H
+Number of patients in cases:
+661
+Percentage of patients in cases:
+0.16252766166707647
+Number of patients in controls:
+347
+Percentage of patients in controls:
+0.08532087533808705
+U-stat is:
+8902492.0
+P-value is:
+1.779188419675018e-25
+Feature number 216:
+118575
+Number of patients in cases:
+628
+Percentage of patients in cases:
+0.15441357265797886
+Number of patients in controls:
+329
+Percentage of patients in controls:
+0.08089500860585198
+U-stat is:
+8871731.0
+P-value is:
+3.250216971004716e-24
+Feature number 217:
+Q5F
+Number of patients in cases:
+455
+Percentage of patients in cases:
+0.11187607573149742
+Number of patients in controls:
+178
+Percentage of patients in controls:
+0.04376690435210229
+U-stat is:
+8832470.0
+P-value is:
+2.953121954342135e-30
+Feature number 218:
+1717
+Number of patients in cases:
+863
+Percentage of patients in cases:
+0.21219572166215883
+Number of patients in controls:
+440
+Percentage of patients in controls:
+0.10818785345463487
+U-stat is:
+9123459.0
+P-value is:
+1.6595354366133794e-36
+Feature number 219:
+C4G
+Number of patients in cases:
+470
+Percentage of patients in cases:
+0.11556429800835998
+Number of patients in controls:
+253
+Percentage of patients in controls:
+0.062208015736415045
+U-stat is:
+8711929.5
+P-value is:
+2.911847406677832e-17
+Feature number 220:
+W1A
+Number of patients in cases:
+593
+Percentage of patients in cases:
+0.1458077206786329
+Number of patients in controls:
+267
+Percentage of patients in controls:
+0.06565035652815343
+U-stat is:
+8928971.5
+P-value is:
+2.139850353410494e-31
+Feature number 221:
+2291
+Number of patients in cases:
+793
+Percentage of patients in cases:
+0.19498401770346693
+Number of patients in controls:
+392
+Percentage of patients in controls:
+0.0963855421686747
+U-stat is:
+9080465.0
+P-value is:
+1.0856759226017201e-35
+Feature number 222:
+153334
+Number of patients in cases:
+728
+Percentage of patients in cases:
+0.17900172117039587
+Number of patients in controls:
+353
+Percentage of patients in controls:
+0.08679616424883206
+U-stat is:
+9019768.5
+P-value is:
+3.653877259236835e-33
+Feature number 223:
+CIR015
+Number of patients in cases:
+397
+Percentage of patients in cases:
+0.09761494959429555
+Number of patients in controls:
+251
+Percentage of patients in controls:
+0.061716252766166706
+U-stat is:
+8565979.0
+P-value is:
+2.714265722765877e-09
+Feature number 224:
+W7B
+Number of patients in cases:
+464
+Percentage of patients in cases:
+0.11408900909761495
+Number of patients in controls:
+140
+Percentage of patients in controls:
+0.03442340791738382
+U-stat is:
+8932535.0
+P-value is:
+4.505102826785737e-43
+Feature number 225:
+1508
+Number of patients in cases:
+823
+Percentage of patients in cases:
+0.20236046225719204
+Number of patients in controls:
+395
+Percentage of patients in controls:
+0.0971231866240472
+U-stat is:
+9134738.0
+P-value is:
+1.657805423853643e-39
+Feature number 226:
+EXT027
+Number of patients in cases:
+669
+Percentage of patients in cases:
+0.16449471354806983
+Number of patients in controls:
+272
+Percentage of patients in controls:
+0.06687976395377428
+U-stat is:
+9073123.5
+P-value is:
+1.9707170336461787e-42
+Feature number 227:
+END009
+Number of patients in cases:
+337
+Percentage of patients in cases:
+0.08286206048684534
+Number of patients in controls:
+219
+Percentage of patients in controls:
+0.05384804524219326
+U-stat is:
+8506933.5
+P-value is:
+3.2295946898701933e-07
+Feature number 228:
+MUS026
+Number of patients in cases:
+348
+Percentage of patients in cases:
+0.08556675682321122
+Number of patients in controls:
+117
+Percentage of patients in controls:
+0.028768133759527907
+U-stat is:
+8739751.0
+P-value is:
+3.065626325510724e-28
+Feature number 229:
+H7E
+Number of patients in cases:
+368
+Percentage of patients in cases:
+0.09048438652569461
+Number of patients in controls:
+139
+Percentage of patients in controls:
+0.03417752643225965
+U-stat is:
+8738569.5
+P-value is:
+4.8297088378551246e-26
+Feature number 230:
+17587
+Number of patients in cases:
+574
+Percentage of patients in cases:
+0.14113597246127366
+Number of patients in controls:
+280
+Percentage of patients in controls:
+0.06884681583476764
+U-stat is:
+8860800.0
+P-value is:
+1.041598267770259e-25
+Feature number 231:
+37113
+Number of patients in cases:
+679
+Percentage of patients in cases:
+0.16695352839931152
+Number of patients in controls:
+331
+Percentage of patients in controls:
+0.08138677157610032
+U-stat is:
+8973433.0
+P-value is:
+4.522787223622813e-31
+Feature number 232:
+1575
+Number of patients in cases:
+783
+Percentage of patients in cases:
+0.19252520285222524
+Number of patients in controls:
+377
+Percentage of patients in controls:
+0.09269731989181215
+U-stat is:
+9087618.0
+P-value is:
+6.329804429811938e-37
+Feature number 233:
+Q3S
+Number of patients in cases:
+608
+Percentage of patients in cases:
+0.14949594295549545
+Number of patients in controls:
+310
+Percentage of patients in controls:
+0.07622326038849275
+U-stat is:
+8874434.5
+P-value is:
+2.871586440153255e-25
+Feature number 234:
+Q6W
+Number of patients in cases:
+363
+Percentage of patients in cases:
+0.08925497910007377
+Number of patients in controls:
+199
+Percentage of patients in controls:
+0.04893041553970986
+U-stat is:
+8598267.0
+P-value is:
+1.841936633094651e-12
+Feature number 235:
+GEN006
+Number of patients in cases:
+477
+Percentage of patients in cases:
+0.11728546840422917
+Number of patients in controls:
+235
+Percentage of patients in controls:
+0.05778214900417999
+U-stat is:
+8764985.0
+P-value is:
+1.5536953201842284e-21
+Feature number 236:
+INF008
+Number of patients in cases:
+394
+Percentage of patients in cases:
+0.09687730513892304
+Number of patients in controls:
+159
+Percentage of patients in controls:
+0.039095156134743056
+U-stat is:
+8745397.5
+P-value is:
+8.38646402271604e-25
+Feature number 237:
+1590
+Number of patients in cases:
+614
+Percentage of patients in cases:
+0.15097123186624048
+Number of patients in controls:
+297
+Percentage of patients in controls:
+0.07302680108187853
+U-stat is:
+8917649.0
+P-value is:
+5.945341782092612e-29
+Feature number 238:
+EXT003
+Number of patients in cases:
+455
+Percentage of patients in cases:
+0.11187607573149742
+Number of patients in controls:
+181
+Percentage of patients in controls:
+0.0445045488074748
+U-stat is:
+8829959.0
+P-value is:
+7.047198150762034e-30
+Feature number 239:
+BLD001
+Number of patients in cases:
+319
+Percentage of patients in cases:
+0.07843619375461028
+Number of patients in controls:
+200
+Percentage of patients in controls:
+0.04917629702483403
+U-stat is:
+8510797.5
+P-value is:
+8.213055863069365e-08
+Feature number 240:
+1429
+Number of patients in cases:
+773
+Percentage of patients in cases:
+0.19006638800098352
+Number of patients in controls:
+397
+Percentage of patients in controls:
+0.09761494959429555
+U-stat is:
+9034419.5
+P-value is:
+2.8914205784954476e-32
+Feature number 241:
+C5F
+Number of patients in cases:
+306
+Percentage of patients in cases:
+0.07523973444799606
+Number of patients in controls:
+138
+Percentage of patients in controls:
+0.03393164494713548
+U-stat is:
+8608265.0
+P-value is:
+5.1244269673341e-16
+Feature number 242:
+412485
+Number of patients in cases:
+685
+Percentage of patients in cases:
+0.16842881731005654
+Number of patients in controls:
+345
+Percentage of patients in controls:
+0.0848291123678387
+U-stat is:
+8958931.0
+P-value is:
+2.1487278961757906e-29
+Feature number 243:
+EYE010
+Number of patients in cases:
+404
+Percentage of patients in cases:
+0.09933611999016474
+Number of patients in controls:
+146
+Percentage of patients in controls:
+0.035898696828128844
+U-stat is:
+8793697.5
+P-value is:
+6.825659094437063e-30
+Feature number 244:
+17678
+Number of patients in cases:
+634
+Percentage of patients in cases:
+0.15588886156872386
+Number of patients in controls:
+327
+Percentage of patients in controls:
+0.08040324563560364
+U-stat is:
+8890118.5
+P-value is:
+1.5757667136097546e-25
+Feature number 245:
+CIR031
+Number of patients in cases:
+324
+Percentage of patients in cases:
+0.07966560118023112
+Number of patients in controls:
+153
+Percentage of patients in controls:
+0.03761986722399803
+U-stat is:
+8618623.0
+P-value is:
+6.50857491672085e-16
+Feature number 246:
+D4N
+Number of patients in cases:
+416
+Percentage of patients in cases:
+0.10228669781165478
+Number of patients in controls:
+157
+Percentage of patients in controls:
+0.038603393164494716
+U-stat is:
+8790850.0
+P-value is:
+1.5260092930087766e-28
+Feature number 247:
+C5J
+Number of patients in cases:
+395
+Percentage of patients in cases:
+0.0971231866240472
+Number of patients in controls:
+217
+Percentage of patients in controls:
+0.05335628227194492
+U-stat is:
+8632751.0
+P-value is:
+7.136320120131815e-14
+Feature number 248:
+RSP002
+Number of patients in cases:
+326
+Percentage of patients in cases:
+0.08015736415047947
+Number of patients in controls:
+151
+Percentage of patients in controls:
+0.03712810425374969
+U-stat is:
+8626198.0
+P-value is:
+1.518052030855014e-16
+Feature number 249:
+H6H
+Number of patients in cases:
+350
+Percentage of patients in cases:
+0.08605851979345955
+Number of patients in controls:
+135
+Percentage of patients in controls:
+0.03319400049176297
+U-stat is:
+8709006.5
+P-value is:
+5.735437491249413e-24
+Feature number 250:
+415338
+Number of patients in cases:
+305
+Percentage of patients in cases:
+0.0749938529628719
+Number of patients in controls:
+145
+Percentage of patients in controls:
+0.03565281534300467
+U-stat is:
+8594763.0
+P-value is:
+1.0303648685914248e-14
+Feature number 251:
+310
+Number of patients in cases:
+589
+Percentage of patients in cases:
+0.1448241947381362
+Number of patients in controls:
+278
+Percentage of patients in controls:
+0.0683550528645193
+U-stat is:
+8904219.0
+P-value is:
+5.251400478770083e-29
+Feature number 252:
+INF004
+Number of patients in cases:
+425
+Percentage of patients in cases:
+0.10449963117777232
+Number of patients in controls:
+155
+Percentage of patients in controls:
+0.038111630194246376
+U-stat is:
+8817217.0
+P-value is:
+5.303720719350179e-31
+Feature number 253:
+Q5H
+Number of patients in cases:
+574
+Percentage of patients in cases:
+0.14113597246127366
+Number of patients in controls:
+218
+Percentage of patients in controls:
+0.05360216375706909
+U-stat is:
+8990140.0
+P-value is:
+7.031821586932947e-40
+Feature number 254:
+RSP016
+Number of patients in cases:
+455
+Percentage of patients in cases:
+0.11187607573149742
+Number of patients in controls:
+230
+Percentage of patients in controls:
+0.056552741578559135
+U-stat is:
+8725518.5
+P-value is:
+4.382092282951728e-19
+Feature number 255:
+M4G
+Number of patients in cases:
+349
+Percentage of patients in cases:
+0.08581263830833538
+Number of patients in controls:
+170
+Percentage of patients in controls:
+0.04179985247110893
+U-stat is:
+8633219.0
+P-value is:
+5.898366228944133e-16
+Feature number 256:
+NVS019
+Number of patients in cases:
+558
+Percentage of patients in cases:
+0.13720186869928694
+Number of patients in controls:
+237
+Percentage of patients in controls:
+0.05827391197442833
+U-stat is:
+8921306.5
+P-value is:
+8.00038581392993e-33
+Feature number 257:
+A4A
+Number of patients in cases:
+431
+Percentage of patients in cases:
+0.10597492008851733
+Number of patients in controls:
+217
+Percentage of patients in controls:
+0.05335628227194492
+U-stat is:
+8701048.5
+P-value is:
+4.530221164954385e-18
+Feature number 258:
+D4B
+Number of patients in cases:
+426
+Percentage of patients in cases:
+0.10474551266289649
+Number of patients in controls:
+215
+Percentage of patients in controls:
+0.05286451930169658
+U-stat is:
+8695214.0
+P-value is:
+8.695349315591157e-18
+Feature number 259:
+H7T
+Number of patients in cases:
+238
+Percentage of patients in cases:
+0.058519793459552494
+Number of patients in controls:
+58
+Percentage of patients in controls:
+0.014261126137201869
+U-stat is:
+8637164.5
+P-value is:
+1.2517746377947886e-26
+Feature number 260:
+189185
+Number of patients in cases:
+445
+Percentage of patients in cases:
+0.10941726088025572
+Number of patients in controls:
+241
+Percentage of patients in controls:
+0.05925743791492501
+U-stat is:
+8680556.0
+P-value is:
+8.990757566514608e-16
+Feature number 261:
+H21
+Number of patients in cases:
+371
+Percentage of patients in cases:
+0.09122203098106713
+Number of patients in controls:
+165
+Percentage of patients in controls:
+0.040570445045488075
+U-stat is:
+8689724.5
+P-value is:
+3.22020666126209e-20
+Feature number 262:
+BLD006
+Number of patients in cases:
+273
+Percentage of patients in cases:
+0.06712564543889846
+Number of patients in controls:
+163
+Percentage of patients in controls:
+0.040078682075239735
+U-stat is:
+8493000.5
+P-value is:
+7.060840189228839e-08
+Feature number 263:
+RSP007
+Number of patients in cases:
+377
+Percentage of patients in cases:
+0.09269731989181215
+Number of patients in controls:
+177
+Percentage of patients in controls:
+0.043521022866978114
+U-stat is:
+8675149.5
+P-value is:
+2.0307818047648353e-18
+Feature number 264:
+SYM004
+Number of patients in cases:
+443
+Percentage of patients in cases:
+0.10892549791000737
+Number of patients in controls:
+170
+Percentage of patients in controls:
+0.04179985247110893
+U-stat is:
+8825324.5
+P-value is:
+2.2680292981230505e-30
+Feature number 265:
+Q5W
+Number of patients in cases:
+328
+Percentage of patients in cases:
+0.0806491271207278
+Number of patients in controls:
+122
+Percentage of patients in controls:
+0.02999754118514876
+U-stat is:
+8689466.5
+P-value is:
+1.6376148034226338e-23
+Feature number 266:
+INJ017
+Number of patients in cases:
+291
+Percentage of patients in cases:
+0.07155151217113351
+Number of patients in controls:
+115
+Percentage of patients in controls:
+0.028276370789279567
+U-stat is:
+8627810.5
+P-value is:
+3.6032629637588155e-19
+Feature number 267:
+501391
+Number of patients in cases:
+153
+Percentage of patients in cases:
+0.03761986722399803
+Number of patients in controls:
+125
+Percentage of patients in controls:
+0.03073518564052127
+U-stat is:
+8327009.0
+P-value is:
+0.08854686503072637
+Feature number 268:
+35000004791
+Number of patients in cases:
+457
+Percentage of patients in cases:
+0.11236783870174576
+Number of patients in controls:
+229
+Percentage of patients in controls:
+0.05630686009343496
+U-stat is:
+8731953.5
+P-value is:
+1.46919814654765e-19
+Feature number 269:
+W2A
+Number of patients in cases:
+365
+Percentage of patients in cases:
+0.0897467420703221
+Number of patients in controls:
+139
+Percentage of patients in controls:
+0.03417752643225965
+U-stat is:
+8731559.0
+P-value is:
+1.8930578950271382e-25
+Feature number 270:
+RSP011
+Number of patients in cases:
+358
+Percentage of patients in cases:
+0.08802557167445291
+Number of patients in controls:
+181
+Percentage of patients in controls:
+0.0445045488074748
+U-stat is:
+8627577.5
+P-value is:
+5.025208477442692e-15
+Feature number 271:
+J5E
+Number of patients in cases:
+372
+Percentage of patients in cases:
+0.09146791246619129
+Number of patients in controls:
+196
+Percentage of patients in controls:
+0.04819277108433735
+U-stat is:
+8625997.5
+P-value is:
+2.870896982033141e-14
+Feature number 272:
+418745
+Number of patients in cases:
+497
+Percentage of patients in cases:
+0.12220309810671257
+Number of patients in controls:
+233
+Percentage of patients in controls:
+0.05729038603393165
+U-stat is:
+8802546.5
+P-value is:
+3.700251894892133e-24
+Feature number 273:
+H7B
+Number of patients in cases:
+145
+Percentage of patients in cases:
+0.03565281534300467
+Number of patients in controls:
+63
+Percentage of patients in controls:
+0.01549053356282272
+U-stat is:
+8436878.5
+P-value is:
+8.670339755134008e-09
+Feature number 274:
+153360
+Number of patients in cases:
+514
+Percentage of patients in cases:
+0.12638308335382345
+Number of patients in controls:
+238
+Percentage of patients in controls:
+0.058519793459552494
+U-stat is:
+8829187.0
+P-value is:
+8.244217432514254e-26
+Feature number 275:
+GEN002
+Number of patients in cases:
+236
+Percentage of patients in cases:
+0.058028030489304154
+Number of patients in controls:
+145
+Percentage of patients in controls:
+0.03565281534300467
+U-stat is:
+8456056.0
+P-value is:
+1.644750130320685e-06
+Feature number 276:
+W5A
+Number of patients in cases:
+305
+Percentage of patients in cases:
+0.0749938529628719
+Number of patients in controls:
+123
+Percentage of patients in controls:
+0.03024342267027293
+U-stat is:
+8642535.5
+P-value is:
+1.0191040384226526e-19
+Feature number 277:
+J2B
+Number of patients in cases:
+336
+Percentage of patients in cases:
+0.08261617900172118
+Number of patients in controls:
+144
+Percentage of patients in controls:
+0.035406933857880504
+U-stat is:
+8661073.0
+P-value is:
+1.6072124804656442e-19
+Feature number 278:
+189239
+Number of patients in cases:
+334
+Percentage of patients in cases:
+0.08212441603147283
+Number of patients in controls:
+192
+Percentage of patients in controls:
+0.047209245143840665
+U-stat is:
+8558047.5
+P-value is:
+1.821918317807139e-10
+Feature number 279:
+SKN001
+Number of patients in cases:
+302
+Percentage of patients in cases:
+0.07425620850749938
+Number of patients in controls:
+119
+Percentage of patients in controls:
+0.029259896729776247
+U-stat is:
+8642083.5
+P-value is:
+5.853899803743154e-20
+Feature number 280:
+S7A
+Number of patients in cases:
+388
+Percentage of patients in cases:
+0.09540201622817802
+Number of patients in controls:
+176
+Percentage of patients in controls:
+0.04327514138185395
+U-stat is:
+8702156.0
+P-value is:
+2.0025188329767665e-20
+Feature number 281:
+Q5E
+Number of patients in cases:
+175
+Percentage of patients in cases:
+0.043029259896729774
+Number of patients in controls:
+88
+Percentage of patients in controls:
+0.021637570690926974
+U-stat is:
+8447867.5
+P-value is:
+4.3988293436781315e-08
+Feature number 282:
+Q6T
+Number of patients in cases:
+208
+Percentage of patients in cases:
+0.05114334890582739
+Number of patients in controls:
+98
+Percentage of patients in controls:
+0.024096385542168676
+U-stat is:
+8493532.5
+P-value is:
+1.5881496679370286e-10
+Feature number 283:
+D4D
+Number of patients in cases:
+223
+Percentage of patients in cases:
+0.05483157118268994
+Number of patients in controls:
+126
+Percentage of patients in controls:
+0.03098106712564544
+U-stat is:
+8465471.0
+P-value is:
+1.513186943248938e-07
+Feature number 284:
+B62
+Number of patients in cases:
+310
+Percentage of patients in cases:
+0.07622326038849275
+Number of patients in controls:
+125
+Percentage of patients in controls:
+0.03073518564052127
+U-stat is:
+8645539.0
+P-value is:
+9.887581959087966e-20
+Feature number 285:
+304577
+Number of patients in cases:
+375
+Percentage of patients in cases:
+0.0922055569215638
+Number of patients in controls:
+204
+Percentage of patients in controls:
+0.05015982296533071
+U-stat is:
+8619108.0
+P-value is:
+1.4606659113544627e-13
+Feature number 286:
+P6A
+Number of patients in cases:
+212
+Percentage of patients in cases:
+0.05212687484632407
+Number of patients in controls:
+113
+Percentage of patients in controls:
+0.027784607819031228
+U-stat is:
+8470980.0
+P-value is:
+2.316092694302042e-08
+Feature number 287:
+A6U
+Number of patients in cases:
+82
+Percentage of patients in cases:
+0.02016228178018195
+Number of patients in controls:
+73
+Percentage of patients in controls:
+0.017949348414064422
+U-stat is:
+8288939.5
+P-value is:
+0.45598969029774716
+Feature number 288:
+W1Y
+Number of patients in cases:
+196
+Percentage of patients in cases:
+0.04819277108433735
+Number of patients in controls:
+90
+Percentage of patients in controls:
+0.022129333661175313
+U-stat is:
+8484731.5
+P-value is:
+2.1835961019783976e-10
+Feature number 289:
+SYM005
+Number of patients in cases:
+257
+Percentage of patients in cases:
+0.06319154167691172
+Number of patients in controls:
+104
+Percentage of patients in controls:
+0.025571674452913695
+U-stat is:
+8580977.5
+P-value is:
+1.9720851942147212e-16
+Feature number 290:
+W1C
+Number of patients in cases:
+200
+Percentage of patients in cases:
+0.04917629702483403
+Number of patients in controls:
+96
+Percentage of patients in controls:
+0.023604622571920333
+U-stat is:
+8481786.5
+P-value is:
+7.374070218861663e-10
+Feature number 291:
+W1J
+Number of patients in cases:
+280
+Percentage of patients in cases:
+0.06884681583476764
+Number of patients in controls:
+142
+Percentage of patients in controls:
+0.034915170887632165
+U-stat is:
+8550615.0
+P-value is:
+5.6114232809543205e-12
+Feature number 292:
+C5K
+Number of patients in cases:
+219
+Percentage of patients in cases:
+0.05384804524219326
+Number of patients in controls:
+88
+Percentage of patients in controls:
+0.021637570690926974
+U-stat is:
+8535128.0
+P-value is:
+3.553502027859046e-14
+Feature number 293:
+W2F
+Number of patients in cases:
+255
+Percentage of patients in cases:
+0.06269977870666339
+Number of patients in controls:
+105
+Percentage of patients in controls:
+0.025817555938037865
+U-stat is:
+8574095.0
+P-value is:
+8.126848344364797e-16
+Feature number 294:
+W8F
+Number of patients in cases:
+211
+Percentage of patients in cases:
+0.051880993361199904
+Number of patients in controls:
+85
+Percentage of patients in controls:
+0.020899926235554464
+U-stat is:
+8525291.0
+P-value is:
+1.1343219964752686e-13
+Feature number 295:
+W3B
+Number of patients in cases:
+217
+Percentage of patients in cases:
+0.05335628227194492
+Number of patients in controls:
+84
+Percentage of patients in controls:
+0.020654044750430294
+U-stat is:
+8541728.0
+P-value is:
+4.5330210489119725e-15
+Feature number 296:
+H2Z
+Number of patients in cases:
+160
+Percentage of patients in cases:
+0.03934103761986722
+Number of patients in controls:
+63
+Percentage of patients in controls:
+0.01549053356282272
+U-stat is:
+8466745.5
+P-value is:
+5.371527136947407e-11
+Feature number 297:
+J5A
+Number of patients in cases:
+177
+Percentage of patients in cases:
+0.043521022866978114
+Number of patients in controls:
+92
+Percentage of patients in controls:
+0.022621096631423653
+U-stat is:
+8441863.0
+P-value is:
+1.6802539412463624e-07
+Feature number 298:
+H2C
+Number of patients in cases:
+152
+Percentage of patients in cases:
+0.03737398573887386
+Number of patients in controls:
+76
+Percentage of patients in controls:
+0.01868699286943693
+U-stat is:
+8424069.5
+P-value is:
+3.7653681440857263e-07
+Feature number 299:
+INJ028
+Number of patients in cases:
+227
+Percentage of patients in cases:
+0.05581509712318662
+Number of patients in controls:
+96
+Percentage of patients in controls:
+0.023604622571920333
+U-stat is:
+8536767.0
+P-value is:
+1.011048020259241e-13
+Feature number 300:
+MBD013
+Number of patients in cases:
+109
+Percentage of patients in cases:
+0.026801081878534545
+Number of patients in controls:
+35
+Percentage of patients in controls:
+0.008605851979345954
+U-stat is:
+8420225.0
+P-value is:
+5.623240606234763e-10
+Feature number 301:
+H1U
+Number of patients in cases:
+22
+Percentage of patients in cases:
+0.005409392672731743
+Number of patients in controls:
+15
+Percentage of patients in controls:
+0.003688222276862552
+U-stat is:
+8284513.5
+P-value is:
+0.24764058986044146
+Feature number 302:
+464355
+Number of patients in cases:
+0
+Percentage of patients in cases:
+0.0
+Number of patients in controls:
+0
+Percentage of patients in controls:
+0.0
+U-stat is:
+8270244.5
+P-value is:
+1.0
